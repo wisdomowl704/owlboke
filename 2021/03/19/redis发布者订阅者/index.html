@@ -1,0 +1,185 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    
+    <title>redis发布者订阅者 | 一只猫头鹰</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/favicon/favicon.ico">
+    
+<link rel="stylesheet" href="/zhengboke/css/main.css">
+
+    
+<link rel="stylesheet" href="/zhengboke/css/tagplugins.css">
+
+    
+<link rel="stylesheet" href="/zhengboke/css/highlight.css">
+
+    
+
+
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/zhengboke/atom.xml" title="一只猫头鹰" type="application/atom+xml" />
+    
+<meta name="generator" content="Hexo 5.4.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+<body>
+  <div class="blog-header">
+   <a id="menu-nav-icon"><img src="/zhengboke/image/menu.png"/></a>
+   <div class="nav-container">
+     <nav id="main-nav">
+       
+         <a class="main-nav-link" href="/zhengboke/">首页</a>
+       
+         <a class="main-nav-link" href="/zhengboke/archives">我的文章</a>
+       
+     </nav>
+   </div>
+   <!--
+   <div id="search-form-wrap">
+     <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://zhengge131.gitee.io/zhengboke"></form>
+   </div>
+ -->
+    <h1 class="blog-title">一只猫头鹰</h1>
+    <p class="lead blog-description"></p>
+</div>
+
+  <div id='main-part'>
+      <div class="main">
+<div class="blog-post">
+    <!-- Title -->
+    <h1 class="blog-post-title">
+        <a href="/zhengboke/2021/03/19/redis发布者订阅者/">
+            Redis发布者订阅者
+        </a>
+    </h1>
+    <!-- Date and Author -->
+    <p class="blog-post-meta">
+        2021-03-19
+        
+    </p>
+
+    
+
+    <!-- Content -->
+    <p>Redis 发布订阅 (pub/sub) 是一种消息通信模式：发送者 (pub) 发送消息，订阅者 (sub) 接收消息。</p>
+<p>Redis 客户端可以订阅任意数量的频道。</p>
+<p>下图展示了频道 channel1 ， 以及订阅这个频道的三个客户端 —— client2 、 client5 和 client1 之间的关系：</p>
+<p><img src="https://www.runoob.com/wp-content/uploads/2014/11/pubsub1.png" alt="关系"></p>
+<p>当有新消息通过 PUBLISH 命令发送给频道 channel1 时， 这个消息就会被发送给订阅它的三个客户端：</p>
+<p><img src="https://www.runoob.com/wp-content/uploads/2014/11/pubsub2.png" alt="关系"></p>
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><p>以下实例演示了发布订阅是如何工作的，需要开启两个 redis-cli 客户端。</p>
+<p>在我们实例中我们创建了订阅频道名为 runoobChat:</p>
+<p>第一个客户端</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; SUBSCRIBE runoobChat</span><br><span class="line"></span><br><span class="line">Reading messages... (press Ctrl-C to quit)</span><br><span class="line">1) "subscribe"</span><br><span class="line">2) "redisChat"</span><br><span class="line">3) (integer) 1</span><br></pre></td></tr></tbody></table></figure>
+
+<p>现在，我们先重新开启个 redis 客户端，然后在同一个频道 runoobChat 发布两次消息，订阅者就能接收到消息。</p>
+<p>第二个客户端</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; PUBLISH runoobChat "Redis PUBLISH test"</span><br><span class="line"></span><br><span class="line">(integer) 1</span><br><span class="line"></span><br><span class="line">redis 127.0.0.1:6379&gt; PUBLISH runoobChat "Learn redis by runoob.com"</span><br><span class="line"></span><br><span class="line">(integer) 1</span><br><span class="line"></span><br><span class="line"># 订阅者的客户端会显示如下消息</span><br><span class="line"> 1) "message"</span><br><span class="line">2) "runoobChat"</span><br><span class="line">3) "Redis PUBLISH test"</span><br><span class="line"> 1) "message"</span><br><span class="line">2) "runoobChat"</span><br><span class="line">3) "Learn redis by runoob.com"</span><br></pre></td></tr></tbody></table></figure>
+
+<p>下面还有redis发布订阅的指令</p>
+<p>1    PSUBSCRIBE pattern [pattern …]</p>
+<p>订阅一个或多个符合给定模式的频道。</p>
+<p>2    PUBSUB subcommand [argument [argument …]]</p>
+<p>查看订阅与发布系统状态。</p>
+<p>3    PUBLISH channel message</p>
+<p>将信息发送到指定的频道。</p>
+<p>4    PUNSUBSCRIBE [pattern [pattern …]]</p>
+<p>退订所有给定模式的频道。</p>
+<p>5    SUBSCRIBE channel [channel …]</p>
+<p>订阅给定的一个或多个频道的信息。</p>
+<p>6    UNSUBSCRIBE [channel [channel …]]</p>
+<p>指退订给定的频道。</p>
+
+
+    <!-- Social share choices -->
+    
+  <div id="social-share">
+    <a data-url="http://zhengge131.gitee.io/zhengboke/2021/03/19/redis%E5%8F%91%E5%B8%83%E8%80%85%E8%AE%A2%E9%98%85%E8%80%85/" target="_blank" rel="noopener" href="https://plus.google.com/share?url=" class="googleplus"><img src="/zhengboke/image/googleplusicon.png" alt=""/></a>
+    <a data-url="http://zhengge131.gitee.io/zhengboke/2021/03/19/redis%E5%8F%91%E5%B8%83%E8%80%85%E8%AE%A2%E9%98%85%E8%80%85/" target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?url=" class="twitter"><img src="/zhengboke/image/twittericon.png" alt=""/></a>
+    <a data-url="http://zhengge131.gitee.io/zhengboke/2021/03/19/redis%E5%8F%91%E5%B8%83%E8%80%85%E8%AE%A2%E9%98%85%E8%80%85/" target="_blank" rel="noopener" href="http://pinterest.com/pin/create/button/?url=" class="pinterest"><img src="/zhengboke/image/pinteresticon.png" alt=""/></a>
+    <a data-url="http://zhengge131.gitee.io/zhengboke/2021/03/19/redis%E5%8F%91%E5%B8%83%E8%80%85%E8%AE%A2%E9%98%85%E8%80%85/" target="_blank" rel="noopener" href="https://www.facebook.com/sharer/sharer.php?u=" class="facebook"><img src="/zhengboke/image/facebookicon.png" alt=""/></a>
+  </div>
+
+
+
+
+
+<!--
+
+
+https://www.facebook.com/sharer/sharer.php?u=http://zhengge131.gitee.io/zhengboke/2021/03/19/redis%E5%8F%91%E5%B8%83%E8%80%85%E8%AE%A2%E9%98%85%E8%80%85/
+http://zhengge131.gitee.io/zhengboke/2021/03/19/redis%25E5%258F%2591%25E5%25B8%2583%25E8%2580%2585%25E8%25AE%25A2%25E9%2598%2585%25E8%2580%2585/
+-->
+
+
+
+    <hr />
+
+
+    <!-- Tags and Categories links -->
+    
+
+    
+
+
+    <!-- Comment using disqus -->
+    
+
+</div>
+</div>
+
+
+  </div>
+  <!-- Footer -->
+  <div id="footer">
+  <div id="footer-social">
+    
+    
+    
+    
+    
+    
+</div>
+
+  <p id="footer-info">
+    &copy; 2021 猫头鹰<br>
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> -
+    Theme <a href="https://github.com/Suolawangzai/hexo-theme-nebula" target="_blank">nebula</a>
+  </p>
+
+  <div id="busuanzi">
+    <span id="busuanzi_container_site_pv">
+      &hearts;
+    Total visits: <span id="busuanzi_value_site_pv"></span>
+    </span>
+  </div>
+  <!--
+  <div id="footer-info">
+    &copy; 2021 猫头鹰<br>
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+  </div>
+-->
+</div>
+
+  <!-- After footer scripts -->
+  <!-- Disqus Comments -->
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script src="/zhengboke/js/main.js"></script>
+
+
+</body>
+
+</html>

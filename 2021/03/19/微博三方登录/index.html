@@ -1,0 +1,165 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    
+    <title>微博三方登录 | 一只猫头鹰</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/favicon/favicon.ico">
+    
+<link rel="stylesheet" href="/zhengboke/css/main.css">
+
+    
+<link rel="stylesheet" href="/zhengboke/css/tagplugins.css">
+
+    
+<link rel="stylesheet" href="/zhengboke/css/highlight.css">
+
+    
+
+
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/zhengboke/atom.xml" title="一只猫头鹰" type="application/atom+xml" />
+    
+<meta name="generator" content="Hexo 5.4.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+<body>
+  <div class="blog-header">
+   <a id="menu-nav-icon"><img src="/zhengboke/image/menu.png"/></a>
+   <div class="nav-container">
+     <nav id="main-nav">
+       
+         <a class="main-nav-link" href="/zhengboke/">首页</a>
+       
+         <a class="main-nav-link" href="/zhengboke/archives">我的文章</a>
+       
+     </nav>
+   </div>
+   <!--
+   <div id="search-form-wrap">
+     <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://zhengge131.gitee.io/zhengboke"></form>
+   </div>
+ -->
+    <h1 class="blog-title">一只猫头鹰</h1>
+    <p class="lead blog-description"></p>
+</div>
+
+  <div id='main-part'>
+      <div class="main">
+<div class="blog-post">
+    <!-- Title -->
+    <h1 class="blog-post-title">
+        <a href="/zhengboke/2021/03/19/微博三方登录/">
+            微博三方登录
+        </a>
+    </h1>
+    <!-- Date and Author -->
+    <p class="blog-post-meta">
+        2021-03-19
+        
+    </p>
+
+    
+
+    <!-- Content -->
+    <p>　微博三方登录流程</p>
+<h3 id="1-微博三方登录流程"><a href="#1-微博三方登录流程" class="headerlink" title="1.微博三方登录流程"></a>1.微博三方登录流程</h3><p> <img src="https://img2020.cnblogs.com/blog/1968498/202010/1968498-20201009104158875-291077745.png" alt="微博三方登录流程"></p>
+<p> 1.1 前端获取认证code</p>
+<p> 　　1.在Vue页面加载时 动态发送请求获取微博授权url<br> 　　2.django收到请求的url后，通过微博 应用ID(client_id)和回调地址(redirect_uri) 动态 生成授<br> 　　权url返回给Vue<br> 　　3.当用户点击上面的url进行扫码，授权成功会 跳转我们的回调界面并附加code参数　　<br> 　　4.Vue获取到微博返回的code后，会 将code发送给django后端 (上面的redirect_uri)</p>
+<p> 1.2 获取微博access_token</p>
+<p> 　　后端获取code后，结合client_id、client_secret、redirect_uri参数进行传递,获取微博<br> 　　access_token</p>
+<p> 1.3 获取微博用户基本信息并保存到数据库</p>
+<p> 使用获得的access_token调用获取用户基本信息的接口， 获取用户第三方平台的基本信息<br> 用户基本信息 保存到数据库，然后关联本地用户 ，然后将用户信息返回给前端<br> 1.4 生成token给Vue<br> django后端借助微博认证成功后，可以 使用JWT生成token ，返回给Vue<br> Vue将token存储到localStorage中 ，以便用户访问其他页面进行身份验证</p>
+
+
+    <!-- Social share choices -->
+    
+  <div id="social-share">
+    <a data-url="http://zhengge131.gitee.io/zhengboke/2021/03/19/%E5%BE%AE%E5%8D%9A%E4%B8%89%E6%96%B9%E7%99%BB%E5%BD%95/" target="_blank" rel="noopener" href="https://plus.google.com/share?url=" class="googleplus"><img src="/zhengboke/image/googleplusicon.png" alt=""/></a>
+    <a data-url="http://zhengge131.gitee.io/zhengboke/2021/03/19/%E5%BE%AE%E5%8D%9A%E4%B8%89%E6%96%B9%E7%99%BB%E5%BD%95/" target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?url=" class="twitter"><img src="/zhengboke/image/twittericon.png" alt=""/></a>
+    <a data-url="http://zhengge131.gitee.io/zhengboke/2021/03/19/%E5%BE%AE%E5%8D%9A%E4%B8%89%E6%96%B9%E7%99%BB%E5%BD%95/" target="_blank" rel="noopener" href="http://pinterest.com/pin/create/button/?url=" class="pinterest"><img src="/zhengboke/image/pinteresticon.png" alt=""/></a>
+    <a data-url="http://zhengge131.gitee.io/zhengboke/2021/03/19/%E5%BE%AE%E5%8D%9A%E4%B8%89%E6%96%B9%E7%99%BB%E5%BD%95/" target="_blank" rel="noopener" href="https://www.facebook.com/sharer/sharer.php?u=" class="facebook"><img src="/zhengboke/image/facebookicon.png" alt=""/></a>
+  </div>
+
+
+
+
+
+<!--
+
+
+https://www.facebook.com/sharer/sharer.php?u=http://zhengge131.gitee.io/zhengboke/2021/03/19/%E5%BE%AE%E5%8D%9A%E4%B8%89%E6%96%B9%E7%99%BB%E5%BD%95/
+http://zhengge131.gitee.io/zhengboke/2021/03/19/%25E5%25BE%25AE%25E5%258D%259A%25E4%25B8%2589%25E6%2596%25B9%25E7%2599%25BB%25E5%25BD%2595/
+-->
+
+
+
+    <hr />
+
+
+    <!-- Tags and Categories links -->
+    
+
+    
+
+
+    <!-- Comment using disqus -->
+    
+
+</div>
+</div>
+
+
+  </div>
+  <!-- Footer -->
+  <div id="footer">
+  <div id="footer-social">
+    
+    
+    
+    
+    
+    
+</div>
+
+  <p id="footer-info">
+    &copy; 2021 猫头鹰<br>
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> -
+    Theme <a href="https://github.com/Suolawangzai/hexo-theme-nebula" target="_blank">nebula</a>
+  </p>
+
+  <div id="busuanzi">
+    <span id="busuanzi_container_site_pv">
+      &hearts;
+    Total visits: <span id="busuanzi_value_site_pv"></span>
+    </span>
+  </div>
+  <!--
+  <div id="footer-info">
+    &copy; 2021 猫头鹰<br>
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+  </div>
+-->
+</div>
+
+  <!-- After footer scripts -->
+  <!-- Disqus Comments -->
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script src="/zhengboke/js/main.js"></script>
+
+
+</body>
+
+</html>

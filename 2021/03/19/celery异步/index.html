@@ -1,0 +1,170 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    
+    <title>celery异步 | 一只猫头鹰</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/favicon/favicon.ico">
+    
+<link rel="stylesheet" href="/zhengboke/css/main.css">
+
+    
+<link rel="stylesheet" href="/zhengboke/css/tagplugins.css">
+
+    
+<link rel="stylesheet" href="/zhengboke/css/highlight.css">
+
+    
+
+
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/zhengboke/atom.xml" title="一只猫头鹰" type="application/atom+xml" />
+    
+<meta name="generator" content="Hexo 5.4.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+<body>
+  <div class="blog-header">
+   <a id="menu-nav-icon"><img src="/zhengboke/image/menu.png"/></a>
+   <div class="nav-container">
+     <nav id="main-nav">
+       
+         <a class="main-nav-link" href="/zhengboke/">首页</a>
+       
+         <a class="main-nav-link" href="/zhengboke/archives">我的文章</a>
+       
+     </nav>
+   </div>
+   <!--
+   <div id="search-form-wrap">
+     <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://zhengge131.gitee.io/zhengboke"></form>
+   </div>
+ -->
+    <h1 class="blog-title">一只猫头鹰</h1>
+    <p class="lead blog-description"></p>
+</div>
+
+  <div id='main-part'>
+      <div class="main">
+<div class="blog-post">
+    <!-- Title -->
+    <h1 class="blog-post-title">
+        <a href="/zhengboke/2021/03/19/celery异步/">
+            Celery异步
+        </a>
+    </h1>
+    <!-- Date and Author -->
+    <p class="blog-post-meta">
+        2021-03-19
+        
+    </p>
+
+    
+
+    <!-- Content -->
+    <p>安装celery</p>
+<p><code>pip install celery</code></p>
+<p>导入celery</p>
+<p><code>from celery import Celery</code></p>
+<p>启动celery</p>
+<p><code>celery worker -A _tasks.tasks -l info -E</code></p>
+<p>定义celery对象</p>
+<p><code>app = Celery("taks", broker="redis://localhost/1")</code></p>
+<p>定义队列方法</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@app.task()</span><br><span class="line">def function():</span><br><span class="line">    print("我是队列方法")</span><br></pre></td></tr></tbody></table></figure>
+
+<p>调用</p>
+<p><code>function()</code></p>
+
+
+    <!-- Social share choices -->
+    
+  <div id="social-share">
+    <a data-url="http://zhengge131.gitee.io/zhengboke/2021/03/19/celery%E5%BC%82%E6%AD%A5/" target="_blank" rel="noopener" href="https://plus.google.com/share?url=" class="googleplus"><img src="/zhengboke/image/googleplusicon.png" alt=""/></a>
+    <a data-url="http://zhengge131.gitee.io/zhengboke/2021/03/19/celery%E5%BC%82%E6%AD%A5/" target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?url=" class="twitter"><img src="/zhengboke/image/twittericon.png" alt=""/></a>
+    <a data-url="http://zhengge131.gitee.io/zhengboke/2021/03/19/celery%E5%BC%82%E6%AD%A5/" target="_blank" rel="noopener" href="http://pinterest.com/pin/create/button/?url=" class="pinterest"><img src="/zhengboke/image/pinteresticon.png" alt=""/></a>
+    <a data-url="http://zhengge131.gitee.io/zhengboke/2021/03/19/celery%E5%BC%82%E6%AD%A5/" target="_blank" rel="noopener" href="https://www.facebook.com/sharer/sharer.php?u=" class="facebook"><img src="/zhengboke/image/facebookicon.png" alt=""/></a>
+  </div>
+
+
+
+
+
+<!--
+
+
+https://www.facebook.com/sharer/sharer.php?u=http://zhengge131.gitee.io/zhengboke/2021/03/19/celery%E5%BC%82%E6%AD%A5/
+http://zhengge131.gitee.io/zhengboke/2021/03/19/celery%25E5%25BC%2582%25E6%25AD%25A5/
+-->
+
+
+
+    <hr />
+
+
+    <!-- Tags and Categories links -->
+    
+
+    
+
+
+    <!-- Comment using disqus -->
+    
+
+</div>
+</div>
+
+
+  </div>
+  <!-- Footer -->
+  <div id="footer">
+  <div id="footer-social">
+    
+    
+    
+    
+    
+    
+</div>
+
+  <p id="footer-info">
+    &copy; 2021 猫头鹰<br>
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> -
+    Theme <a href="https://github.com/Suolawangzai/hexo-theme-nebula" target="_blank">nebula</a>
+  </p>
+
+  <div id="busuanzi">
+    <span id="busuanzi_container_site_pv">
+      &hearts;
+    Total visits: <span id="busuanzi_value_site_pv"></span>
+    </span>
+  </div>
+  <!--
+  <div id="footer-info">
+    &copy; 2021 猫头鹰<br>
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+  </div>
+-->
+</div>
+
+  <!-- After footer scripts -->
+  <!-- Disqus Comments -->
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script src="/zhengboke/js/main.js"></script>
+
+
+</body>
+
+</html>

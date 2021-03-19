@@ -1,0 +1,174 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    
+    <title>Vue路由钩子 | 一只猫头鹰</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/favicon/favicon.ico">
+    
+<link rel="stylesheet" href="/zhengboke/css/main.css">
+
+    
+<link rel="stylesheet" href="/zhengboke/css/tagplugins.css">
+
+    
+<link rel="stylesheet" href="/zhengboke/css/highlight.css">
+
+    
+
+
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/zhengboke/atom.xml" title="一只猫头鹰" type="application/atom+xml" />
+    
+<meta name="generator" content="Hexo 5.4.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+<body>
+  <div class="blog-header">
+   <a id="menu-nav-icon"><img src="/zhengboke/image/menu.png"/></a>
+   <div class="nav-container">
+     <nav id="main-nav">
+       
+         <a class="main-nav-link" href="/zhengboke/">首页</a>
+       
+         <a class="main-nav-link" href="/zhengboke/archives">我的文章</a>
+       
+     </nav>
+   </div>
+   <!--
+   <div id="search-form-wrap">
+     <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://zhengge131.gitee.io/zhengboke"></form>
+   </div>
+ -->
+    <h1 class="blog-title">一只猫头鹰</h1>
+    <p class="lead blog-description"></p>
+</div>
+
+  <div id='main-part'>
+      <div class="main">
+<div class="blog-post">
+    <!-- Title -->
+    <h1 class="blog-post-title">
+        <a href="/zhengboke/2021/03/19/vue路由钩子/">
+            Vue路由钩子
+        </a>
+    </h1>
+    <!-- Date and Author -->
+    <p class="blog-post-meta">
+        2021-03-19
+        
+    </p>
+
+    
+
+    <!-- Content -->
+    <p>现在有一个场景，当你登录后，你的用户名需要在页面上展示，但是由于你在请求<br>登录成功后没有将用户名存到session中，这样在跳转过去后，会读取到<br>空白，所以这时候就可以使用路由钩子。路由钩子主要作用是拦截导航，可以在跳转前执行一些代码或进行一些判断，<br>来决定完成跳转或者取消跳转。</p>
+<p>首先看一下路由钩子的格式</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">beforeRouteLeave(to,from,next){</span><br><span class="line">  if(sessionstorage.getItem('username'){</span><br><span class="line">      next();</span><br><span class="line">  }else{</span><br><span class="line">    next(false);</span><br><span class="line">  };</span><br><span class="line">};</span><br></pre></td></tr></tbody></table></figure>
+
+<p>大概就是这么个格式，参数 to ——是要跳转到的界面，from —— 从哪个界面离开，next()<br> —— 是否允许跳转，如果是 next(false) ——禁止跳转，<br>next({name:login}) —— 跳转到登录界面（需要自己手动配置路由），next()<br>或者 next(true) ——允许跳转。</p>
+<h3 id="路由钩子有三种实现方式"><a href="#路由钩子有三种实现方式" class="headerlink" title="路由钩子有三种实现方式"></a>路由钩子有三种实现方式</h3><p><strong>全局钩子</strong></p>
+<p>beforeEach(进入之前触发)、afterEach（进入之后触发）</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Router.beforeEach((to,from,next)=&gt;{</span><br><span class="line">      ......</span><br><span class="line">})</span><br><span class="line">Router.afterEach((to,from,next)=&gt;{</span><br><span class="line">      ......</span><br><span class="line">})</span><br></pre></td></tr></tbody></table></figure>
+<p>全局钩子会在每次跳转时都会被执行</p>
+<p><strong>路由独享钩子</strong></p>
+<p>beforeEnter  beforeLeave</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">routes: [</span><br><span class="line">        {</span><br><span class="line">            path: '/index',</span><br><span class="line">            name: 'index',</span><br><span class="line">            component: index,</span><br><span class="line">            beforeEnter:(to, from, next) =&gt;{</span><br><span class="line">                next();</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">    ]</span><br></pre></td></tr></tbody></table></figure>
+<p>路由独享，就是在路由配置中添加即可，只对被配置路由有用</p>
+<p><strong>组件内钩子</strong></p>
+<p>beforeRouteLeave beforeRouteEnter beforeRouteUpdate</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">methods:{</span><br><span class="line">      beforeRouteLeave(to,from,next){</span><br><span class="line">            .......</span><br><span class="line">      }</span><br><span class="line">  }</span><br></pre></td></tr></tbody></table></figure>
+<p>组件内钩子写在methods中即可，从本组件进行的跳转都会触发</p>
+
+
+    <!-- Social share choices -->
+    
+  <div id="social-share">
+    <a data-url="http://zhengge131.gitee.io/zhengboke/2021/03/19/vue%E8%B7%AF%E7%94%B1%E9%92%A9%E5%AD%90/" target="_blank" rel="noopener" href="https://plus.google.com/share?url=" class="googleplus"><img src="/zhengboke/image/googleplusicon.png" alt=""/></a>
+    <a data-url="http://zhengge131.gitee.io/zhengboke/2021/03/19/vue%E8%B7%AF%E7%94%B1%E9%92%A9%E5%AD%90/" target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?url=" class="twitter"><img src="/zhengboke/image/twittericon.png" alt=""/></a>
+    <a data-url="http://zhengge131.gitee.io/zhengboke/2021/03/19/vue%E8%B7%AF%E7%94%B1%E9%92%A9%E5%AD%90/" target="_blank" rel="noopener" href="http://pinterest.com/pin/create/button/?url=" class="pinterest"><img src="/zhengboke/image/pinteresticon.png" alt=""/></a>
+    <a data-url="http://zhengge131.gitee.io/zhengboke/2021/03/19/vue%E8%B7%AF%E7%94%B1%E9%92%A9%E5%AD%90/" target="_blank" rel="noopener" href="https://www.facebook.com/sharer/sharer.php?u=" class="facebook"><img src="/zhengboke/image/facebookicon.png" alt=""/></a>
+  </div>
+
+
+
+
+
+<!--
+
+
+https://www.facebook.com/sharer/sharer.php?u=http://zhengge131.gitee.io/zhengboke/2021/03/19/vue%E8%B7%AF%E7%94%B1%E9%92%A9%E5%AD%90/
+http://zhengge131.gitee.io/zhengboke/2021/03/19/vue%25E8%25B7%25AF%25E7%2594%25B1%25E9%2592%25A9%25E5%25AD%2590/
+-->
+
+
+
+    <hr />
+
+
+    <!-- Tags and Categories links -->
+    
+
+    
+
+
+    <!-- Comment using disqus -->
+    
+
+</div>
+</div>
+
+
+  </div>
+  <!-- Footer -->
+  <div id="footer">
+  <div id="footer-social">
+    
+    
+    
+    
+    
+    
+</div>
+
+  <p id="footer-info">
+    &copy; 2021 猫头鹰<br>
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> -
+    Theme <a href="https://github.com/Suolawangzai/hexo-theme-nebula" target="_blank">nebula</a>
+  </p>
+
+  <div id="busuanzi">
+    <span id="busuanzi_container_site_pv">
+      &hearts;
+    Total visits: <span id="busuanzi_value_site_pv"></span>
+    </span>
+  </div>
+  <!--
+  <div id="footer-info">
+    &copy; 2021 猫头鹰<br>
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+  </div>
+-->
+</div>
+
+  <!-- After footer scripts -->
+  <!-- Disqus Comments -->
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script src="/zhengboke/js/main.js"></script>
+
+
+</body>
+
+</html>

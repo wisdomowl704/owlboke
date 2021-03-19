@@ -1,0 +1,182 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    
+    <title>docker | 一只猫头鹰</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/favicon/favicon.ico">
+    
+<link rel="stylesheet" href="/zhengboke/css/main.css">
+
+    
+<link rel="stylesheet" href="/zhengboke/css/tagplugins.css">
+
+    
+<link rel="stylesheet" href="/zhengboke/css/highlight.css">
+
+    
+
+
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/zhengboke/atom.xml" title="一只猫头鹰" type="application/atom+xml" />
+    
+<meta name="generator" content="Hexo 5.4.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+<body>
+  <div class="blog-header">
+   <a id="menu-nav-icon"><img src="/zhengboke/image/menu.png"/></a>
+   <div class="nav-container">
+     <nav id="main-nav">
+       
+         <a class="main-nav-link" href="/zhengboke/">首页</a>
+       
+         <a class="main-nav-link" href="/zhengboke/archives">我的文章</a>
+       
+     </nav>
+   </div>
+   <!--
+   <div id="search-form-wrap">
+     <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://zhengge131.gitee.io/zhengboke"></form>
+   </div>
+ -->
+    <h1 class="blog-title">一只猫头鹰</h1>
+    <p class="lead blog-description"></p>
+</div>
+
+  <div id='main-part'>
+      <div class="main">
+<div class="blog-post">
+    <!-- Title -->
+    <h1 class="blog-post-title">
+        <a href="/zhengboke/2021/03/19/docker/">
+            Docker
+        </a>
+    </h1>
+    <!-- Date and Author -->
+    <p class="blog-post-meta">
+        2021-03-19
+        
+    </p>
+
+    
+
+    <!-- Content -->
+    <p>安装依赖</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum -y install gcc</span><br><span class="line">yum -y install gcc-c++</span><br></pre></td></tr></tbody></table></figure>
+
+<p>卸载旧版本</p>
+<p><code>yum remove docker \ docker-client \ docker-client-latest \ docker-common \ docker-latest \ docker-latest-logrotate \ docker-logrotate \ docker-selinux \ docker-engine-selinux \ docker-engine</code></p>
+<p>安装依赖包</p>
+<p><code>yum install -y yum-utils device-mapper-persistent-data lvm2</code></p>
+<p>安装docker</p>
+<p><code>yum install docker-ce</code></p>
+<p>启动docker</p>
+<p><code>systemctl start docker</code></p>
+<p>下载镜像</p>
+<p><code>docker pull centos</code></p>
+<p>运行容器</p>
+<p><code>docker run centos echo "hello word"</code></p>
+<p>运行容器指定容器</p>
+<p><code>docker run hello-world</code></p>
+<p>镜像加速<br>鉴于国内网络问题，后续拉取 Docker 镜像十分缓慢，我们可以需要配置加速器来解决。</p>
+<p>Docker国内镜像：</p>
+<p>网易加速器：<a target="_blank" rel="noopener" href="http://hub-mirror.c.163.com/">http://hub-mirror.c.163.com</a><br>官方中国加速器：<a target="_blank" rel="noopener" href="https://registry.docker-cn.com/">https://registry.docker-cn.com</a><br>ustc的镜像：<a target="_blank" rel="noopener" href="https://docker.mirrors.ustc.edu.cn/">https://docker.mirrors.ustc.edu.cn</a><br>也可使用私人镜像加速器地址，如使用阿里云的镜像加速器：登录阿里云-&gt;产品-&gt;搜索”容器镜像服务”-&gt;镜像库-&gt;镜像加速器。</p>
+<p>新版的 Docker 使用 /etc/docker/daemon.json（Linux） 来配置 Daemon。</p>
+<p>请在该配置文件中加入（没有该文件的话，请先建一个）：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/docker/daemon.json </span><br><span class="line">{ </span><br><span class="line">　　"registry-mirrors": ["https://hub-mirror.c.163.com"] </span><br><span class="line">} </span><br></pre></td></tr></tbody></table></figure>
+
+<p>配置成功后，CentOS重启：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl daemon-reload     #重启加速配置文件</span><br><span class="line">systemctl restart docker    #重启docker后台服务</span><br></pre></td></tr></tbody></table></figure>
+
+    <!-- Social share choices -->
+    
+  <div id="social-share">
+    <a data-url="http://zhengge131.gitee.io/zhengboke/2021/03/19/docker/" target="_blank" rel="noopener" href="https://plus.google.com/share?url=" class="googleplus"><img src="/zhengboke/image/googleplusicon.png" alt=""/></a>
+    <a data-url="http://zhengge131.gitee.io/zhengboke/2021/03/19/docker/" target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?url=" class="twitter"><img src="/zhengboke/image/twittericon.png" alt=""/></a>
+    <a data-url="http://zhengge131.gitee.io/zhengboke/2021/03/19/docker/" target="_blank" rel="noopener" href="http://pinterest.com/pin/create/button/?url=" class="pinterest"><img src="/zhengboke/image/pinteresticon.png" alt=""/></a>
+    <a data-url="http://zhengge131.gitee.io/zhengboke/2021/03/19/docker/" target="_blank" rel="noopener" href="https://www.facebook.com/sharer/sharer.php?u=" class="facebook"><img src="/zhengboke/image/facebookicon.png" alt=""/></a>
+  </div>
+
+
+
+
+
+<!--
+
+
+https://www.facebook.com/sharer/sharer.php?u=http://zhengge131.gitee.io/zhengboke/2021/03/19/docker/
+http://zhengge131.gitee.io/zhengboke/2021/03/19/docker/
+-->
+
+
+
+    <hr />
+
+
+    <!-- Tags and Categories links -->
+    
+
+    
+
+
+    <!-- Comment using disqus -->
+    
+
+</div>
+</div>
+
+
+  </div>
+  <!-- Footer -->
+  <div id="footer">
+  <div id="footer-social">
+    
+    
+    
+    
+    
+    
+</div>
+
+  <p id="footer-info">
+    &copy; 2021 猫头鹰<br>
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> -
+    Theme <a href="https://github.com/Suolawangzai/hexo-theme-nebula" target="_blank">nebula</a>
+  </p>
+
+  <div id="busuanzi">
+    <span id="busuanzi_container_site_pv">
+      &hearts;
+    Total visits: <span id="busuanzi_value_site_pv"></span>
+    </span>
+  </div>
+  <!--
+  <div id="footer-info">
+    &copy; 2021 猫头鹰<br>
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+  </div>
+-->
+</div>
+
+  <!-- After footer scripts -->
+  <!-- Disqus Comments -->
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script src="/zhengboke/js/main.js"></script>
+
+
+</body>
+
+</html>

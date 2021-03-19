@@ -1,0 +1,183 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    
+    <title>一只猫头鹰</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/favicon/favicon.ico">
+    
+<link rel="stylesheet" href="/zhengboke/css/main.css">
+
+    
+<link rel="stylesheet" href="/zhengboke/css/tagplugins.css">
+
+    
+<link rel="stylesheet" href="/zhengboke/css/highlight.css">
+
+    
+
+
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/zhengboke/atom.xml" title="一只猫头鹰" type="application/atom+xml" />
+    
+<meta name="generator" content="Hexo 5.4.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+<body>
+  <div class="blog-header">
+   <a id="menu-nav-icon"><img src="/zhengboke/image/menu.png"/></a>
+   <div class="nav-container">
+     <nav id="main-nav">
+       
+         <a class="main-nav-link" href="/zhengboke/">首页</a>
+       
+         <a class="main-nav-link" href="/zhengboke/archives">我的文章</a>
+       
+     </nav>
+   </div>
+   <!--
+   <div id="search-form-wrap">
+     <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://zhengge131.gitee.io/zhengboke"></form>
+   </div>
+ -->
+    <h1 class="blog-title">一只猫头鹰</h1>
+    <p class="lead blog-description"></p>
+</div>
+
+  <div id='main-part'>
+      <div class="main">
+<div class="blog-post">
+    <!-- Title -->
+    <h1 class="blog-post-title">
+        <a href="/zhengboke/2021/03/19/python向七牛云和又拍云上传文件/">
+            
+        </a>
+    </h1>
+    <!-- Date and Author -->
+    <p class="blog-post-meta">
+        2021-03-19
+        
+    </p>
+
+    
+
+    <!-- Content -->
+    ---
+title: python向七牛云和又拍云上传文件
+---
+
+
+<h3 id="七牛云"><a href="#七牛云" class="headerlink" title="七牛云"></a>七牛云</h3><p>七牛云官方文档：<a target="_blank" rel="noopener" href="https://developer.qiniu.com/kodo/1242/python#rs-stat">https://developer.qiniu.com/kodo/1242/python#rs-stat</a></p>
+<p>首先安装七牛云的官方模块</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 直接安装</span><br><span class="line">pip install qiniu</span><br><span class="line">或</span><br><span class="line">easy_install qiniu</span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 源码安装</span><br><span class="line"># 从Python SDK 下载地址下载源码</span><br><span class="line">tar xvzf python-sdk-$VERSION.tar.gz</span><br><span class="line">cd python-sdk-$VERSION</span><br><span class="line">python setup.py install</span><br></pre></td></tr></tbody></table></figure>
+
+<p>定义七牛云对象</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">from qiniu import Auth</span><br><span class="line">q = Auth(access_key, secret_key)</span><br><span class="line"></span><br><span class="line"># access_key 和 secret_key 可以在你的七牛云个人中心中找到</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="../images/AK%E5%92%8CSK.PNG" alt="AK和SK"></p>
+<p>开始上传</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">key = '上传后的文件名'</span><br><span class="line">bucket_name = '要上传的空间'</span><br><span class="line">s = 3600 # 指定token过期时间(秒)</span><br><span class="line"></span><br><span class="line">token = q.upload_token(bucket_name, key, )</span><br><span class="line"></span><br><span class="line">localfile = '本地文件路径'</span><br><span class="line"></span><br><span class="line">ret, info = put_file(token, key, localfile)</span><br><span class="line">print(info)</span><br></pre></td></tr></tbody></table></figure>
+
+
+<h3 id="又拍云"><a href="#又拍云" class="headerlink" title="又拍云"></a>又拍云</h3><p>又拍云官方文档： <a target="_blank" rel="noopener" href="http://docs.upyun.com/api/sdk/#python-sdk">http://docs.upyun.com/api/sdk/#python-sdk</a></p>
+<p>安装又拍云官方模块</p>
+<p><code>pip install upyun</code></p>
+<p>初始化对象</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 包含文件</span><br><span class="line">import upyun</span><br><span class="line"></span><br><span class="line"># 创建实例</span><br><span class="line">up = upyun.UpYun('仓库名', '您的操作员名', '您的操作员密码')</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="../images/%E5%8F%88%E6%8B%8D%E4%BA%91%E6%93%8D%E4%BD%9C%E5%91%98.PNG" alt="操作员"></p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">* 参数说明</span><br><span class="line">* checksum，表示是否进行 MD5 校验，如果是小文件，建议进行，为 True；如果是大文件，建议不进行，为 False</span><br><span class="line">* headers，表示需要的头信息，见 REST API 上传文件</span><br><span class="line">*/</span><br><span class="line">headers = { 'x-gmkerl-thumb': '/fw/300' }</span><br><span class="line"></span><br><span class="line">with open('文件地址', 'rb') as f:</span><br><span class="line">    res = up.put('存到仓库的位置和文件名', f, checksum=True, headers=headers)</span><br></pre></td></tr></tbody></table></figure>
+
+    <!-- Social share choices -->
+    
+  <div id="social-share">
+    <a data-url="http://zhengge131.gitee.io/zhengboke/2021/03/19/python%E5%90%91%E4%B8%83%E7%89%9B%E4%BA%91%E5%92%8C%E5%8F%88%E6%8B%8D%E4%BA%91%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6/" target="_blank" rel="noopener" href="https://plus.google.com/share?url=" class="googleplus"><img src="/zhengboke/image/googleplusicon.png" alt=""/></a>
+    <a data-url="http://zhengge131.gitee.io/zhengboke/2021/03/19/python%E5%90%91%E4%B8%83%E7%89%9B%E4%BA%91%E5%92%8C%E5%8F%88%E6%8B%8D%E4%BA%91%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6/" target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?url=" class="twitter"><img src="/zhengboke/image/twittericon.png" alt=""/></a>
+    <a data-url="http://zhengge131.gitee.io/zhengboke/2021/03/19/python%E5%90%91%E4%B8%83%E7%89%9B%E4%BA%91%E5%92%8C%E5%8F%88%E6%8B%8D%E4%BA%91%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6/" target="_blank" rel="noopener" href="http://pinterest.com/pin/create/button/?url=" class="pinterest"><img src="/zhengboke/image/pinteresticon.png" alt=""/></a>
+    <a data-url="http://zhengge131.gitee.io/zhengboke/2021/03/19/python%E5%90%91%E4%B8%83%E7%89%9B%E4%BA%91%E5%92%8C%E5%8F%88%E6%8B%8D%E4%BA%91%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6/" target="_blank" rel="noopener" href="https://www.facebook.com/sharer/sharer.php?u=" class="facebook"><img src="/zhengboke/image/facebookicon.png" alt=""/></a>
+  </div>
+
+
+
+
+
+<!--
+
+
+https://www.facebook.com/sharer/sharer.php?u=http://zhengge131.gitee.io/zhengboke/2021/03/19/python%E5%90%91%E4%B8%83%E7%89%9B%E4%BA%91%E5%92%8C%E5%8F%88%E6%8B%8D%E4%BA%91%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6/
+http://zhengge131.gitee.io/zhengboke/2021/03/19/python%25E5%2590%2591%25E4%25B8%2583%25E7%2589%259B%25E4%25BA%2591%25E5%2592%258C%25E5%258F%2588%25E6%258B%258D%25E4%25BA%2591%25E4%25B8%258A%25E4%25BC%25A0%25E6%2596%2587%25E4%25BB%25B6/
+-->
+
+
+
+    <hr />
+
+
+    <!-- Tags and Categories links -->
+    
+
+    
+
+
+    <!-- Comment using disqus -->
+    
+
+</div>
+</div>
+
+
+  </div>
+  <!-- Footer -->
+  <div id="footer">
+  <div id="footer-social">
+    
+    
+    
+    
+    
+    
+</div>
+
+  <p id="footer-info">
+    &copy; 2021 猫头鹰<br>
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> -
+    Theme <a href="https://github.com/Suolawangzai/hexo-theme-nebula" target="_blank">nebula</a>
+  </p>
+
+  <div id="busuanzi">
+    <span id="busuanzi_container_site_pv">
+      &hearts;
+    Total visits: <span id="busuanzi_value_site_pv"></span>
+    </span>
+  </div>
+  <!--
+  <div id="footer-info">
+    &copy; 2021 猫头鹰<br>
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+  </div>
+-->
+</div>
+
+  <!-- After footer scripts -->
+  <!-- Disqus Comments -->
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script src="/zhengboke/js/main.js"></script>
+
+
+</body>
+
+</html>

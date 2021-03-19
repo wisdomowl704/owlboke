@@ -1,0 +1,188 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    
+    <title>支付宝三方支付 | 一只猫头鹰</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/favicon/favicon.ico">
+    
+<link rel="stylesheet" href="/zhengboke/css/main.css">
+
+    
+<link rel="stylesheet" href="/zhengboke/css/tagplugins.css">
+
+    
+<link rel="stylesheet" href="/zhengboke/css/highlight.css">
+
+    
+
+
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/zhengboke/atom.xml" title="一只猫头鹰" type="application/atom+xml" />
+    
+<meta name="generator" content="Hexo 5.4.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+<body>
+  <div class="blog-header">
+   <a id="menu-nav-icon"><img src="/zhengboke/image/menu.png"/></a>
+   <div class="nav-container">
+     <nav id="main-nav">
+       
+         <a class="main-nav-link" href="/zhengboke/">首页</a>
+       
+         <a class="main-nav-link" href="/zhengboke/archives">我的文章</a>
+       
+     </nav>
+   </div>
+   <!--
+   <div id="search-form-wrap">
+     <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://zhengge131.gitee.io/zhengboke"></form>
+   </div>
+ -->
+    <h1 class="blog-title">一只猫头鹰</h1>
+    <p class="lead blog-description"></p>
+</div>
+
+  <div id='main-part'>
+      <div class="main">
+<div class="blog-post">
+    <!-- Title -->
+    <h1 class="blog-post-title">
+        <a href="/zhengboke/2021/03/19/支付宝三方支付/">
+            支付宝三方支付
+        </a>
+    </h1>
+    <!-- Date and Author -->
+    <p class="blog-post-meta">
+        2021-03-19
+        
+    </p>
+
+    
+
+    <!-- Content -->
+    <p><img src="../images/irMW5h7x2I8SOZT.png" alt="支付宝三方支付流程图"></p>
+<p>一.准备工作</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1. 登录第三方支付宝开放平台 </span><br><span class="line">点击链接支付宝开放平台 (https://open.alipay.com/index.htm) </span><br><span class="line">2. 开发前一定要阅读支付宝官方文档中心开发步骤 </span><br><span class="line">3. 下载相应的开发工具包（在文档中心&gt;资源下载） </span><br><span class="line">压缩包下的“支付宝钱包支付接口开发包”中即有Andoid使用支付宝的JAR和Demo</span><br></pre></td></tr></tbody></table></figure>
+
+<p>二.开发步骤<br>创建支付宝应用（管理中心&gt;我的应用）<br>备注：申请通过后会获得：合作者身份ID（PID），该ID在项目配置中需要用到</p>
+<p>完善信息（上传应用图标、说明文档）<br>配置应用环境<br>根据API文档详解进行配置（引用自API文档）<br>第一步 生成RSA密钥<br>特别注意事项（坑点）<br>下载支付宝的官网之后生成你所需要的密钥及PKCS8转码一定要小心</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">生成方式一（推荐）：使用支付宝提供的一键生成工具（内附使用说明）</span><br><span class="line"></span><br><span class="line">Windows：下载 （在API文档中点击下载） </span><br><span class="line">MAC OSX：下载 </span><br><span class="line">解压打开文件夹，直接运行“支付宝RAS密钥生成器 </span><br><span class="line">SHAwithRSA1024_V1.0.bat”（WINDOWS） </span><br><span class="line">或“SHAwithRSA1024_V1.0.command”（MACOSX），点 </span><br><span class="line">击“生成RSA密钥”，会自动生成公私钥，然后点击“打开文件位 </span><br><span class="line">置”，即可找到工具自动生成的密钥。</span><br><span class="line"></span><br><span class="line">注意：工具不支持含中文或空格的路径，请下载到英文目录下使用。</span><br><span class="line"></span><br><span class="line">生成方式二：也可以使用OpenSSL工具命令生成（详细参考API）</span><br><span class="line"></span><br><span class="line">开发者登录开放平台后，找到并进入应用。</span><br><span class="line"></span><br><span class="line">点击“RSA(SHA1)密钥”处的“设置开发者公钥”（如已设置则显示“查看开发者公钥”，可修改），将公钥文件去除头尾、换行和空格，仅需填入字符串。</span><br></pre></td></tr></tbody></table></figure>
+
+<p>例如转换前公钥pem文件格式：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-----BEGIN PUBLIC KEY----- MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDQWiDVZ7XYxa4CQsZoB3n7bfxLDkeGKjyQPt2FUtm4TWX9OYrd523iw6UUqnQ+Evfw88JgRnhyXadp+vnPKP7unormYQAfsM/CxzrfMoVdtwSiGtIJB4pfyRXjA+KL8nIa2hdQy5nLfgPVGZN4WidfUY/QpkddCVXnZ4bAUaQjXQIDAQAB</span><br><span class="line">-----END PUBLIC KEY-----</span><br></pre></td></tr></tbody></table></figure>
+
+<p>转换后得到的字符串为：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDQWiDVZ7XYxa4CQsZoB3n7bfxLDkeGKjyQPt2FUtm4TWX9OYrd523iw6UUqnQ+Evfw88JgRnhyXadp+vnPKP7unormYQAfsM/CxzrfMoVdtwSiGtIJB4pfyRXjA+KL8nIa2hdQy5nLfgPVGZN4WidfUY/QpkddCVXnZ4bAUaQjXQIDAQAB</span><br></pre></td></tr></tbody></table></figure>
+
+<p>第三步 获取支付宝公钥</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">应用上线后点击“查看支付宝公钥”，即可获取支付宝公钥，用于支付宝返回数据的验签。</span><br></pre></td></tr></tbody></table></figure>
+
+<p>对于支付宝公钥，看到的是一个字符串，如下：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDDI6d306Q8fIfCOaTXyiUeJHkrIvYISRcc73s3vF1ZT7XN8RNPwJxo8pWaJMmvyTn9N4HQ632qJBVHf8sxHi/fEsraprwCtzvzQETrNRwVxLO5jVmRGi60j8Ue1efIlzPXV9je9mkjzOmdssymZkh2QhUrCmZYI/FCEa3/cNMW0QIDAQAB</span><br></pre></td></tr></tbody></table></figure>
+
+<p>如果需要使用文件方式（如使用服务端SDK的PHP/.NET版本）读取支付宝公钥，需要在头尾加入标示后保存至文件，文件内容如下：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-----BEGIN PUBLIC KEY-----</span><br><span class="line">MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDDI6d306Q8fIfCOaTXyiUeJHkrIvYISRcc73s3vF1ZT7XN8RNPwJxo8pWaJMmvyTn9N4HQ632qJBVHf8sxHi/fEsraprwCtzvzQETrNRwVxLO5jVmRGi60j8Ue1efIlzPXV9je9mkjzOmdssymZkh2QhUrCmZYI/FCEa3/cNMW0QIDAQAB</span><br><span class="line">-----END PUBLIC KEY-----</span><br></pre></td></tr></tbody></table></figure>
+
+<p>django代码实现</p>
+<p>读取公钥私钥</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#生成的是app_private(私钥)</span><br><span class="line">app_private_key_string = open("alipay/app_private.txt").read()</span><br><span class="line">#生成的是alipay_public(公钥)这个公钥就支付宝的公钥</span><br><span class="line">把生成的公钥去沙箱复制到沙箱里面 生成一个支付宝公钥</span><br><span class="line">alipay_public_key_string = open("alipay/alipay_public.txt").read()</span><br></pre></td></tr></tbody></table></figure>
+
+<p>在settings.py中配置支付宝接口</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#请求支付宝接口</span><br><span class="line">alipay = AliPay(</span><br><span class="line">        appid="2021000116661399",</span><br><span class="line">        app_notify_url=None,  # 默认回调url</span><br><span class="line">        app_private_key_string=app_private_key_string,</span><br><span class="line">        # 支付宝的公钥，验证支付宝回传消息使用，不是你自己的公钥,</span><br><span class="line">        alipay_public_key_string=alipay_public_key_string,</span><br><span class="line">        sign_type="RSA2",  # RSA 或者 RSA2</span><br><span class="line">        debug=True,  # 默认False</span><br><span class="line">        config=AliPayConfig(timeout=15)  # 可选, 请求超时时间</span><br><span class="line">    )</span><br></pre></td></tr></tbody></table></figure>
+
+<p>请求视图</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># 电脑网站支付，需要跳转到https://openapi.alipay.com/gateway.do? + order_string</span><br><span class="line">        order_string = alipay.api_alipay_trade_page_pay(</span><br><span class="line">            out_trade_no=sn,</span><br><span class="line">            total_amount=total,</span><br><span class="line">            subject=subject,</span><br><span class="line">            return_url="http://www.fan.com:8080/%23/test",</span><br><span class="line">            # notify_url="https://example.com/notify"  # 可选, 不填则使用默认notify url</span><br><span class="line">        )</span><br><span class="line">        url = "https://openapi.alipay.com/gateway.do?" + order_string</span><br><span class="line">        return Response({"url": url})</span><br></pre></td></tr></tbody></table></figure>
+
+    <!-- Social share choices -->
+    
+  <div id="social-share">
+    <a data-url="http://zhengge131.gitee.io/zhengboke/2021/03/19/%E6%94%AF%E4%BB%98%E5%AE%9D%E4%B8%89%E6%96%B9%E6%94%AF%E4%BB%98/" target="_blank" rel="noopener" href="https://plus.google.com/share?url=" class="googleplus"><img src="/zhengboke/image/googleplusicon.png" alt=""/></a>
+    <a data-url="http://zhengge131.gitee.io/zhengboke/2021/03/19/%E6%94%AF%E4%BB%98%E5%AE%9D%E4%B8%89%E6%96%B9%E6%94%AF%E4%BB%98/" target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?url=" class="twitter"><img src="/zhengboke/image/twittericon.png" alt=""/></a>
+    <a data-url="http://zhengge131.gitee.io/zhengboke/2021/03/19/%E6%94%AF%E4%BB%98%E5%AE%9D%E4%B8%89%E6%96%B9%E6%94%AF%E4%BB%98/" target="_blank" rel="noopener" href="http://pinterest.com/pin/create/button/?url=" class="pinterest"><img src="/zhengboke/image/pinteresticon.png" alt=""/></a>
+    <a data-url="http://zhengge131.gitee.io/zhengboke/2021/03/19/%E6%94%AF%E4%BB%98%E5%AE%9D%E4%B8%89%E6%96%B9%E6%94%AF%E4%BB%98/" target="_blank" rel="noopener" href="https://www.facebook.com/sharer/sharer.php?u=" class="facebook"><img src="/zhengboke/image/facebookicon.png" alt=""/></a>
+  </div>
+
+
+
+
+
+<!--
+
+
+https://www.facebook.com/sharer/sharer.php?u=http://zhengge131.gitee.io/zhengboke/2021/03/19/%E6%94%AF%E4%BB%98%E5%AE%9D%E4%B8%89%E6%96%B9%E6%94%AF%E4%BB%98/
+http://zhengge131.gitee.io/zhengboke/2021/03/19/%25E6%2594%25AF%25E4%25BB%2598%25E5%25AE%259D%25E4%25B8%2589%25E6%2596%25B9%25E6%2594%25AF%25E4%25BB%2598/
+-->
+
+
+
+    <hr />
+
+
+    <!-- Tags and Categories links -->
+    
+
+    
+
+
+    <!-- Comment using disqus -->
+    
+
+</div>
+</div>
+
+
+  </div>
+  <!-- Footer -->
+  <div id="footer">
+  <div id="footer-social">
+    
+    
+    
+    
+    
+    
+</div>
+
+  <p id="footer-info">
+    &copy; 2021 猫头鹰<br>
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> -
+    Theme <a href="https://github.com/Suolawangzai/hexo-theme-nebula" target="_blank">nebula</a>
+  </p>
+
+  <div id="busuanzi">
+    <span id="busuanzi_container_site_pv">
+      &hearts;
+    Total visits: <span id="busuanzi_value_site_pv"></span>
+    </span>
+  </div>
+  <!--
+  <div id="footer-info">
+    &copy; 2021 猫头鹰<br>
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+  </div>
+-->
+</div>
+
+  <!-- After footer scripts -->
+  <!-- Disqus Comments -->
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script src="/zhengboke/js/main.js"></script>
+
+
+</body>
+
+</html>
