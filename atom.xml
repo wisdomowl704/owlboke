@@ -266,34 +266,6 @@
   </entry>
   
   <entry>
-    <title>python向七牛云和又拍云上传文件</title>
-    <link href="http://zhengge131.gitee.io/zhengboke/2021/03/19/python%E5%90%91%E4%B8%83%E7%89%9B%E4%BA%91%E5%92%8C%E5%8F%88%E6%8B%8D%E4%BA%91%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6/"/>
-    <id>http://zhengge131.gitee.io/zhengboke/2021/03/19/python%E5%90%91%E4%B8%83%E7%89%9B%E4%BA%91%E5%92%8C%E5%8F%88%E6%8B%8D%E4%BA%91%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6/</id>
-    <published>2021-03-19T07:16:18.877Z</published>
-    <updated>2021-03-19T07:16:20.703Z</updated>
-    
-    <content type="html"><![CDATA[<meta name="referrer" content="no-referrer"/>---title: python向七牛云和又拍云上传文件---<h3 id="七牛云"><a href="#七牛云" class="headerlink" title="七牛云"></a>七牛云</h3><p>七牛云官方文档：<a href="https://developer.qiniu.com/kodo/1242/python#rs-stat" target="_blank" rel="noopener">https://developer.qiniu.com/kodo/1242/python#rs-stat</a></p><p>首先安装七牛云的官方模块</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 直接安装</span><br><span class="line">pip install qiniu</span><br><span class="line">或</span><br><span class="line">easy_install qiniu</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 源码安装</span><br><span class="line"># 从Python SDK 下载地址下载源码</span><br><span class="line">tar xvzf python-sdk-$VERSION.tar.gz</span><br><span class="line">cd python-sdk-$VERSION</span><br><span class="line">python setup.py install</span><br></pre></td></tr></table></figure><p>定义七牛云对象</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">from qiniu import Auth</span><br><span class="line">q &#x3D; Auth(access_key, secret_key)</span><br><span class="line"></span><br><span class="line"># access_key 和 secret_key 可以在你的七牛云个人中心中找到</span><br></pre></td></tr></table></figure><p><img src="../images/AK%E5%92%8CSK.PNG" alt="AK和SK"></p><p>开始上传</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">key &#x3D; &#39;上传后的文件名&#39;</span><br><span class="line">bucket_name &#x3D; &#39;要上传的空间&#39;</span><br><span class="line">s &#x3D; 3600 # 指定token过期时间(秒)</span><br><span class="line"></span><br><span class="line">token &#x3D; q.upload_token(bucket_name, key, )</span><br><span class="line"></span><br><span class="line">localfile &#x3D; &#39;本地文件路径&#39;</span><br><span class="line"></span><br><span class="line">ret, info &#x3D; put_file(token, key, localfile)</span><br><span class="line">print(info)</span><br></pre></td></tr></table></figure><h3 id="又拍云"><a href="#又拍云" class="headerlink" title="又拍云"></a>又拍云</h3><p>又拍云官方文档： <a href="http://docs.upyun.com/api/sdk/#python-sdk" target="_blank" rel="noopener">http://docs.upyun.com/api/sdk/#python-sdk</a></p><p>安装又拍云官方模块</p><p><code>pip install upyun</code></p><p>初始化对象</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 包含文件</span><br><span class="line">import upyun</span><br><span class="line"></span><br><span class="line"># 创建实例</span><br><span class="line">up &#x3D; upyun.UpYun(&#39;仓库名&#39;, &#39;您的操作员名&#39;, &#39;您的操作员密码&#39;)</span><br></pre></td></tr></table></figure><p><img src="../images/%E5%8F%88%E6%8B%8D%E4%BA%91%E6%93%8D%E4%BD%9C%E5%91%98.PNG" alt="操作员"></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;*</span><br><span class="line">* 参数说明</span><br><span class="line">* checksum，表示是否进行 MD5 校验，如果是小文件，建议进行，为 True；如果是大文件，建议不进行，为 False</span><br><span class="line">* headers，表示需要的头信息，见 REST API 上传文件</span><br><span class="line">*&#x2F;</span><br><span class="line">headers &#x3D; &#123; &#39;x-gmkerl-thumb&#39;: &#39;&#x2F;fw&#x2F;300&#39; &#125;</span><br><span class="line"></span><br><span class="line">with open(&#39;文件地址&#39;, &#39;rb&#39;) as f:</span><br><span class="line">    res &#x3D; up.put(&#39;存到仓库的位置和文件名&#39;, f, checksum&#x3D;True, headers&#x3D;headers)</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;/&gt;
----
-title: python向七牛云和又拍云上传文件
----
-
-
-&lt;h3 id=&quot;七牛云&quot;&gt;&lt;a href=&quot;#七牛云&quot; class=&quot;headerlink&quot; title=&quot;七牛云&quot;
-      
-    
-    </summary>
-    
-    
-    
-  </entry>
-  
-  <entry>
     <title>docker</title>
     <link href="http://zhengge131.gitee.io/zhengboke/2021/03/19/docker/"/>
     <id>http://zhengge131.gitee.io/zhengboke/2021/03/19/docker/</id>
