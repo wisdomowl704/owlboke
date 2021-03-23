@@ -4,7 +4,337 @@
             <div class="card-content">
                 <h3 class="menu-label">Hot Recommend</h3><span id="index_hot_div">Loading...Wait a Minute!</span>
             </div>
-        </div><!--!--><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><i class="far fa-calendar-plus"> </i>2021-03-22  <a class="commentCountImg" href="/zhengboke/2021/03/22/%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%8D%8F%E7%A8%8B/#comment-container"><span class="display-none-class">faa66b924dec484b851acabd0da6ec1e</span><i class="far fa-comment-dots"></i> <span class="commentCount" id="faa66b924dec484b851acabd0da6ec1e">99+</span>  </a><span class="level-item"><i class="far fa-clock"> </i>12 m  <i class="fas fa-pencil-alt"> </i>1.9 k</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/zhengboke/2021/03/22/%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%8D%8F%E7%A8%8B/">进程线程协程</a></h1><div class="content"><p>一、进程<br>进程，直观点说，保存在硬盘上的程序运行以后，会在内存空间里形成一个独立的内存体，这个内存体有自己独立的地址空间，有自己的堆，上级挂靠单位是操作系统。操作系统会以进程为单位，分配系统资源（CPU时间片、内存等资源），进程是资源分配的最小单位。</p>
+        </div><!--!--><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><i class="far fa-calendar-plus"> </i>2021-03-23  <a class="commentCountImg" href="/zhengboke/2021/03/23/Python%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/#comment-container"><span class="display-none-class">6669f7848a2694cac24111d958675133</span><i class="far fa-comment-dots"></i> <span class="commentCount" id="6669f7848a2694cac24111d958675133">99+</span>  </a><span class="level-item"><i class="far fa-clock"> </i>13 m  <i class="fas fa-pencil-alt"> </i>2.0 k</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/zhengboke/2021/03/23/Python%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">Python正则表达式</a></h1><div class="content"><hr>
+<h2 id="title-Python正则表达式"><a href="#title-Python正则表达式" class="headerlink" title="title:Python正则表达式"></a>title:Python正则表达式</h2><p>正则表达式是一个特殊的字符序列，它能帮助你方便的检查一个字符串是否与某种模式匹配。</p>
+<p>Python 自1.5版本起增加了re 模块，它提供 Perl 风格的正则表达式模式。</p>
+<p>re 模块使 Python 语言拥有全部的正则表达式功能。</p>
+<p>compile 函数根据一个模式字符串和可选的标志参数生成一个正则表达式对象。该对象拥有一系列方法用于正则表达式匹配和替换。</p>
+<p>re 模块也提供了与这些方法功能完全一致的函数，这些函数使用一个模式字符串做为它们的第一个参数。</p>
+<p>本章主要介绍Python中常用的正则表达式处理函数。</p>
+<h3 id="re模块主要分三个正则模式-下面会一一讲解"><a href="#re模块主要分三个正则模式-下面会一一讲解" class="headerlink" title="re模块主要分三个正则模式,下面会一一讲解"></a>re模块主要分三个正则模式,下面会一一讲解</h3><h4 id="re-match函数"><a href="#re-match函数" class="headerlink" title="re.match函数"></a>re.match函数</h4><p>re.match 尝试从字符串的起始位置匹配一个模式，如果不是起始位置匹配成功的话，match()就返回none。</p>
+<p>语法:</p>
+<p><code>re.match(pattern, string, flags=0)</code></p>
+<table>
+<thead>
+<tr>
+<th>pattern</th>
+<th>匹配的正则表达式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>string</td>
+<td>要匹配的字符串。</td>
+</tr>
+<tr>
+<td>flags</td>
+<td>标志位，用于控制正则表达式的匹配方式，如：是否区分大小写，多行匹配等等。参见：文章底下</td>
+</tr>
+</tbody></table>
+<h4 id="re-search方法"><a href="#re-search方法" class="headerlink" title="re.search方法"></a>re.search方法</h4><p>re.search 扫描整个字符串并返回第一个成功的匹配。</p>
+<p>函数语法：</p>
+<p><code>re.search(pattern, string, flags=0)</code></p>
+<table>
+<thead>
+<tr>
+<th>pattern</th>
+<th>匹配的正则表达式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>string</td>
+<td>要匹配的字符串。</td>
+</tr>
+<tr>
+<td>flags</td>
+<td>标志位，用于控制正则表达式的匹配方式，如：是否区分大小写，多行匹配等等。参见：文章底下</td>
+</tr>
+</tbody></table>
+<p>(注：re.match只匹配字符串的开始，如果字符串开始不符合正则表达式，则匹配失败，函数返回None；而re.search匹配整个字符串，直到找到一个匹配。)</p>
+<h2 id="正则表达式修饰符-可选标志"><a href="#正则表达式修饰符-可选标志" class="headerlink" title="正则表达式修饰符 - 可选标志"></a>正则表达式修饰符 - 可选标志</h2><table>
+<thead>
+<tr>
+<th>re.I</th>
+<th>使匹配对大小写不敏感</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>re.L</td>
+<td>做本地化识别（locale-aware）匹配</td>
+</tr>
+<tr>
+<td>re.M</td>
+<td>多行匹配，影响 ^ 和 $</td>
+</tr>
+<tr>
+<td>re.S</td>
+<td>使 . 匹配包括换行在内的所有字符</td>
+</tr>
+<tr>
+<td>re.U</td>
+<td>根据Unicode字符集解析字符。这个标志影响 \w, \W, \b, \B.</td>
+</tr>
+<tr>
+<td>re.X</td>
+<td>该标志通过给予你更灵活的格式以便你将正则表达式写得更易于理解。</td>
+</tr>
+</tbody></table>
+<h2 id="正则表达式模式"><a href="#正则表达式模式" class="headerlink" title="正则表达式模式"></a>正则表达式模式</h2><p>模式字符串使用特殊的语法来表示一个正则表达式：</p>
+<p>字母和数字表示他们自身。一个正则表达式模式中的字母和数字匹配同样的字符串。</p>
+<p>多数字母和数字前加一个反斜杠时会拥有不同的含义。</p>
+<p>标点符号只有被转义时才匹配自身，否则它们表示特殊的含义。</p>
+<p>反斜杠本身需要使用反斜杠转义。</p>
+<p>由于正则表达式通常都包含反斜杠，所以你最好使用原始字符串来表示它们。模式元素(如 r’\t’，等价于 ‘\t’)匹配相应的特殊字符。</p>
+<p>下表列出了正则表达式模式语法中的特殊元素。如果你使用模式的同时提供了可选的标志参数，某些模式元素的含义会改变。</p>
+<table>
+<thead>
+<tr>
+<th align="left">模式</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">^</td>
+<td align="left">匹配字符串的开头</td>
+</tr>
+<tr>
+<td align="left">$</td>
+<td align="left">匹配字符串的末尾。</td>
+</tr>
+<tr>
+<td align="left">.</td>
+<td align="left">匹配任意字符，除了换行符，当re.DOTALL标记被指定时，则可以匹配包括换行符的任意字符。</td>
+</tr>
+<tr>
+<td align="left">[…]</td>
+<td align="left">用来表示一组字符,单独列出：[amk] 匹配 ‘a’，’m’或’k’</td>
+</tr>
+<tr>
+<td align="left">[^…]</td>
+<td align="left">不在[]中的字符：[^abc] 匹配除了a,b,c之外的字符。</td>
+</tr>
+<tr>
+<td align="left">re*</td>
+<td align="left">匹配0个或多个的表达式。</td>
+</tr>
+<tr>
+<td align="left">re+</td>
+<td align="left">匹配1个或多个的表达式。</td>
+</tr>
+<tr>
+<td align="left">re?</td>
+<td align="left">匹配0个或1个由前面的正则表达式定义的片段，非贪婪方式</td>
+</tr>
+<tr>
+<td align="left">re{ n}</td>
+<td align="left">精确匹配 n 个前面表达式。例如， <strong>o{2}</strong> 不能匹配 “Bob” 中的 “o”，但是能匹配 “food” 中的两个 o。</td>
+</tr>
+<tr>
+<td align="left">re{ n,}</td>
+<td align="left">匹配 n 个前面表达式。例如， o{2,} 不能匹配”Bob”中的”o”，但能匹配 “foooood”中的所有 o。”o{1,}” 等价于 “o+”。”o{0,}” 则等价于 “o*”。</td>
+</tr>
+<tr>
+<td align="left">re{ n, m}</td>
+<td align="left">匹配 n 到 m 次由前面的正则表达式定义的片段，贪婪方式</td>
+</tr>
+<tr>
+<td align="left">a| b</td>
+<td align="left">匹配a或b</td>
+</tr>
+<tr>
+<td align="left">(re)</td>
+<td align="left">对正则表达式分组并记住匹配的文本</td>
+</tr>
+<tr>
+<td align="left">(?imx)</td>
+<td align="left">正则表达式包含三种可选标志：i, m, 或 x 。只影响括号中的区域。</td>
+</tr>
+<tr>
+<td align="left">(?-imx)</td>
+<td align="left">正则表达式关闭 i, m, 或 x 可选标志。只影响括号中的区域。</td>
+</tr>
+<tr>
+<td align="left">(?: re)</td>
+<td align="left">类似 (…), 但是不表示一个组</td>
+</tr>
+<tr>
+<td align="left">(?imx: re)</td>
+<td align="left">在括号中使用i, m, 或 x 可选标志</td>
+</tr>
+<tr>
+<td align="left">(?-imx: re)</td>
+<td align="left">在括号中不使用i, m, 或 x 可选标志</td>
+</tr>
+<tr>
+<td align="left">(?#…)</td>
+<td align="left">注释.</td>
+</tr>
+<tr>
+<td align="left">(?= re)</td>
+<td align="left">前向肯定界定符。如果所含正则表达式，以 … 表示，在当前位置成功匹配时成功，否则失败。但一旦所含表达式已经尝试，匹配引擎根本没有提高；模式的剩余部分还要尝试界定符的右边。</td>
+</tr>
+<tr>
+<td align="left">(?! re)</td>
+<td align="left">前向否定界定符。与肯定界定符相反；当所含表达式不能在字符串当前位置匹配时成功</td>
+</tr>
+<tr>
+<td align="left">(?&gt; re)</td>
+<td align="left">匹配的独立模式，省去回溯。</td>
+</tr>
+<tr>
+<td align="left">\w</td>
+<td align="left">匹配字母数字及下划线</td>
+</tr>
+<tr>
+<td align="left">\W</td>
+<td align="left">匹配非字母数字及下划线</td>
+</tr>
+<tr>
+<td align="left">\s</td>
+<td align="left">匹配任意空白字符，等价于 <strong>[ \t\n\r\f]</strong>。</td>
+</tr>
+<tr>
+<td align="left">\S</td>
+<td align="left">匹配任意非空字符</td>
+</tr>
+<tr>
+<td align="left">\d</td>
+<td align="left">匹配任意数字，等价于 [0-9].</td>
+</tr>
+<tr>
+<td align="left">\D</td>
+<td align="left">匹配任意非数字</td>
+</tr>
+<tr>
+<td align="left">\A</td>
+<td align="left">匹配字符串开始</td>
+</tr>
+<tr>
+<td align="left">\Z</td>
+<td align="left">匹配字符串结束，如果是存在换行，只匹配到换行前的结束字符串。</td>
+</tr>
+<tr>
+<td align="left">\z</td>
+<td align="left">匹配字符串结束</td>
+</tr>
+<tr>
+<td align="left">\G</td>
+<td align="left">匹配最后匹配完成的位置。</td>
+</tr>
+<tr>
+<td align="left">\b</td>
+<td align="left">匹配一个单词边界，也就是指单词和空格间的位置。例如， ‘er\b’ 可以匹配”never” 中的 ‘er’，但不能匹配 “verb” 中的 ‘er’。</td>
+</tr>
+<tr>
+<td align="left">\B</td>
+<td align="left">匹配非单词边界。’er\B’ 能匹配 “verb” 中的 ‘er’，但不能匹配 “never” 中的 ‘er’。</td>
+</tr>
+<tr>
+<td align="left">\n, \t, 等.</td>
+<td align="left">匹配一个换行符。匹配一个制表符。等</td>
+</tr>
+<tr>
+<td align="left">\1…\9</td>
+<td align="left">匹配第n个分组的内容。</td>
+</tr>
+<tr>
+<td align="left">\10</td>
+<td align="left">匹配第n个分组的内容，如果它经匹配。否则指的是八进制字符码的表达式。</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="正则表达式实例"><a href="#正则表达式实例" class="headerlink" title="正则表达式实例"></a>正则表达式实例</h2><h4 id="字符匹配"><a href="#字符匹配" class="headerlink" title="字符匹配"></a>字符匹配</h4><table>
+<thead>
+<tr>
+<th align="left">实例</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">python</td>
+<td align="left">匹配 “python”.</td>
+</tr>
+</tbody></table>
+<h4 id="字符类"><a href="#字符类" class="headerlink" title="字符类"></a>字符类</h4><table>
+<thead>
+<tr>
+<th align="left">实例</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">[Pp]ython</td>
+<td align="left">匹配 “Python” 或 “python”</td>
+</tr>
+<tr>
+<td align="left">rub[ye]</td>
+<td align="left">匹配 “ruby” 或 “rube”</td>
+</tr>
+<tr>
+<td align="left">[aeiou]</td>
+<td align="left">匹配中括号内的任意一个字母</td>
+</tr>
+<tr>
+<td align="left">[0-9]</td>
+<td align="left">匹配任何数字。类似于 [0123456789]</td>
+</tr>
+<tr>
+<td align="left">[a-z]</td>
+<td align="left">匹配任何小写字母</td>
+</tr>
+<tr>
+<td align="left">[A-Z]</td>
+<td align="left">匹配任何大写字母</td>
+</tr>
+<tr>
+<td align="left">[a-zA-Z0-9]</td>
+<td align="left">匹配任何字母及数字</td>
+</tr>
+<tr>
+<td align="left">[^aeiou]</td>
+<td align="left">除了aeiou字母以外的所有字符</td>
+</tr>
+<tr>
+<td align="left">[^0-9]</td>
+<td align="left">匹配除了数字外的字符</td>
+</tr>
+</tbody></table>
+<h4 id="特殊字符类"><a href="#特殊字符类" class="headerlink" title="特殊字符类"></a>特殊字符类</h4><table>
+<thead>
+<tr>
+<th align="left">实例</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">.</td>
+<td align="left">匹配除 “\n” 之外的任何单个字符。要匹配包括 ‘\n’ 在内的任何字符，请使用象 ‘[.\n]’ 的模式。</td>
+</tr>
+<tr>
+<td align="left">\d</td>
+<td align="left">匹配一个数字字符。等价于 [0-9]。</td>
+</tr>
+<tr>
+<td align="left">\D</td>
+<td align="left">匹配一个非数字字符。等价于 [^0-9]。</td>
+</tr>
+<tr>
+<td align="left">\s</td>
+<td align="left">匹配任何空白字符，包括空格、制表符、换页符等等。等价于 [ \f\n\r\t\v]。</td>
+</tr>
+<tr>
+<td align="left">\S</td>
+<td align="left">匹配任何非空白字符。等价于 [^ \f\n\r\t\v]。</td>
+</tr>
+<tr>
+<td align="left">\w</td>
+<td align="left">匹配包括下划线的任何单词字符。等价于’[A-Za-z0-9_]’。</td>
+</tr>
+<tr>
+<td align="left">\W</td>
+<td align="left">匹配任何非单词字符。等价于 ‘[^A-Za-z0-9_]’。</td>
+</tr>
+</tbody></table>
+</div><div class="index-category-tag">  <hr></div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><i class="far fa-calendar-plus"> </i>2021-03-22  <a class="commentCountImg" href="/zhengboke/2021/03/22/%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%8D%8F%E7%A8%8B/#comment-container"><span class="display-none-class">faa66b924dec484b851acabd0da6ec1e</span><i class="far fa-comment-dots"></i> <span class="commentCount" id="faa66b924dec484b851acabd0da6ec1e">99+</span>  </a><span class="level-item"><i class="far fa-clock"> </i>12 m  <i class="fas fa-pencil-alt"> </i>1.9 k</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/zhengboke/2021/03/22/%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%8D%8F%E7%A8%8B/">进程线程协程</a></h1><div class="content"><p>一、进程<br>进程，直观点说，保存在硬盘上的程序运行以后，会在内存空间里形成一个独立的内存体，这个内存体有自己独立的地址空间，有自己的堆，上级挂靠单位是操作系统。操作系统会以进程为单位，分配系统资源（CPU时间片、内存等资源），进程是资源分配的最小单位。</p>
 <p><img src="https://img-blog.csdn.net/20150603133335514" alt="进程间通信（IPC）"></p>
 <p>管道(Pipe)、命名管道(FIFO)、消息队列(Message Queue) 、信号量(Semaphore) 、共享内存（Shared Memory）；套接字（Socket）。<br>二、线程<br>线程，有时被称为轻量级进程(Lightweight Process，LWP），是操作系统调度（CPU调度）执行的最小单位。</p>
 <p>三、进程和线程的区别与联系<br>【区别】：</p>
@@ -80,7 +410,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">mounted() &#123;</span><br><span class="line">    var videoElement &#x3D; document.getElementById(&#39;videoElement&#39;);</span><br><span class="line">    var flvPlayer &#x3D; flv.createPlayer(&#123;</span><br><span class="line">      type: &#39;flv&#39;,</span><br><span class="line">      enableWorker: true,     &#x2F;&#x2F;浏览器端开启flv.js的worker,多进程运行flv.js</span><br><span class="line">      isLive: true,           &#x2F;&#x2F;直播模式</span><br><span class="line">      hasAudio: false,        &#x2F;&#x2F;关闭音频</span><br><span class="line">      hasVideo: true,</span><br><span class="line">      &#x2F;&#x2F; cors: true,</span><br><span class="line">      stashInitialSize: 128,</span><br><span class="line">      enableStashBuffer: false, &#x2F;&#x2F;播放flv时，设置是否启用播放缓存，只在直播起作用。</span><br><span class="line">      &#x2F;&#x2F; url: &#39;http:&#x2F;&#x2F;192.168.2.234&#x2F;flv&#x2F;323223618780001&#39;</span><br><span class="line">      &#x2F;&#x2F; url: &#39;http:&#x2F;&#x2F;39.105.79.238:8080&#x2F;live?port&#x3D;1935&amp;app&#x3D;live&amp;stream&#x3D;test&#39;</span><br><span class="line">      url: &#39;http:&#x2F;&#x2F;47.93.48.154:8080&#x2F;live?port&#x3D;1935&amp;app&#x3D;live&amp;stream&#x3D;test&#39;</span><br><span class="line">    &#125;)</span><br><span class="line">    flvPlayer.attachMediaElement(videoElement);</span><br><span class="line">    flvPlayer.load();</span><br><span class="line">    flvPlayer.play();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
-<h1 id="臭不要脸高磊"><a href="#臭不要脸高磊" class="headerlink" title="臭不要脸高磊"></a>臭不要脸高磊</h1></div><div class="index-category-tag">  <hr></div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><i class="far fa-calendar-plus"> </i>2021-03-19  <a class="commentCountImg" href="/zhengboke/2021/03/19/%E7%BA%BF%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%B1%A0/#comment-container"><span class="display-none-class">793c31975b7b1bf39d86a2591de2f625</span><i class="far fa-comment-dots"></i> <span class="commentCount" id="793c31975b7b1bf39d86a2591de2f625">99+</span>  </a><span class="level-item"><i class="far fa-clock"> </i>fast  <i class="fas fa-pencil-alt"> </i>0.0 k</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/zhengboke/2021/03/19/%E7%BA%BF%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%B1%A0/">线程和线程池</a></h1><div class="content"></div><div class="index-category-tag">  <hr></div></article></div><!--!--><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><i class="far fa-calendar-plus"> </i>2021-03-19  <a class="commentCountImg" href="/zhengboke/2021/03/19/%E6%97%A0%E6%9E%81%E9%99%90%E8%87%AA%E5%85%B3%E8%81%94%E6%9F%A5%E8%AF%A2/#comment-container"><span class="display-none-class">c9895f8ce5c5c930866b4597c540b544</span><i class="far fa-comment-dots"></i> <span class="commentCount" id="c9895f8ce5c5c930866b4597c540b544">99+</span>  </a><span class="level-item"><i class="far fa-clock"> </i>a minute  <i class="fas fa-pencil-alt"> </i>0.2 k</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/zhengboke/2021/03/19/%E6%97%A0%E6%9E%81%E9%99%90%E8%87%AA%E5%85%B3%E8%81%94%E6%9F%A5%E8%AF%A2/">无极限自关联查询</a></h1><div class="content"><p>views.py</p>
+<h1 id="臭不要脸高磊"><a href="#臭不要脸高磊" class="headerlink" title="臭不要脸高磊"></a>臭不要脸高磊</h1></div><div class="index-category-tag">  <hr></div></article></div><!--!--><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><i class="far fa-calendar-plus"> </i>2021-03-19  <a class="commentCountImg" href="/zhengboke/2021/03/19/%E7%BA%BF%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%B1%A0/#comment-container"><span class="display-none-class">793c31975b7b1bf39d86a2591de2f625</span><i class="far fa-comment-dots"></i> <span class="commentCount" id="793c31975b7b1bf39d86a2591de2f625">99+</span>  </a><span class="level-item"><i class="far fa-clock"> </i>fast  <i class="fas fa-pencil-alt"> </i>0.0 k</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/zhengboke/2021/03/19/%E7%BA%BF%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%B1%A0/">线程和线程池</a></h1><div class="content"></div><div class="index-category-tag">  <hr></div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><i class="far fa-calendar-plus"> </i>2021-03-19  <a class="commentCountImg" href="/zhengboke/2021/03/19/%E6%97%A0%E6%9E%81%E9%99%90%E8%87%AA%E5%85%B3%E8%81%94%E6%9F%A5%E8%AF%A2/#comment-container"><span class="display-none-class">c9895f8ce5c5c930866b4597c540b544</span><i class="far fa-comment-dots"></i> <span class="commentCount" id="c9895f8ce5c5c930866b4597c540b544">99+</span>  </a><span class="level-item"><i class="far fa-clock"> </i>a minute  <i class="fas fa-pencil-alt"> </i>0.2 k</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/zhengboke/2021/03/19/%E6%97%A0%E6%9E%81%E9%99%90%E8%87%AA%E5%85%B3%E8%81%94%E6%9F%A5%E8%AF%A2/">无极限自关联查询</a></h1><div class="content"><p>views.py</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"># 无限自关联递归函数</span><br><span class="line"></span><br><span class="line">def function(id):</span><br><span class="line">    # 接收id 查询结果集</span><br><span class="line">    query &#x3D; User.objects.filter(uid&#x3D;id)</span><br><span class="line">    # 进行序列化</span><br><span class="line">    data &#x3D; UserSer(query, many&#x3D;True).data</span><br><span class="line">    # 在序列化结果中添加下一级空列表列表，</span><br><span class="line">    data[&#39;list&#39;] &#x3D; []</span><br><span class="line">    # 遍历结果集，递归调用并将调用结果存入上级列表</span><br><span class="line">    for i in data:</span><br><span class="line">        data[&#39;list&#39;].append(functions(i.uid))</span><br><span class="line"></span><br><span class="line">    # 返回结果集</span><br><span class="line">    return data</span><br><span class="line"></span><br><span class="line">class Path(APIView):</span><br><span class="line">    def get(self, request):</span><br><span class="line">        # 定义结果集列表</span><br><span class="line">        path_list &#x3D; []</span><br><span class="line">        # 查取所有信息</span><br><span class="line">        query &#x3D; Path.objects.all()</span><br><span class="line">        # 遍历开始递归查询</span><br><span class="line">        for i in data:</span><br><span class="line">            path_list.append(function(i.id))</span><br><span class="line">        </span><br><span class="line">        retrun Response(path_list)</span><br></pre></td></tr></table></figure>
 
 <p>models.py</p>
@@ -118,14 +448,14 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#请求支付宝接口</span><br><span class="line">alipay &#x3D; AliPay(</span><br><span class="line">        appid&#x3D;&quot;2021000116661399&quot;,</span><br><span class="line">        app_notify_url&#x3D;None,  # 默认回调url</span><br><span class="line">        app_private_key_string&#x3D;app_private_key_string,</span><br><span class="line">        # 支付宝的公钥，验证支付宝回传消息使用，不是你自己的公钥,</span><br><span class="line">        alipay_public_key_string&#x3D;alipay_public_key_string,</span><br><span class="line">        sign_type&#x3D;&quot;RSA2&quot;,  # RSA 或者 RSA2</span><br><span class="line">        debug&#x3D;True,  # 默认False</span><br><span class="line">        config&#x3D;AliPayConfig(timeout&#x3D;15)  # 可选, 请求超时时间</span><br><span class="line">    )</span><br></pre></td></tr></table></figure>
 
 <p>请求视图</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># 电脑网站支付，需要跳转到https:&#x2F;&#x2F;openapi.alipay.com&#x2F;gateway.do? + order_string</span><br><span class="line">        order_string &#x3D; alipay.api_alipay_trade_page_pay(</span><br><span class="line">            out_trade_no&#x3D;sn,</span><br><span class="line">            total_amount&#x3D;total,</span><br><span class="line">            subject&#x3D;subject,</span><br><span class="line">            return_url&#x3D;&quot;http:&#x2F;&#x2F;www.fan.com:8080&#x2F;%23&#x2F;test&quot;,</span><br><span class="line">            # notify_url&#x3D;&quot;https:&#x2F;&#x2F;example.com&#x2F;notify&quot;  # 可选, 不填则使用默认notify url</span><br><span class="line">        )</span><br><span class="line">        url &#x3D; &quot;https:&#x2F;&#x2F;openapi.alipay.com&#x2F;gateway.do?&quot; + order_string</span><br><span class="line">        return Response(&#123;&quot;url&quot;: url&#125;)</span><br></pre></td></tr></table></figure></div><div class="index-category-tag">  <hr></div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><i class="far fa-calendar-plus"> </i>2021-03-19  <a class="commentCountImg" href="/zhengboke/2021/03/19/%E5%BE%AE%E5%8D%9A%E4%B8%89%E6%96%B9%E7%99%BB%E5%BD%95/#comment-container"><span class="display-none-class">88bdef6bb4d00e57664b797f8191bb5e</span><i class="far fa-comment-dots"></i> <span class="commentCount" id="88bdef6bb4d00e57664b797f8191bb5e">99+</span>  </a><span class="level-item"><i class="far fa-clock"> </i>2 m  <i class="fas fa-pencil-alt"> </i>0.3 k</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/zhengboke/2021/03/19/%E5%BE%AE%E5%8D%9A%E4%B8%89%E6%96%B9%E7%99%BB%E5%BD%95/">微博三方登录</a></h1><div class="content"><p>　微博三方登录流程</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># 电脑网站支付，需要跳转到https:&#x2F;&#x2F;openapi.alipay.com&#x2F;gateway.do? + order_string</span><br><span class="line">        order_string &#x3D; alipay.api_alipay_trade_page_pay(</span><br><span class="line">            out_trade_no&#x3D;sn,</span><br><span class="line">            total_amount&#x3D;total,</span><br><span class="line">            subject&#x3D;subject,</span><br><span class="line">            return_url&#x3D;&quot;http:&#x2F;&#x2F;www.fan.com:8080&#x2F;%23&#x2F;test&quot;,</span><br><span class="line">            # notify_url&#x3D;&quot;https:&#x2F;&#x2F;example.com&#x2F;notify&quot;  # 可选, 不填则使用默认notify url</span><br><span class="line">        )</span><br><span class="line">        url &#x3D; &quot;https:&#x2F;&#x2F;openapi.alipay.com&#x2F;gateway.do?&quot; + order_string</span><br><span class="line">        return Response(&#123;&quot;url&quot;: url&#125;)</span><br></pre></td></tr></table></figure></div><div class="index-category-tag">  <hr></div></article></div><!--!--><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><i class="far fa-calendar-plus"> </i>2021-03-19  <a class="commentCountImg" href="/zhengboke/2021/03/19/%E5%BE%AE%E5%8D%9A%E4%B8%89%E6%96%B9%E7%99%BB%E5%BD%95/#comment-container"><span class="display-none-class">88bdef6bb4d00e57664b797f8191bb5e</span><i class="far fa-comment-dots"></i> <span class="commentCount" id="88bdef6bb4d00e57664b797f8191bb5e">99+</span>  </a><span class="level-item"><i class="far fa-clock"> </i>2 m  <i class="fas fa-pencil-alt"> </i>0.3 k</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/zhengboke/2021/03/19/%E5%BE%AE%E5%8D%9A%E4%B8%89%E6%96%B9%E7%99%BB%E5%BD%95/">微博三方登录</a></h1><div class="content"><p>　微博三方登录流程</p>
 <h3 id="1-微博三方登录流程"><a href="#1-微博三方登录流程" class="headerlink" title="1.微博三方登录流程"></a>1.微博三方登录流程</h3><p> 1.1 前端获取认证code</p>
 <p> 　　1.在Vue页面加载时 动态发送请求获取微博授权url<br> 　　2.django收到请求的url后，通过微博 应用ID(client_id)和回调地址(redirect_uri) 动态 生成授<br> 　　权url返回给Vue<br> 　　3.当用户点击上面的url进行扫码，授权成功会 跳转我们的回调界面并附加code参数　　<br> 　　4.Vue获取到微博返回的code后，会 将code发送给django后端 (上面的redirect_uri)</p>
 <p> 1.2 获取微博access_token</p>
 <p> 　　后端获取code后，结合client_id、client_secret、redirect_uri参数进行传递,获取微博<br> 　　access_token</p>
 <p> 1.3 获取微博用户基本信息并保存到数据库</p>
 <p> 使用获得的access_token调用获取用户基本信息的接口， 获取用户第三方平台的基本信息<br> 用户基本信息 保存到数据库，然后关联本地用户 ，然后将用户信息返回给前端<br> 1.4 生成token给Vue<br> django后端借助微博认证成功后，可以 使用JWT生成token ，返回给Vue<br> Vue将token存储到localStorage中 ，以便用户访问其他页面进行身份验证</p>
-</div><div class="index-category-tag">  <hr></div></article></div><!--!--><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><i class="far fa-calendar-plus"> </i>2021-03-19  <a class="commentCountImg" href="/zhengboke/2021/03/19/webshell/#comment-container"><span class="display-none-class">a646c631ab20f99dc147a22a3c8cde91</span><i class="far fa-comment-dots"></i> <span class="commentCount" id="a646c631ab20f99dc147a22a3c8cde91">99+</span>  </a><span class="level-item"><i class="far fa-clock"> </i>4 m  <i class="fas fa-pencil-alt"> </i>0.5 k</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/zhengboke/2021/03/19/webshell/">webshell</a></h1><div class="content"><h3 id="Vue部分"><a href="#Vue部分" class="headerlink" title="Vue部分"></a>Vue部分</h3><p>在vue中导入插件</p>
+</div><div class="index-category-tag">  <hr></div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><i class="far fa-calendar-plus"> </i>2021-03-19  <a class="commentCountImg" href="/zhengboke/2021/03/19/webshell/#comment-container"><span class="display-none-class">a646c631ab20f99dc147a22a3c8cde91</span><i class="far fa-comment-dots"></i> <span class="commentCount" id="a646c631ab20f99dc147a22a3c8cde91">99+</span>  </a><span class="level-item"><i class="far fa-clock"> </i>4 m  <i class="fas fa-pencil-alt"> </i>0.5 k</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/zhengboke/2021/03/19/webshell/">webshell</a></h1><div class="content"><h3 id="Vue部分"><a href="#Vue部分" class="headerlink" title="Vue部分"></a>Vue部分</h3><p>在vue中导入插件</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import * as attach from &#39;xterm&#x2F;lib&#x2F;addons&#x2F;attach&#x2F;attach&#39; &#x2F;&#x2F; 安装插件适，可以使用attach去添加</span><br><span class="line">import * as fit from &#39;xterm&#x2F;lib&#x2F;addons&#x2F;fit&#x2F;fit&#39; &#x2F;&#x2F; fit进行自适应大小的</span><br><span class="line"></span><br><span class="line">import &#123; Terminal &#125; from &#39;xterm&#39;</span><br><span class="line">Terminal.applyAddon(attach) &#x2F;&#x2F; 添加插件</span><br><span class="line">Terminal.applyAddon(fit) &#x2F;&#x2F; 添加插件</span><br></pre></td></tr></table></figure>
 
 <p>创建黑窗口组件</p>
@@ -175,21 +505,14 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 父组件 --&gt;</span><br><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;test&quot;&gt;</span><br><span class="line">      &lt;test-com @childFn&#x3D;&quot;parentFn&quot;&gt;&lt;&#x2F;test-com&gt;</span><br><span class="line">      &lt;br&#x2F;&gt; </span><br><span class="line">      子组件传来的值 : &#123;&#123;message&#125;&#125;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">    &#x2F;&#x2F; ...</span><br><span class="line">    data() &#123;</span><br><span class="line">        return &#123;</span><br><span class="line">             message: &#39;&#39;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">       parentFn(payload) &#123;</span><br><span class="line">        this.message &#x3D; payload;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
 
 <p>子组件是一个buttton按钮，并为其添加了一个click事件，当点击的时候使用$emit()触发事件，把message传给父组件。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 子组件 --&gt;</span><br><span class="line">&lt;template&gt; </span><br><span class="line">&lt;div class&#x3D;&quot;testCom&quot;&gt;</span><br><span class="line">    &lt;input type&#x3D;&quot;text&quot; v-model&#x3D;&quot;message&quot; &#x2F;&gt;</span><br><span class="line">    &lt;button @click&#x3D;&quot;click&quot;&gt;Send&lt;&#x2F;button&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">    &#x2F;&#x2F; ...</span><br><span class="line">    data() &#123;</span><br><span class="line">        return &#123;</span><br><span class="line">          &#x2F;&#x2F; 默认</span><br><span class="line">          message: &#39;我是来自子组件的消息&#39;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">      click() &#123;</span><br><span class="line">            this.$emit(&#39;childFn&#39;, this.message);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure></div><div class="index-category-tag">  <hr></div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><i class="far fa-calendar-plus"> </i>2021-03-19  <a class="commentCountImg" href="/zhengboke/2021/03/19/vue%E6%8B%A6%E6%88%AA%E5%99%A8/#comment-container"><span class="display-none-class">406c69e5e135aa1b385cfebffa2d2af2</span><i class="far fa-comment-dots"></i> <span class="commentCount" id="406c69e5e135aa1b385cfebffa2d2af2">99+</span>  </a><span class="level-item"><i class="far fa-clock"> </i>3 m  <i class="fas fa-pencil-alt"> </i>0.5 k</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/zhengboke/2021/03/19/vue%E6%8B%A6%E6%88%AA%E5%99%A8/">vue拦截器的使用</a></h1><div class="content"><p>现在的web开发大部分是采用前后端不分离的方式，在前后端不分离的模式下前后端的交互一般是采用axios请求方式来实现。</p>
-<h3 id="什么是axios？"><a href="#什么是axios？" class="headerlink" title="什么是axios？"></a>什么是axios？</h3><p>axios 是一个基于Promise 用于浏览器和 nodejs 的 HTTP 客户端，它本身具有以下特征：</p>
-<p>从浏览器中创建 XMLHttpRequest<br>从 node.js 发出 http 请求<br>支持 Promise API<br>拦截请求和响应<br>转换请求和响应数据<br>取消请求<br>自动转换JSON数据<br>客户端支持防止 CSRF/XSR</p>
-<h3 id="vue拦截器"><a href="#vue拦截器" class="headerlink" title="vue拦截器"></a>vue拦截器</h3><p>现在有一个场景，每次请求都要发送token来验证是否登录，但是在每个请求接口都要携带token无疑是十分麻烦，<br>那么有没有一种方式可以让每个请求在发送前都执行某些操作呢？使用vue拦截器就是可以实现</p>
-<h3 id="vue拦截器的实现"><a href="#vue拦截器的实现" class="headerlink" title="vue拦截器的实现"></a>vue拦截器的实现</h3><p>下载axios包</p>
-<p><code>npm install axios --save</code></p>
-<p>在config 中，加入  axios.js</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"># 导入axios</span><br><span class="line">import axios from &#39;axios&#39;</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; 添加请求拦截器</span><br><span class="line">axios.interceptors.request.use(function (config) &#123;</span><br><span class="line">　　&#x2F;&#x2F; 在发送请求前会执行以下代码，这里是判断localStorage中是否存有token</span><br><span class="line">if (window.localStorage.getItem(&#39;token&#39;)) &#123;</span><br><span class="line">    &#x2F;&#x2F;若token存在则在头部中携带token</span><br><span class="line">    config.headers.Authorization &#x3D; window.localStorage.getItem(&#39;token&#39;);</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F; 返回请求</span><br><span class="line">return config</span><br><span class="line">&#125;, function (error) &#123;</span><br><span class="line">　　&#x2F;&#x2F; 当请求错误时会执行下面的代码，这里是返回错误的信息</span><br><span class="line">return Promise.reject(error)</span><br><span class="line">&#125;);</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; 添加响应拦截器，响应拦截器会对相应进行处理</span><br><span class="line">axios.interceptors.response.use(function (response) &#123;</span><br><span class="line">　　&#x2F;&#x2F; 在收到响应后会执行下面的代码，这里是返回响应的信息</span><br><span class="line">　　return response</span><br><span class="line">&#125;, function (error) &#123;</span><br><span class="line">　　&#x2F;&#x2F; 当响应错误后会执行下面的代码，这里是返回错误信息</span><br><span class="line">　　return Promise.reject(error)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></div><div class="index-category-tag">  <hr></div></article></div><!--!--><nav class="pagination" role="navigation" aria-label="pagination"><div class="pagination-previous is-invisible is-hidden-mobile"><a href="/zhengboke/page/0/">Previous</a></div><div class="pagination-next"><a href="/zhengboke/page/2/">Next</a></div><ul class="pagination-list is-hidden-mobile"><li><a class="pagination-link is-current" href="/zhengboke/">1</a></li><li><a class="pagination-link" href="/zhengboke/page/2/">2</a></li></ul></nav></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1 is-sticky"><!--!--><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="https://portrait.gitee.com/uploads/avatars/user/2779/8337951_zhengge131_1615789217.png" alt="猫头鹰"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">猫头鹰</p><p class="is-size-6 is-block">码中方三日，世上已千年</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>月球</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">Posts</p><a href="/zhengboke/archives"><p class="title">16</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Categories</p><a href="/zhengboke/categories"><p class="title">0</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Tags</p><a href="/zhengboke/tags"><p class="title">0</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/ppoffice" target="_blank" rel="noopener">Follow</a></div><div class="level is-mobile"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/removeif"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Weibo" href="https://weibo.com/removeif"><i class="fab fa-weibo"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Email" href="mailto:removeif@163.com"><i class="fa fa-envelope"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Next" href="https://removeif.github.io/remove.io"><i class="fab fa-dribbble"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/zhengboke/atom.xml"><i class="fas fa-rss"></i></a></div><div><hr><p id="hitokoto">:D 一言句子获取中...</p><script type="text/javascript" defer>function getYiyan(){
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 子组件 --&gt;</span><br><span class="line">&lt;template&gt; </span><br><span class="line">&lt;div class&#x3D;&quot;testCom&quot;&gt;</span><br><span class="line">    &lt;input type&#x3D;&quot;text&quot; v-model&#x3D;&quot;message&quot; &#x2F;&gt;</span><br><span class="line">    &lt;button @click&#x3D;&quot;click&quot;&gt;Send&lt;&#x2F;button&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">    &#x2F;&#x2F; ...</span><br><span class="line">    data() &#123;</span><br><span class="line">        return &#123;</span><br><span class="line">          &#x2F;&#x2F; 默认</span><br><span class="line">          message: &#39;我是来自子组件的消息&#39;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">      click() &#123;</span><br><span class="line">            this.$emit(&#39;childFn&#39;, this.message);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure></div><div class="index-category-tag">  <hr></div></article></div><!--!--><nav class="pagination" role="navigation" aria-label="pagination"><div class="pagination-previous is-invisible is-hidden-mobile"><a href="/zhengboke/page/0/">Previous</a></div><div class="pagination-next"><a href="/zhengboke/page/2/">Next</a></div><ul class="pagination-list is-hidden-mobile"><li><a class="pagination-link is-current" href="/zhengboke/">1</a></li><li><a class="pagination-link" href="/zhengboke/page/2/">2</a></li></ul></nav></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1 is-sticky"><!--!--><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="https://portrait.gitee.com/uploads/avatars/user/2779/8337951_zhengge131_1615789217.png" alt="猫头鹰"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">猫头鹰</p><p class="is-size-6 is-block">码中方三日，世上已千年</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>月球</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">Posts</p><a href="/zhengboke/archives"><p class="title">17</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Categories</p><a href="/zhengboke/categories"><p class="title">0</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Tags</p><a href="/zhengboke/tags"><p class="title">0</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/ppoffice" target="_blank" rel="noopener">Follow</a></div><div class="level is-mobile"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/removeif"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Weibo" href="https://weibo.com/removeif"><i class="fab fa-weibo"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Email" href="mailto:removeif@163.com"><i class="fa fa-envelope"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Next" href="https://removeif.github.io/remove.io"><i class="fab fa-dribbble"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/zhengboke/atom.xml"><i class="fas fa-rss"></i></a></div><div><hr><p id="hitokoto">:D 一言句子获取中...</p><script type="text/javascript" defer>function getYiyan(){
                                 $.getJSON("https://v1.hitokoto.cn/", function (data) {
                                 if(data){
                                     $('#hitokoto').html("");
                                     $('#hitokoto').append("<strong style='color: #3273dc;'>"+data.hitokoto+"</strong>"+
                                     "<p>"+"From《"+data.from+"》</p><p>Provider-"+data.creator+"</p>");
                                 }});}
-                                $(function (){getYiyan();$('#hitokoto').click(function(){getYiyan();})});</script></div></div></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">Links</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Hexo</span></span><span class="level-right"><span class="level-item tag">hexo.io</span></span></a></li><li><a class="level is-mobile" href="https://bulma.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Bulma</span></span><span class="level-right"><span class="level-item tag">bulma.io</span></span></a></li></ul></div></div></div><div class="column-right-shadow is-hidden-widescreen"></div></div><div class="column column-right is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only order-3"><div class="card widget"><div class="card-content"><h3 class="menu-label">Latest Comment</h3><span class="body_hot_comment">Loading...Wait a Minute!</span></div></div><div class="card widget"><div class="card-content"><h3 class="menu-label">Recents</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-03-22T12:53:11.910Z">2021-03-22</time></p><p class="title"><a href="/zhengboke/2021/03/22/%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%8D%8F%E7%A8%8B/">进程线程协程</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-03-19T07:16:18.912Z">2021-03-19</time></p><p class="title"><a href="/zhengboke/2021/03/19/%E7%BD%91%E9%A1%B5%E8%A7%86%E9%A2%91%E7%9B%B4%E6%92%AD/">网页视频直播</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-03-19T07:16:18.908Z">2021-03-19</time></p><p class="title"><a href="/zhengboke/2021/03/19/%E7%BA%BF%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%B1%A0/">线程和线程池</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-03-19T07:16:18.904Z">2021-03-19</time></p><p class="title"><a href="/zhengboke/2021/03/19/%E6%97%A0%E6%9E%81%E9%99%90%E8%87%AA%E5%85%B3%E8%81%94%E6%9F%A5%E8%AF%A2/">无极限自关联查询</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-03-19T07:16:18.901Z">2021-03-19</time></p><p class="title"><a href="/zhengboke/2021/03/19/%E6%94%AF%E4%BB%98%E5%AE%9D%E4%B8%89%E6%96%B9%E6%94%AF%E4%BB%98/">支付宝三方支付</a></p></div></article></div></div><!--!--><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">Archives</h3><ul class="menu-list"><li><a class="level is-mobile is-marginless" href="/zhengboke/archives/2021/03/"><span class="level-start"><span class="level-item">March 2021</span></span><span class="level-end"><span class="level-item tag">16</span></span></a></li></ul></div></div></div><!--!--><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">Subscribe for updates</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="Subscribe"></div></div></form></div></div></div><!--!--></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/zhengboke/"><img src="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/logo.png" alt="一只猫头鹰" height="28"></a><p class="size-small"><span>&copy; 2021 猫头鹰</span>  Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a> &amp; <a href="https://github.com/removeif/hexo-theme-amazing" target="_blank">Amazing</a> <br><span>© <a href="http://www.beian.miit.gov.cn/" target="_blank">川ICP备88888888号-8（测试）</a><br></span><span>© 版权说明：[本网站所有内容均收集于互联网或自己创作,<br />&nbsp;&nbsp;&nbsp;&nbsp;方便于网友与自己学习交流，如有侵权，请<a href="/message" target="_blank">留言</a>，立即处理]<br /></span><span><span id="statistic-times">loading...</span><script>function createTime(time) {
+                                $(function (){getYiyan();$('#hitokoto').click(function(){getYiyan();})});</script></div></div></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">Links</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Hexo</span></span><span class="level-right"><span class="level-item tag">hexo.io</span></span></a></li><li><a class="level is-mobile" href="https://bulma.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Bulma</span></span><span class="level-right"><span class="level-item tag">bulma.io</span></span></a></li></ul></div></div></div><div class="column-right-shadow is-hidden-widescreen"></div></div><div class="column column-right is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only order-3"><div class="card widget"><div class="card-content"><h3 class="menu-label">Latest Comment</h3><span class="body_hot_comment">Loading...Wait a Minute!</span></div></div><div class="card widget"><div class="card-content"><h3 class="menu-label">Recents</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-03-23T02:00:09.698Z">2021-03-23</time></p><p class="title"><a href="/zhengboke/2021/03/23/Python%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">Python正则表达式</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-03-22T12:53:11.910Z">2021-03-22</time></p><p class="title"><a href="/zhengboke/2021/03/22/%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%8D%8F%E7%A8%8B/">进程线程协程</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-03-19T07:16:18.912Z">2021-03-19</time></p><p class="title"><a href="/zhengboke/2021/03/19/%E7%BD%91%E9%A1%B5%E8%A7%86%E9%A2%91%E7%9B%B4%E6%92%AD/">网页视频直播</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-03-19T07:16:18.908Z">2021-03-19</time></p><p class="title"><a href="/zhengboke/2021/03/19/%E7%BA%BF%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%B1%A0/">线程和线程池</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-03-19T07:16:18.904Z">2021-03-19</time></p><p class="title"><a href="/zhengboke/2021/03/19/%E6%97%A0%E6%9E%81%E9%99%90%E8%87%AA%E5%85%B3%E8%81%94%E6%9F%A5%E8%AF%A2/">无极限自关联查询</a></p></div></article></div></div><!--!--><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">Archives</h3><ul class="menu-list"><li><a class="level is-mobile is-marginless" href="/zhengboke/archives/2021/03/"><span class="level-start"><span class="level-item">March 2021</span></span><span class="level-end"><span class="level-item tag">17</span></span></a></li></ul></div></div></div><!--!--><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">Subscribe for updates</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="Subscribe"></div></div></form></div></div></div><!--!--></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/zhengboke/"><img src="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/logo.png" alt="一只猫头鹰" height="28"></a><p class="size-small"><span>&copy; 2021 猫头鹰</span>  Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a> &amp; <a href="https://github.com/removeif/hexo-theme-amazing" target="_blank">Amazing</a> <br><span>© <a href="http://www.beian.miit.gov.cn/" target="_blank">川ICP备88888888号-8（测试）</a><br></span><span>© 版权说明：[本网站所有内容均收集于互联网或自己创作,<br />&nbsp;&nbsp;&nbsp;&nbsp;方便于网友与自己学习交流，如有侵权，请<a href="/message" target="_blank">留言</a>，立即处理]<br /></span><span><span id="statistic-times">loading...</span><script>function createTime(time) {
             var n = new Date(time);
             now.setTime(now.getTime() + 250),
                 days = (now - n) / 1e3 / 60 / 60 / 24,
