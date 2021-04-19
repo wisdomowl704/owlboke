@@ -9,7 +9,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    Vue路由钩子 |  郑军军的技术博客
+    vue路由钩子 |  郑军军的技术博客
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -55,7 +55,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  Vue路由钩子
+  vue路由钩子
 </h1>
  
 
@@ -70,7 +70,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">386</span>
+            <span class="post-count">391</span>
         </span>
     </span>
 
@@ -94,7 +94,7 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <p>现在有一个场景，当你登录后，你的用户名需要在页面上展示，但是由于你在请求<br>登录成功后没有将用户名存到session中，这样在跳转过去后，会读取到<br>空白，所以这时候就可以使用路由钩子。路由钩子主要作用是拦截导航，可以在跳转前执行一些代码或进行一些判断，<br>来决定完成跳转或者取消跳转。</p>
+  <h1 id="Vue路由钩子"><a href="#Vue路由钩子" class="headerlink" title="Vue路由钩子#"></a>Vue路由钩子#</h1><p>现在有一个场景，当你登录后，你的用户名需要在页面上展示，但是由于你在请求<br>登录成功后没有将用户名存到session中，这样在跳转过去后，会读取到<br>空白，所以这时候就可以使用路由钩子。路由钩子主要作用是拦截导航，可以在跳转前执行一些代码或进行一些判断，<br>来决定完成跳转或者取消跳转。</p>
 <p>首先看一下路由钩子的格式</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">beforeRouteLeave(to,from,next)&#123;</span><br><span class="line">  if(sessionstorage.getItem(&#39;username&#39;)&#123;</span><br><span class="line">      next();</span><br><span class="line">  &#125;else&#123;</span><br><span class="line">    next(false);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
@@ -204,7 +204,7 @@
     
       <a href="/2021/03/19/vue%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E4%B9%8B%E9%97%B4%E7%9A%84%E4%BC%A0%E5%80%BC/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">vue父子组件的传值</div>
+        <div class="article-nav-title">vue父子组件之间的传值</div>
       </a>
     
   </nav>
@@ -327,7 +327,7 @@
 <nav class="navbar">
   
   <div class="logo">
-    <a href="/"><img src="images/ayer.png" alt="郑军军的技术博客"></a>
+    <a href="/"><img src="../images/ayer.png" alt="郑军军的技术博客"></a>
   </div>
   
   <ul class="nav nav-main">
@@ -349,11 +349,11 @@
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/tags/%E6%97%85%E8%A1%8C/">旅行</a>
+      <a class="nav-item-link" href="/experience">经历</a>
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="http://shenyu-vip.lofter.com" target="_blank" rel="noopener">摄影</a>
+      <a class="nav-item-link" href="/album">摄影</a>
     </li>
     
     <li class="nav-item">

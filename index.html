@@ -91,22 +91,6 @@
 <div id="main">
   <section class="outer">
   
-  <ul class="ads">
-    
-        <li>
-            <a href="https://curl.qcloud.com/ezctH6FU" target="_blank" rel="noopener">
-                <img src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/ten_1.jpg" width="300" alt="腾讯云限时秒杀">
-            </a>
-        </li>
-    
-        <li>
-            <a href="https://curl.qcloud.com/kvO7hb43" target="_blank" rel="noopener">
-                <img src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/ten_2.jpg" width="300" alt="云服务器全球购低至2折">
-            </a>
-        </li>
-    
-</ul>
-  
   
   
 
@@ -182,7 +166,7 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <p>关于暴力破解，我们常常会通过限制ip或者限制账号登录来预防，<br>本文章就是采用redis的过期删除策略来实现用户的限制登录。</p>
+  <h1 id="登录限流"><a href="#登录限流" class="headerlink" title="登录限流"></a>登录限流</h1><p>关于暴力破解，我们常常会通过限制ip或者限制账号登录来预防，<br>本文章就是采用redis的过期删除策略来实现用户的限制登录。</p>
 <p>大概思路是每次登录前，先通过拿到的账号去库中拿<br>到请求登录的账号信息，从而得到id，结合id去redis中得到此账号的登录错误计数标<br>识，达到5次之间限制登录，若不到5次再判断密码是否正确，正确登录成功，错误则将r<br>edis的计数标识加1，注意需要判断是否为第一次密码错误，就是是否能拿到错误标识，<br>若拿不到错误标识，代表此次登录为第一次错误，将标识入库redis，并设置5分钟后失效。</p>
 <p>下面奉上代码</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Login</span><span class="params">(APIView)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">post</span><span class="params">(self, request)</span>:</span></span><br><span class="line">        username = request.data.get(<span class="string">'username'</span>)</span><br><span class="line">        password = request.data.get(<span class="string">'password'</span>)</span><br><span class="line"></span><br><span class="line">        user = User.objects.filter(username=username)</span><br><span class="line">        <span class="keyword">if</span> user:</span><br><span class="line">            r = MyRedis(user.first().username, decode_responses=<span class="literal">True</span>)</span><br><span class="line">            login = r.get_login()</span><br><span class="line">            <span class="keyword">if</span> login:</span><br><span class="line">                <span class="keyword">return</span> Response(&#123;<span class="string">'msg'</span>: <span class="string">'您已被限制登录'</span>, <span class="string">'code'</span>: <span class="string">'400'</span>&#125;)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> Response(&#123;<span class="string">'msg'</span>: <span class="string">'没有此用户'</span>, <span class="string">'code'</span>: <span class="string">'400'</span>&#125;)</span><br><span class="line"></span><br><span class="line">        user = user.filter(password=password).first()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> user:</span><br><span class="line">            <span class="keyword">return</span> Response(&#123;<span class="string">'msg'</span>: <span class="string">'登录成功'</span>, <span class="string">'code'</span>: <span class="string">'200'</span>, <span class="string">'uid'</span>: user.id&#125;)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 验证是否是第一次登录</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            login = r.get()</span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">            <span class="keyword">if</span> int(login) + <span class="number">1</span> &gt;= <span class="number">5</span>:</span><br><span class="line">                r.set_login()</span><br><span class="line">                <span class="keyword">return</span> Response(&#123;<span class="string">'msg'</span>: <span class="string">'频繁输入错误密码，账号已被冻结'</span>, <span class="string">'code'</span>: <span class="string">'400'</span>&#125;)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                r.set(int(login) + <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            r.set(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> Response(&#123;<span class="string">'msg'</span>: <span class="string">'密码错误'</span>, <span class="string">'code'</span>: <span class="string">'400'</span>&#125;)</span><br></pre></td></tr></table></figure>
@@ -610,8 +594,8 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <p>一、进程<br>进程，直观点说，保存在硬盘上的程序运行以后，会在内存空间里形成一个独立的内存体，这个内存体有自己独立的地址空间，有自己的堆，上级挂靠单位是操作系统。操作系统会以进程为单位，分配系统资源（CPU时间片、内存等资源），进程是资源分配的最小单位。</p>
-<p><img src="https://img-blog.csdn.net/20150603133335514" alt="进程间通信（IPC）"></p>
+  <h1 id="进程、线程、协程"><a href="#进程、线程、协程" class="headerlink" title="进程、线程、协程"></a>进程、线程、协程</h1><p>一、进程<br>进程，直观点说，保存在硬盘上的程序运行以后，会在内存空间里形成一个独立的内存体，这个内存体有自己独立的地址空间，有自己的堆，上级挂靠单位是操作系统。操作系统会以进程为单位，分配系统资源（CPU时间片、内存等资源），进程是资源分配的最小单位。</p>
+<p><img src="../images/20150603133335514.png" alt="进程间通信（IPC）"></p>
 <p>管道(Pipe)、命名管道(FIFO)、消息队列(Message Queue) 、信号量(Semaphore) 、共享内存（Shared Memory）；套接字（Socket）。<br>二、线程<br>线程，有时被称为轻量级进程(Lightweight Process，LWP），是操作系统调度（CPU调度）执行的最小单位。</p>
 <p>三、进程和线程的区别与联系<br>【区别】：</p>
 <p>调度：线程作为调度和分配的基本单位，进程作为拥有资源的基本单位；</p>
@@ -690,7 +674,7 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <p>首先，安装OBS地址： <a href="https://obsproject.com/" target="_blank" rel="noopener">https://obsproject.com/</a></p>
+  <h1 id="搭建自己专属的网页视频直播"><a href="#搭建自己专属的网页视频直播" class="headerlink" title="搭建自己专属的网页视频直播"></a>搭建自己专属的网页视频直播</h1><p>首先，安装OBS地址： <a href="https://obsproject.com/" target="_blank" rel="noopener">https://obsproject.com/</a></p>
 <p>在云主机中安装NGINX</p>
 <p>安装nginx</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install https:&#x2F;&#x2F;extras.getpagespeed.com&#x2F;release-el$(rpm -E %&#123;rhel&#125;)-latest.rpm</span><br><span class="line">yum install nginx-module-flv</span><br></pre></td></tr></table></figure>
@@ -778,7 +762,7 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <p>views.py</p>
+  <h1 id="无极限自关联查询"><a href="#无极限自关联查询" class="headerlink" title="无极限自关联查询#"></a>无极限自关联查询#</h1><p>views.py</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"># 无限自关联递归函数</span><br><span class="line"></span><br><span class="line">def function(id):</span><br><span class="line">    # 接收id 查询结果集</span><br><span class="line">    query &#x3D; User.objects.filter(uid&#x3D;id)</span><br><span class="line">    # 进行序列化</span><br><span class="line">    data &#x3D; UserSer(query, many&#x3D;True).data</span><br><span class="line">    # 在序列化结果中添加下一级空列表列表，</span><br><span class="line">    data[&#39;list&#39;] &#x3D; []</span><br><span class="line">    # 遍历结果集，递归调用并将调用结果存入上级列表</span><br><span class="line">    for i in data:</span><br><span class="line">        data[&#39;list&#39;].append(functions(i.uid))</span><br><span class="line"></span><br><span class="line">    # 返回结果集</span><br><span class="line">    return data</span><br><span class="line"></span><br><span class="line">class Path(APIView):</span><br><span class="line">    def get(self, request):</span><br><span class="line">        # 定义结果集列表</span><br><span class="line">        path_list &#x3D; []</span><br><span class="line">        # 查取所有信息</span><br><span class="line">        query &#x3D; Path.objects.all()</span><br><span class="line">        # 遍历开始递归查询</span><br><span class="line">        for i in data:</span><br><span class="line">            path_list.append(function(i.id))</span><br><span class="line">        </span><br><span class="line">        retrun Response(path_list)</span><br></pre></td></tr></table></figure>
 
 <p>models.py</p>
@@ -831,7 +815,7 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <p><img src="../images/irMW5h7x2I8SOZT.png" alt="支付宝三方支付流程图"></p>
+  <h1 id="支付宝三方支付"><a href="#支付宝三方支付" class="headerlink" title="支付宝三方支付"></a>支付宝三方支付</h1><p><img src="../images/irMW5h7x2I8SOZT.png" alt="支付宝三方支付流程图"></p>
 <p>一.准备工作</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1. 登录第三方支付宝开放平台 </span><br><span class="line">点击链接支付宝开放平台 (https:&#x2F;&#x2F;open.alipay.com&#x2F;index.htm) </span><br><span class="line">2. 开发前一定要阅读支付宝官方文档中心开发步骤 </span><br><span class="line">3. 下载相应的开发工具包（在文档中心&gt;资源下载） </span><br><span class="line">压缩包下的“支付宝钱包支付接口开发包”中即有Andoid使用支付宝的JAR和Demo</span><br></pre></td></tr></table></figure>
 
@@ -908,7 +892,7 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <p>　微博三方登录流程</p>
+  <h1 id="微博三方登录"><a href="#微博三方登录" class="headerlink" title="微博三方登录"></a>微博三方登录</h1><p>　微博三方登录流程</p>
 <h3 id="1-微博三方登录流程"><a href="#1-微博三方登录流程" class="headerlink" title="1.微博三方登录流程"></a>1.微博三方登录流程</h3><p> 1.1 前端获取认证code</p>
 <p> 　　1.在Vue页面加载时 动态发送请求获取微博授权url<br> 　　2.django收到请求的url后，通过微博 应用ID(client_id)和回调地址(redirect_uri) 动态 生成授<br> 　　权url返回给Vue<br> 　　3.当用户点击上面的url进行扫码，授权成功会 跳转我们的回调界面并附加code参数　　<br> 　　4.Vue获取到微博返回的code后，会 将code发送给django后端 (上面的redirect_uri)</p>
 <p> 1.2 获取微博access_token</p>
@@ -961,7 +945,7 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <h3 id="Vue部分"><a href="#Vue部分" class="headerlink" title="Vue部分"></a>Vue部分</h3><p>在vue中导入插件</p>
+  <h1 id="webshell"><a href="#webshell" class="headerlink" title="webshell"></a>webshell</h1><h3 id="Vue部分"><a href="#Vue部分" class="headerlink" title="Vue部分"></a>Vue部分</h3><p>在vue中导入插件</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import * as attach from &#39;xterm&#x2F;lib&#x2F;addons&#x2F;attach&#x2F;attach&#39; &#x2F;&#x2F; 安装插件适，可以使用attach去添加</span><br><span class="line">import * as fit from &#39;xterm&#x2F;lib&#x2F;addons&#x2F;fit&#x2F;fit&#39; &#x2F;&#x2F; fit进行自适应大小的</span><br><span class="line"></span><br><span class="line">import &#123; Terminal &#125; from &#39;xterm&#39;</span><br><span class="line">Terminal.applyAddon(attach) &#x2F;&#x2F; 添加插件</span><br><span class="line">Terminal.applyAddon(fit) &#x2F;&#x2F; 添加插件</span><br></pre></td></tr></table></figure>
 
 <p>创建黑窗口组件</p>
@@ -1012,7 +996,7 @@
        
 <h2 itemprop="name">
   <a class="article-title" href="/2021/03/19/vue%E8%B7%AF%E7%94%B1%E9%92%A9%E5%AD%90/"
-    >Vue路由钩子</a> 
+    >vue路由钩子</a> 
 </h2>
  
 
@@ -1026,7 +1010,7 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <p>现在有一个场景，当你登录后，你的用户名需要在页面上展示，但是由于你在请求<br>登录成功后没有将用户名存到session中，这样在跳转过去后，会读取到<br>空白，所以这时候就可以使用路由钩子。路由钩子主要作用是拦截导航，可以在跳转前执行一些代码或进行一些判断，<br>来决定完成跳转或者取消跳转。</p>
+  <h1 id="Vue路由钩子"><a href="#Vue路由钩子" class="headerlink" title="Vue路由钩子#"></a>Vue路由钩子#</h1><p>现在有一个场景，当你登录后，你的用户名需要在页面上展示，但是由于你在请求<br>登录成功后没有将用户名存到session中，这样在跳转过去后，会读取到<br>空白，所以这时候就可以使用路由钩子。路由钩子主要作用是拦截导航，可以在跳转前执行一些代码或进行一些判断，<br>来决定完成跳转或者取消跳转。</p>
 <p>首先看一下路由钩子的格式</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">beforeRouteLeave(to,from,next)&#123;</span><br><span class="line">  if(sessionstorage.getItem(&#39;username&#39;)&#123;</span><br><span class="line">      next();</span><br><span class="line">  &#125;else&#123;</span><br><span class="line">    next(false);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
@@ -1075,7 +1059,7 @@
        
 <h2 itemprop="name">
   <a class="article-title" href="/2021/03/19/vue%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E4%B9%8B%E9%97%B4%E7%9A%84%E4%BC%A0%E5%80%BC/"
-    >vue父子组件的传值</a> 
+    >vue父子组件之间的传值</a> 
 </h2>
  
 
@@ -1089,7 +1073,7 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <h3 id="父组件向子组件传值"><a href="#父组件向子组件传值" class="headerlink" title="父组件向子组件传值"></a>父组件向子组件传值</h3><ul>
+  <h1 id="vue父子组件的传值"><a href="#vue父子组件的传值" class="headerlink" title="vue父子组件的传值"></a>vue父子组件的传值</h1><h3 id="父组件向子组件传值"><a href="#父组件向子组件传值" class="headerlink" title="父组件向子组件传值"></a>父组件向子组件传值</h3><ul>
 <li>传值</li>
 </ul>
 <p><code>&lt;header :title=&quot;hh&quot;&gt;&lt;/header&gt;</code></p>
@@ -1198,7 +1182,7 @@
 <nav class="navbar">
   
   <div class="logo">
-    <a href="/"><img src="images/ayer.png" alt="郑军军的技术博客"></a>
+    <a href="/"><img src="../images/ayer.png" alt="郑军军的技术博客"></a>
   </div>
   
   <ul class="nav nav-main">
@@ -1220,11 +1204,11 @@
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/tags/%E6%97%85%E8%A1%8C/">旅行</a>
+      <a class="nav-item-link" href="/experience">经历</a>
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="http://shenyu-vip.lofter.com" target="_blank" rel="noopener">摄影</a>
+      <a class="nav-item-link" href="/album">摄影</a>
     </li>
     
     <li class="nav-item">

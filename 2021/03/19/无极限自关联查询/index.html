@@ -70,7 +70,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">196</span>
+            <span class="post-count">204</span>
         </span>
     </span>
 
@@ -86,13 +86,15 @@
  
     </div>
       
+    <div class="tocbot"></div>
+
 
 
 
   
     <div class="article-entry" itemprop="articleBody">
        
-  <p>views.py</p>
+  <h1 id="无极限自关联查询"><a href="#无极限自关联查询" class="headerlink" title="无极限自关联查询#"></a>无极限自关联查询#</h1><p>views.py</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"># 无限自关联递归函数</span><br><span class="line"></span><br><span class="line">def function(id):</span><br><span class="line">    # 接收id 查询结果集</span><br><span class="line">    query &#x3D; User.objects.filter(uid&#x3D;id)</span><br><span class="line">    # 进行序列化</span><br><span class="line">    data &#x3D; UserSer(query, many&#x3D;True).data</span><br><span class="line">    # 在序列化结果中添加下一级空列表列表，</span><br><span class="line">    data[&#39;list&#39;] &#x3D; []</span><br><span class="line">    # 遍历结果集，递归调用并将调用结果存入上级列表</span><br><span class="line">    for i in data:</span><br><span class="line">        data[&#39;list&#39;].append(functions(i.uid))</span><br><span class="line"></span><br><span class="line">    # 返回结果集</span><br><span class="line">    return data</span><br><span class="line"></span><br><span class="line">class Path(APIView):</span><br><span class="line">    def get(self, request):</span><br><span class="line">        # 定义结果集列表</span><br><span class="line">        path_list &#x3D; []</span><br><span class="line">        # 查取所有信息</span><br><span class="line">        query &#x3D; Path.objects.all()</span><br><span class="line">        # 遍历开始递归查询</span><br><span class="line">        for i in data:</span><br><span class="line">            path_list.append(function(i.id))</span><br><span class="line">        </span><br><span class="line">        retrun Response(path_list)</span><br></pre></td></tr></table></figure>
 
 <p>models.py</p>
@@ -315,7 +317,7 @@
 <nav class="navbar">
   
   <div class="logo">
-    <a href="/"><img src="images/ayer.png" alt="郑军军的技术博客"></a>
+    <a href="/"><img src="../images/ayer.png" alt="郑军军的技术博客"></a>
   </div>
   
   <ul class="nav nav-main">
@@ -337,11 +339,11 @@
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/tags/%E6%97%85%E8%A1%8C/">旅行</a>
+      <a class="nav-item-link" href="/experience">经历</a>
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="http://shenyu-vip.lofter.com" target="_blank" rel="noopener">摄影</a>
+      <a class="nav-item-link" href="/album">摄影</a>
     </li>
     
     <li class="nav-item">

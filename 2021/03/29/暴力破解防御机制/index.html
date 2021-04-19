@@ -70,7 +70,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">371</span>
+            <span class="post-count">375</span>
         </span>
     </span>
 
@@ -86,13 +86,15 @@
  
     </div>
       
+    <div class="tocbot"></div>
+
 
 
 
   
     <div class="article-entry" itemprop="articleBody">
        
-  <p>关于暴力破解，我们常常会通过限制ip或者限制账号登录来预防，<br>本文章就是采用redis的过期删除策略来实现用户的限制登录。</p>
+  <h1 id="登录限流"><a href="#登录限流" class="headerlink" title="登录限流"></a>登录限流</h1><p>关于暴力破解，我们常常会通过限制ip或者限制账号登录来预防，<br>本文章就是采用redis的过期删除策略来实现用户的限制登录。</p>
 <p>大概思路是每次登录前，先通过拿到的账号去库中拿<br>到请求登录的账号信息，从而得到id，结合id去redis中得到此账号的登录错误计数标<br>识，达到5次之间限制登录，若不到5次再判断密码是否正确，正确登录成功，错误则将r<br>edis的计数标识加1，注意需要判断是否为第一次密码错误，就是是否能拿到错误标识，<br>若拿不到错误标识，代表此次登录为第一次错误，将标识入库redis，并设置5分钟后失效。</p>
 <p>下面奉上代码</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Login</span><span class="params">(APIView)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">post</span><span class="params">(self, request)</span>:</span></span><br><span class="line">        username = request.data.get(<span class="string">'username'</span>)</span><br><span class="line">        password = request.data.get(<span class="string">'password'</span>)</span><br><span class="line"></span><br><span class="line">        user = User.objects.filter(username=username)</span><br><span class="line">        <span class="keyword">if</span> user:</span><br><span class="line">            r = MyRedis(user.first().username, decode_responses=<span class="literal">True</span>)</span><br><span class="line">            login = r.get_login()</span><br><span class="line">            <span class="keyword">if</span> login:</span><br><span class="line">                <span class="keyword">return</span> Response(&#123;<span class="string">'msg'</span>: <span class="string">'您已被限制登录'</span>, <span class="string">'code'</span>: <span class="string">'400'</span>&#125;)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> Response(&#123;<span class="string">'msg'</span>: <span class="string">'没有此用户'</span>, <span class="string">'code'</span>: <span class="string">'400'</span>&#125;)</span><br><span class="line"></span><br><span class="line">        user = user.filter(password=password).first()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> user:</span><br><span class="line">            <span class="keyword">return</span> Response(&#123;<span class="string">'msg'</span>: <span class="string">'登录成功'</span>, <span class="string">'code'</span>: <span class="string">'200'</span>, <span class="string">'uid'</span>: user.id&#125;)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 验证是否是第一次登录</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            login = r.get()</span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">            <span class="keyword">if</span> int(login) + <span class="number">1</span> &gt;= <span class="number">5</span>:</span><br><span class="line">                r.set_login()</span><br><span class="line">                <span class="keyword">return</span> Response(&#123;<span class="string">'msg'</span>: <span class="string">'频繁输入错误密码，账号已被冻结'</span>, <span class="string">'code'</span>: <span class="string">'400'</span>&#125;)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                r.set(int(login) + <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            r.set(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> Response(&#123;<span class="string">'msg'</span>: <span class="string">'密码错误'</span>, <span class="string">'code'</span>: <span class="string">'400'</span>&#125;)</span><br></pre></td></tr></table></figure>
@@ -305,7 +307,7 @@
 <nav class="navbar">
   
   <div class="logo">
-    <a href="/"><img src="images/ayer.png" alt="郑军军的技术博客"></a>
+    <a href="/"><img src="../images/ayer.png" alt="郑军军的技术博客"></a>
   </div>
   
   <ul class="nav nav-main">
@@ -327,11 +329,11 @@
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/tags/%E6%97%85%E8%A1%8C/">旅行</a>
+      <a class="nav-item-link" href="/experience">经历</a>
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="http://shenyu-vip.lofter.com" target="_blank" rel="noopener">摄影</a>
+      <a class="nav-item-link" href="/album">摄影</a>
     </li>
     
     <li class="nav-item">
