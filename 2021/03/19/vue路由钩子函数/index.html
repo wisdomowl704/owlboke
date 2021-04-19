@@ -9,7 +9,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    vue拦截器 |  郑军军的技术博客
+    vue路由钩子函数 |  郑军军的技术博客
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -44,7 +44,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-vue拦截器"
+  id="post-vue路由钩子函数"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -55,22 +55,22 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  vue拦截器
+  vue路由钩子函数
 </h1>
  
 
     </header>
      
     <div class="article-meta">
-      <a href="/2021/03/19/vue%E6%8B%A6%E6%88%AA%E5%99%A8/" class="article-date">
-  <time datetime="2021-03-19T07:16:18.887Z" itemprop="datePublished">2021-03-19</time>
+      <a href="/2021/03/19/vue%E8%B7%AF%E7%94%B1%E9%92%A9%E5%AD%90%E5%87%BD%E6%95%B0/" class="article-date">
+  <time datetime="2021-03-19T07:16:18.893Z" itemprop="datePublished">2021-03-19</time>
 </a>   
 <div class="word_count">
     <span class="post-time">
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">469</span>
+            <span class="post-count">393</span>
         </span>
     </span>
 
@@ -94,14 +94,24 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h1 id="vue拦截器的使用"><a href="#vue拦截器的使用" class="headerlink" title="vue拦截器的使用"></a>vue拦截器的使用</h1><p>现在的web开发大部分是采用前后端不分离的方式，在前后端不分离的模式下前后端的交互一般是采用axios请求方式来实现。</p>
-<h3 id="什么是axios？"><a href="#什么是axios？" class="headerlink" title="什么是axios？"></a>什么是axios？</h3><p>axios 是一个基于Promise 用于浏览器和 nodejs 的 HTTP 客户端，它本身具有以下特征：</p>
-<p>从浏览器中创建 XMLHttpRequest<br>从 node.js 发出 http 请求<br>支持 Promise API<br>拦截请求和响应<br>转换请求和响应数据<br>取消请求<br>自动转换JSON数据<br>客户端支持防止 CSRF/XSR</p>
-<h3 id="vue拦截器"><a href="#vue拦截器" class="headerlink" title="vue拦截器"></a>vue拦截器</h3><p>现在有一个场景，每次请求都要发送token来验证是否登录，但是在每个请求接口都要携带token无疑是十分麻烦，<br>那么有没有一种方式可以让每个请求在发送前都执行某些操作呢？使用vue拦截器就是可以实现</p>
-<h3 id="vue拦截器的实现"><a href="#vue拦截器的实现" class="headerlink" title="vue拦截器的实现"></a>vue拦截器的实现</h3><p>下载axios包</p>
-<p><code>npm install axios --save</code></p>
-<p>在config 中，加入  axios.js</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"># 导入axios</span><br><span class="line">import axios from &#39;axios&#39;</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; 添加请求拦截器</span><br><span class="line">axios.interceptors.request.use(function (config) &#123;</span><br><span class="line">　　&#x2F;&#x2F; 在发送请求前会执行以下代码，这里是判断localStorage中是否存有token</span><br><span class="line">if (window.localStorage.getItem(&#39;token&#39;)) &#123;</span><br><span class="line">    &#x2F;&#x2F;若token存在则在头部中携带token</span><br><span class="line">    config.headers.Authorization &#x3D; window.localStorage.getItem(&#39;token&#39;);</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F; 返回请求</span><br><span class="line">return config</span><br><span class="line">&#125;, function (error) &#123;</span><br><span class="line">　　&#x2F;&#x2F; 当请求错误时会执行下面的代码，这里是返回错误的信息</span><br><span class="line">return Promise.reject(error)</span><br><span class="line">&#125;);</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; 添加响应拦截器，响应拦截器会对相应进行处理</span><br><span class="line">axios.interceptors.response.use(function (response) &#123;</span><br><span class="line">　　&#x2F;&#x2F; 在收到响应后会执行下面的代码，这里是返回响应的信息</span><br><span class="line">　　return response</span><br><span class="line">&#125;, function (error) &#123;</span><br><span class="line">　　&#x2F;&#x2F; 当响应错误后会执行下面的代码，这里是返回错误信息</span><br><span class="line">　　return Promise.reject(error)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure> 
+  <h1 id="Vue路由钩子函数"><a href="#Vue路由钩子函数" class="headerlink" title="Vue路由钩子函数"></a>Vue路由钩子函数</h1><p>现在有一个场景，当你登录后，你的用户名需要在页面上展示，但是由于你在请求<br>登录成功后没有将用户名存到session中，这样在跳转过去后，会读取到<br>空白，所以这时候就可以使用路由钩子。路由钩子主要作用是拦截导航，可以在跳转前执行一些代码或进行一些判断，<br>来决定完成跳转或者取消跳转。</p>
+<p>首先看一下路由钩子的格式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">beforeRouteLeave(to,from,next)&#123;</span><br><span class="line">  if(sessionstorage.getItem(&#39;username&#39;)&#123;</span><br><span class="line">      next();</span><br><span class="line">  &#125;else&#123;</span><br><span class="line">    next(false);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>大概就是这么个格式，参数 to ——是要跳转到的界面，from —— 从哪个界面离开，next()<br> —— 是否允许跳转，如果是 next(false) ——禁止跳转，<br>next({name:login}) —— 跳转到登录界面（需要自己手动配置路由），next()<br>或者 next(true) ——允许跳转。</p>
+<h3 id="路由钩子有三种实现方式"><a href="#路由钩子有三种实现方式" class="headerlink" title="路由钩子有三种实现方式"></a>路由钩子有三种实现方式</h3><p><strong>全局钩子</strong></p>
+<p>beforeEach(进入之前触发)、afterEach（进入之后触发）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Router.beforeEach((to,from,next)&#x3D;&gt;&#123;</span><br><span class="line">      ......</span><br><span class="line">&#125;)</span><br><span class="line">Router.afterEach((to,from,next)&#x3D;&gt;&#123;</span><br><span class="line">      ......</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>全局钩子会在每次跳转时都会被执行</p>
+<p><strong>路由独享钩子</strong></p>
+<p>beforeEnter  beforeLeave</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">routes: [</span><br><span class="line">        &#123;</span><br><span class="line">            path: &#39;&#x2F;index&#39;,</span><br><span class="line">            name: &#39;index&#39;,</span><br><span class="line">            component: index,</span><br><span class="line">            beforeEnter:(to, from, next) &#x3D;&gt;&#123;</span><br><span class="line">                next();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br></pre></td></tr></table></figure>
+<p>路由独享，就是在路由配置中添加即可，只对被配置路由有用</p>
+<p><strong>组件内钩子</strong></p>
+<p>beforeRouteLeave beforeRouteEnter beforeRouteUpdate</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">methods:&#123;</span><br><span class="line">      beforeRouteLeave(to,from,next)&#123;</span><br><span class="line">            .......</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>组件内钩子写在methods中即可，从本组件进行的跳转都会触发</p>
+ 
       <!-- reward -->
       
       <div id="reword-out">
@@ -171,7 +181,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://github.com/wisdomowl704/owlboke/2021/03/19/vue%E6%8B%A6%E6%88%AA%E5%99%A8/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://github.com/wisdomowl704/owlboke/2021/03/19/vue%E8%B7%AF%E7%94%B1%E9%92%A9%E5%AD%90%E5%87%BD%E6%95%B0/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -182,19 +192,19 @@
    
   <nav class="article-nav">
     
-      <a href="/2021/03/19/vue%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E4%B9%8B%E9%97%B4%E7%9A%84%E4%BC%A0%E5%80%BC/" class="article-nav-link">
+      <a href="/2021/03/19/%E6%90%AD%E5%BB%BA%E5%AF%B9%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%BD%91%E9%A1%B5%E7%BB%88%E7%AB%AF/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            vue父子组件之间的传值
+            搭建对云服务器网页终端
           
         </div>
       </a>
     
     
-      <a href="/2021/03/19/redis%E9%94%AE%E7%A9%BA%E9%97%B4%E4%BA%8B%E4%BB%B6/" class="article-nav-link">
+      <a href="/2021/03/19/vue%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BC%A0%E5%80%BC/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">redis键空间事件</div>
+        <div class="article-nav-title">vue父子组件的传值</div>
       </a>
     
   </nav>

@@ -9,7 +9,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    webshell |  郑军军的技术博客
+    七牛云、又拍云后端上传 |  郑军军的技术博客
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -44,7 +44,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-webshell"
+  id="post-七牛云、又拍云后端上传"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -55,22 +55,22 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  webshell
+  七牛云、又拍云后端上传
 </h1>
  
 
     </header>
      
     <div class="article-meta">
-      <a href="/2021/03/19/webshell/" class="article-date">
-  <time datetime="2021-03-19T07:16:18.896Z" itemprop="datePublished">2021-03-19</time>
+      <a href="/2021/03/19/%E4%B8%83%E7%89%9B%E4%BA%91%E3%80%81%E5%8F%88%E6%8B%8D%E4%BA%91%E5%90%8E%E7%AB%AF%E4%B8%8A%E4%BC%A0/" class="article-date">
+  <time datetime="2021-03-19T07:16:18.877Z" itemprop="datePublished">2021-03-19</time>
 </a>   
 <div class="word_count">
     <span class="post-time">
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">658</span>
+            <span class="post-count">356</span>
         </span>
     </span>
 
@@ -79,7 +79,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">3 min</span>
+            <span class="post-count">1 min</span>
         </span>
     </span>
 </div>
@@ -94,26 +94,28 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h1 id="webshell"><a href="#webshell" class="headerlink" title="webshell"></a>webshell</h1><h3 id="Vue部分"><a href="#Vue部分" class="headerlink" title="Vue部分"></a>Vue部分</h3><p>在vue中导入插件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import * as attach from &#39;xterm&#x2F;lib&#x2F;addons&#x2F;attach&#x2F;attach&#39; &#x2F;&#x2F; 安装插件适，可以使用attach去添加</span><br><span class="line">import * as fit from &#39;xterm&#x2F;lib&#x2F;addons&#x2F;fit&#x2F;fit&#39; &#x2F;&#x2F; fit进行自适应大小的</span><br><span class="line"></span><br><span class="line">import &#123; Terminal &#125; from &#39;xterm&#39;</span><br><span class="line">Terminal.applyAddon(attach) &#x2F;&#x2F; 添加插件</span><br><span class="line">Terminal.applyAddon(fit) &#x2F;&#x2F; 添加插件</span><br></pre></td></tr></table></figure>
+  <h1 id="七牛云、又拍云后端上传"><a href="#七牛云、又拍云后端上传" class="headerlink" title="七牛云、又拍云后端上传"></a>七牛云、又拍云后端上传</h1><h3 id="七牛云"><a href="#七牛云" class="headerlink" title="七牛云"></a>七牛云</h3><p>七牛云官方文档：<a href="https://developer.qiniu.com/kodo/1242/python#rs-stat" target="_blank" rel="noopener">https://developer.qiniu.com/kodo/1242/python#rs-stat</a></p>
+<p>首先安装七牛云的官方模块</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 直接安装</span><br><span class="line">pip install qiniu</span><br><span class="line">或</span><br><span class="line">easy_install qiniu</span><br></pre></td></tr></table></figure>
 
-<p>创建黑窗口组件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id&#x3D;&quot;terminal&quot;&gt;</span><br><span class="line">    &lt;!--            黑窗口--&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 源码安装</span><br><span class="line"># 从Python SDK 下载地址下载源码</span><br><span class="line">tar xvzf python-sdk-$VERSION.tar.gz</span><br><span class="line">cd python-sdk-$VERSION</span><br><span class="line">python setup.py install</span><br></pre></td></tr></table></figure>
 
-<p>在钩子函数中初始化黑窗口对象</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">mounted() &#123;</span><br><span class="line">        &#x2F;&#x2F; 获取到了div标签</span><br><span class="line">        let terminalContainer &#x3D; document.getElementById(&#39;terminal&#39;)</span><br><span class="line">        &#x2F;&#x2F; 初始化黑窗口对象</span><br><span class="line">        this.term &#x3D; new Terminal(this.terminal)</span><br><span class="line">        &#x2F;&#x2F; 打开这个对象</span><br><span class="line">        this.term.open(terminalContainer)</span><br><span class="line"></span><br><span class="line">        new WebSocket(&#39;ws:&#x2F;&#x2F;127.0.0.1:8000&#x2F;webssh&#x2F;&#39;)</span><br><span class="line">        this.terminalSocket &#x3D; new WebSocket(&#39;ws:&#x2F;&#x2F;127.0.0.1:8000&#x2F;webssh&#x2F;&#39;)</span><br><span class="line">        this.terminalSocket.onopen &#x3D; function()&#123; &#x2F;&#x2F; 连接成功触发该方法</span><br><span class="line">            console.log(&#39;websocket is Connected...&#39;)</span><br><span class="line">        &#125;</span><br><span class="line">        this.terminalSocket.onclose &#x3D; function()&#123; &#x2F;&#x2F; 连接关闭适触发的方法</span><br><span class="line">            console.log(&#39;websocket is Closed...&#39;)</span><br><span class="line">        &#125;</span><br><span class="line">        this.terminalSocket.onerror &#x3D; function()&#123; &#x2F;&#x2F; 连接出错触发的方法</span><br><span class="line">            console.log(&#39;damn Websocket is broken!&#39;)</span><br><span class="line">        &#125;</span><br><span class="line">        this.term.attach(this.terminalSocket)</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>定义七牛云对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">from qiniu import Auth</span><br><span class="line">q &#x3D; Auth(access_key, secret_key)</span><br><span class="line"></span><br><span class="line"># access_key 和 secret_key 可以在你的七牛云个人中心中找到</span><br></pre></td></tr></table></figure>
 
-<h3 id="Django部分"><a href="#Django部分" class="headerlink" title="Django部分"></a>Django部分</h3><p>导包</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">from dwebsocket import accept_websocket</span><br><span class="line">import time</span><br><span class="line">import paramiko</span><br><span class="line">from threading import Thread</span><br></pre></td></tr></table></figure>
+<p><img src="/images/AK%E5%92%8CSK.PNG" alt="AK和SK"></p>
+<p>开始上传</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">key &#x3D; &#39;上传后的文件名&#39;</span><br><span class="line">bucket_name &#x3D; &#39;要上传的空间&#39;</span><br><span class="line">s &#x3D; 3600 # 指定token过期时间(秒)</span><br><span class="line"></span><br><span class="line">token &#x3D; q.upload_token(bucket_name, key, )</span><br><span class="line"></span><br><span class="line">localfile &#x3D; &#39;本地文件路径&#39;</span><br><span class="line"></span><br><span class="line">ret, info &#x3D; put_file(token, key, localfile)</span><br><span class="line">print(info)</span><br></pre></td></tr></table></figure>
 
-<p>定义连接函数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">def make_ssh(host&#x3D;&quot;127.0.0.1&quot;, username&#x3D;&quot;root&quot;, password&#x3D;&quot;123456&quot;):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    :host 主机地址</span><br><span class="line">    :username 用户名，一般是root</span><br><span class="line">    :password 密码</span><br><span class="line">    :port ssh协议的端口,22</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    # 初始化一个ssh对象</span><br><span class="line">    sh &#x3D; paramiko.SSHClient()</span><br><span class="line">    # 设置对象连接密钥规则</span><br><span class="line">    sh.set_missing_host_key_policy(paramiko.AutoAddPolicy())</span><br><span class="line">    # 连接</span><br><span class="line">    sh.connect(host, username&#x3D;username, password&#x3D;password, port&#x3D;22)</span><br><span class="line">    # 生成shell对象</span><br><span class="line">    channle &#x3D; sh.invoke_shell(term&#x3D;&#39;xterm&#39;)</span><br><span class="line">    return channle</span><br></pre></td></tr></table></figure>
 
-<p>定义接收线程函数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">def recv_ssh_msg(channle, ws):</span><br><span class="line">    &#39;&#39;&#39;</span><br><span class="line">        只管接收</span><br><span class="line">    &#39;&#39;&#39;</span><br><span class="line">    # 判断shell连接对象是否没有退出</span><br><span class="line">    while not channle.exit_status_ready():</span><br><span class="line">        # 接收过程可能会因为没有任何返回而报错</span><br><span class="line">        try:</span><br><span class="line">            buf &#x3D; channle.recv(1024)  # 接收命令的执行结果</span><br><span class="line">            ws.send(buf)  # 向Websocket通道返回</span><br><span class="line">        # 接收不到会报错，但是报错没关系，继续重新尝试接受</span><br><span class="line">        except:</span><br><span class="line">            break</span><br></pre></td></tr></table></figure>
+<h3 id="又拍云"><a href="#又拍云" class="headerlink" title="又拍云"></a>又拍云</h3><p>又拍云官方文档： <a href="http://docs.upyun.com/api/sdk/#python-sdk" target="_blank" rel="noopener">http://docs.upyun.com/api/sdk/#python-sdk</a></p>
+<p>安装又拍云官方模块</p>
+<p><code>pip install upyun</code></p>
+<p>初始化对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 包含文件</span><br><span class="line">import upyun</span><br><span class="line"></span><br><span class="line"># 创建实例</span><br><span class="line">up &#x3D; upyun.UpYun(&#39;仓库名&#39;, &#39;您的操作员名&#39;, &#39;您的操作员密码&#39;)</span><br></pre></td></tr></table></figure>
 
-<p>定义连接视图函数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">@accept_websocket</span><br><span class="line">def webssh(request):</span><br><span class="line">    if request.is_websocket:</span><br><span class="line">        # 1. 获取到连接对象</span><br><span class="line">        ws &#x3D; request.websocket</span><br><span class="line">        # 2. 初始化linux连接</span><br><span class="line">        channel &#x3D; make_ssh()</span><br><span class="line">        # 3. 初始化linux数据接收线程，并开启</span><br><span class="line">        recv_thread &#x3D; Thread(target&#x3D;recv_ssh_msg, args&#x3D;(channel, ws))</span><br><span class="line">        recv_thread.start()</span><br><span class="line">        while 1:  # 主线程: 只管发送</span><br><span class="line">            # 2. 阻塞ws接收发来的数据</span><br><span class="line">            cmd &#x3D; ws.wait()</span><br><span class="line">            # cmd &#x3D; ws.recv()</span><br><span class="line">            if cmd:</span><br><span class="line">                channel.send(cmd)  # 发送到linux 去执行</span><br><span class="line">            else:  # 如果连接断开，那么cmd将会发一个空包</span><br><span class="line">                break</span><br><span class="line">        recv_thread.join()  # 回收子线程</span><br><span class="line">        ws.close()  # 关闭ws连接</span><br></pre></td></tr></table></figure> 
+<p><img src="/images/%E5%8F%88%E6%8B%8D%E4%BA%91%E6%93%8D%E4%BD%9C%E5%91%98.PNG" alt="操作员"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;*</span><br><span class="line">* 参数说明</span><br><span class="line">* checksum，表示是否进行 MD5 校验，如果是小文件，建议进行，为 True；如果是大文件，建议不进行，为 False</span><br><span class="line">* headers，表示需要的头信息，见 REST API 上传文件</span><br><span class="line">*&#x2F;</span><br><span class="line">headers &#x3D; &#123; &#39;x-gmkerl-thumb&#39;: &#39;&#x2F;fw&#x2F;300&#39; &#125;</span><br><span class="line"></span><br><span class="line">with open(&#39;文件地址&#39;, &#39;rb&#39;) as f:</span><br><span class="line">    res &#x3D; up.put(&#39;存到仓库的位置和文件名&#39;, f, checksum&#x3D;True, headers&#x3D;headers)</span><br></pre></td></tr></table></figure> 
       <!-- reward -->
       
       <div id="reword-out">
@@ -183,7 +185,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://github.com/wisdomowl704/owlboke/2021/03/19/webshell/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://github.com/wisdomowl704/owlboke/2021/03/19/%E4%B8%83%E7%89%9B%E4%BA%91%E3%80%81%E5%8F%88%E6%8B%8D%E4%BA%91%E5%90%8E%E7%AB%AF%E4%B8%8A%E4%BC%A0/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -194,19 +196,19 @@
    
   <nav class="article-nav">
     
-      <a href="/2021/03/19/%E5%BE%AE%E5%8D%9A%E4%B8%89%E6%96%B9%E7%99%BB%E5%BD%95/" class="article-nav-link">
+      <a href="/2021/03/19/redis%E5%8F%91%E5%B8%83%E8%80%85%E8%AE%A2%E9%98%85%E8%80%85/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            微博三方登录
+            redis发布者订阅者
           
         </div>
       </a>
     
     
-      <a href="/2021/03/19/vue%E8%B7%AF%E7%94%B1%E9%92%A9%E5%AD%90/" class="article-nav-link">
+      <a href="/2021/03/19/Centos%E4%B8%8B%E5%AE%89%E8%A3%85Docker/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">vue路由钩子</div>
+        <div class="article-nav-title">Centos下安装Docker</div>
       </a>
     
   </nav>

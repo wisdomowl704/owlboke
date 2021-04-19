@@ -9,7 +9,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    vue父子组件之间的传值 |  郑军军的技术博客
+    登录限流 |  郑军军的技术博客
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -44,7 +44,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-vue父子组件之间的传值"
+  id="post-登录限流"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -55,22 +55,22 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  vue父子组件之间的传值
+  登录限流
 </h1>
  
 
     </header>
      
     <div class="article-meta">
-      <a href="/2021/03/19/vue%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E4%B9%8B%E9%97%B4%E7%9A%84%E4%BC%A0%E5%80%BC/" class="article-date">
-  <time datetime="2021-03-19T07:16:18.890Z" itemprop="datePublished">2021-03-19</time>
+      <a href="/2021/03/29/%E7%99%BB%E5%BD%95%E9%99%90%E6%B5%81/" class="article-date">
+  <time datetime="2021-03-29T01:09:47.941Z" itemprop="datePublished">2021-03-29</time>
 </a>   
 <div class="word_count">
     <span class="post-time">
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">352</span>
+            <span class="post-count">493</span>
         </span>
     </span>
 
@@ -94,21 +94,13 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h1 id="vue父子组件的传值"><a href="#vue父子组件的传值" class="headerlink" title="vue父子组件的传值"></a>vue父子组件的传值</h1><h3 id="父组件向子组件传值"><a href="#父组件向子组件传值" class="headerlink" title="父组件向子组件传值"></a>父组件向子组件传值</h3><ul>
-<li>传值</li>
-</ul>
-<p><code>&lt;header :title=&quot;hh&quot;&gt;&lt;/header&gt;</code></p>
-<ul>
-<li>收值</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export default &#123;</span><br><span class="line">  props: [&#39;title&#39;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  <h1 id="登录限流"><a href="#登录限流" class="headerlink" title="登录限流"></a>登录限流</h1><p>为了防止平台的用户账号被暴力破解，我们常常会通过登录限流来预防，<br>本文章就是采用redis的过期删除策略来实现登录限流。</p>
+<p>大概思路是每次登录前，先通过拿到的账号去库中拿<br>到请求登录的账号信息，从而得到id，结合id去redis中得到此账号的登录错误计数标<br>识，达到5次之间限制登录，若不到5次再判断密码是否正确，正确登录成功，错误则将r<br>edis的计数标识加1，注意需要判断是否为第一次密码错误，就是是否能拿到错误标识，<br>若拿不到错误标识，代表此次登录为第一次错误，将标识入库redis，并设置5分钟后失效。</p>
+<p>下面奉上代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Login</span><span class="params">(APIView)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">post</span><span class="params">(self, request)</span>:</span></span><br><span class="line">        <span class="comment"># 前端接收用户名密码</span></span><br><span class="line">        username = request.data.get(<span class="string">'username'</span>)</span><br><span class="line">        password = request.data.get(<span class="string">'password'</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 用户名也可以是邮箱，手机号，可以使用 'Q' 函数多条件查询，只要是全局唯一的字段即可，目的是验证用户是否存在</span></span><br><span class="line">        user = User.objects.filter(username=username)</span><br><span class="line">        <span class="keyword">if</span> user:</span><br><span class="line">            r = MyRedis(user.first().username, decode_responses=<span class="literal">True</span>)</span><br><span class="line">            login = r.get_login()</span><br><span class="line">            <span class="keyword">if</span> login:</span><br><span class="line">                <span class="keyword">return</span> Response(&#123;<span class="string">'msg'</span>: <span class="string">'您已被限制登录'</span>, <span class="string">'code'</span>: <span class="string">'400'</span>&#125;)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> Response(&#123;<span class="string">'msg'</span>: <span class="string">'没有此用户'</span>, <span class="string">'code'</span>: <span class="string">'400'</span>&#125;)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 正常业务中密码不可能是明文的，肯定会做加密处理，这里只是演示代码，所以我就没有加密</span></span><br><span class="line">        user = user.filter(password=password).first()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 这里也是，通常我们只会返回装有用户id的token，并不会返回uid</span></span><br><span class="line">        <span class="keyword">if</span> user:</span><br><span class="line">            <span class="keyword">return</span> Response(&#123;<span class="string">'msg'</span>: <span class="string">'登录成功'</span>, <span class="string">'code'</span>: <span class="string">'200'</span>, <span class="string">'uid'</span>: user.id&#125;)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 验证是否是第一次登录</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            login = r.get()</span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">            <span class="keyword">if</span> int(login) + <span class="number">1</span> &gt;= <span class="number">5</span>:</span><br><span class="line">                r.set_login()</span><br><span class="line">                <span class="keyword">return</span> Response(&#123;<span class="string">'msg'</span>: <span class="string">'频繁输入错误密码，账号已被冻结'</span>, <span class="string">'code'</span>: <span class="string">'400'</span>&#125;)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                r.set(int(login) + <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            r.set(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> Response(&#123;<span class="string">'msg'</span>: <span class="string">'密码错误'</span>, <span class="string">'code'</span>: <span class="string">'400'</span>&#125;)</span><br></pre></td></tr></table></figure>
 
-<p>以上就是单向数据流的一般表现了： 父级 prop 的更新会向下流动到子组件中，但是反过来则不行。</p>
-<h3 id="子组件向父组件传参"><a href="#子组件向父组件传参" class="headerlink" title="子组件向父组件传参"></a>子组件向父组件传参</h3><p>父组件在组件上定义了一个自定义事件childFn，事件名为parentFn用于接受子组件传过来的message值。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 父组件 --&gt;</span><br><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;test&quot;&gt;</span><br><span class="line">      &lt;test-com @childFn&#x3D;&quot;parentFn&quot;&gt;&lt;&#x2F;test-com&gt;</span><br><span class="line">      &lt;br&#x2F;&gt; </span><br><span class="line">      子组件传来的值 : &#123;&#123;message&#125;&#125;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">    &#x2F;&#x2F; ...</span><br><span class="line">    data() &#123;</span><br><span class="line">        return &#123;</span><br><span class="line">             message: &#39;&#39;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">       parentFn(payload) &#123;</span><br><span class="line">        this.message &#x3D; payload;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
 
-<p>子组件是一个buttton按钮，并为其添加了一个click事件，当点击的时候使用$emit()触发事件，把message传给父组件。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 子组件 --&gt;</span><br><span class="line">&lt;template&gt; </span><br><span class="line">&lt;div class&#x3D;&quot;testCom&quot;&gt;</span><br><span class="line">    &lt;input type&#x3D;&quot;text&quot; v-model&#x3D;&quot;message&quot; &#x2F;&gt;</span><br><span class="line">    &lt;button @click&#x3D;&quot;click&quot;&gt;Send&lt;&#x2F;button&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">    &#x2F;&#x2F; ...</span><br><span class="line">    data() &#123;</span><br><span class="line">        return &#123;</span><br><span class="line">          &#x2F;&#x2F; 默认</span><br><span class="line">          message: &#39;我是来自子组件的消息&#39;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">      click() &#123;</span><br><span class="line">            this.$emit(&#39;childFn&#39;, this.message);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure> 
+ 
       <!-- reward -->
       
       <div id="reword-out">
@@ -178,7 +170,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://github.com/wisdomowl704/owlboke/2021/03/19/vue%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E4%B9%8B%E9%97%B4%E7%9A%84%E4%BC%A0%E5%80%BC/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://github.com/wisdomowl704/owlboke/2021/03/29/%E7%99%BB%E5%BD%95%E9%99%90%E6%B5%81/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -189,19 +181,10 @@
    
   <nav class="article-nav">
     
-      <a href="/2021/03/19/vue%E8%B7%AF%E7%94%B1%E9%92%A9%E5%AD%90/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            vue路由钩子
-          
-        </div>
-      </a>
     
-    
-      <a href="/2021/03/19/vue%E6%8B%A6%E6%88%AA%E5%99%A8/" class="article-nav-link">
+      <a href="/2021/03/23/Python%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">vue拦截器</div>
+        <div class="article-nav-title">Python正则表达式</div>
       </a>
     
   </nav>

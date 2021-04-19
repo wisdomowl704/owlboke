@@ -9,7 +9,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    网页视频直播 |  郑军军的技术博客
+    vue拦截器的使用 |  郑军军的技术博客
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -44,7 +44,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-网页视频直播"
+  id="post-vue拦截器的使用"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -55,22 +55,22 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  网页视频直播
+  vue拦截器的使用
 </h1>
  
 
     </header>
      
     <div class="article-meta">
-      <a href="/2021/03/19/%E7%BD%91%E9%A1%B5%E8%A7%86%E9%A2%91%E7%9B%B4%E6%92%AD/" class="article-date">
-  <time datetime="2021-03-19T07:16:18.912Z" itemprop="datePublished">2021-03-19</time>
+      <a href="/2021/03/19/vue%E6%8B%A6%E6%88%AA%E5%99%A8%E7%9A%84%E4%BD%BF%E7%94%A8/" class="article-date">
+  <time datetime="2021-03-19T07:16:18.887Z" itemprop="datePublished">2021-03-19</time>
 </a>   
 <div class="word_count">
     <span class="post-time">
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">697</span>
+            <span class="post-count">469</span>
         </span>
     </span>
 
@@ -79,7 +79,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">3 min</span>
+            <span class="post-count">1 min</span>
         </span>
     </span>
 </div>
@@ -94,49 +94,14 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h1 id="搭建自己专属的网页视频直播"><a href="#搭建自己专属的网页视频直播" class="headerlink" title="搭建自己专属的网页视频直播"></a>搭建自己专属的网页视频直播</h1><p>首先，安装OBS地址： <a href="https://obsproject.com/" target="_blank" rel="noopener">https://obsproject.com/</a></p>
-<p>在云主机中安装NGINX</p>
-<p>安装nginx</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install https:&#x2F;&#x2F;extras.getpagespeed.com&#x2F;release-el$(rpm -E %&#123;rhel&#125;)-latest.rpm</span><br><span class="line">yum install nginx-module-flv</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir &#x2F;usr&#x2F;local&#x2F;nginx-flv</span><br><span class="line"># 创建了一个安装目录</span><br><span class="line">mkdir &#x2F;home&#x2F;flv-tools</span><br><span class="line"># 存储所需软件</span><br></pre></td></tr></table></figure>
-
-<p>解压</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf 文件名</span><br><span class="line">unzip 文件名</span><br></pre></td></tr></table></figure>
-
-<p>进入解压好的nginx下目录，并进行安装前的配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd nginx-1.18.0</span><br><span class="line">.&#x2F;configure --prefix&#x3D;&#x2F;usr&#x2F;local&#x2F;nginx-flv --add-module&#x3D;&#x2F;home&#x2F;flv-tools&#x2F;nginx-http-flv-module-master</span><br><span class="line"># --prefix: 配置安装路径</span><br><span class="line">#--add-module: 添加安装插件</span><br></pre></td></tr></table></figure>
-
-<p>编译及安装</p>
-<p><code>make &amp;&amp; make install</code></p>
-<p>打开配置文件</p>
-<p><code>vim nginx.conf</code></p>
-<p>配置文件修改</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">worker_processes  1;</span><br><span class="line"></span><br><span class="line">rtmp_auto_push on;</span><br><span class="line">rtmp_auto_push_reconnect 1s;</span><br><span class="line">rtmp_socket_dir &#x2F;tmp;</span><br><span class="line"></span><br><span class="line">rtmp&#123;</span><br><span class="line">	out_queue 4096;</span><br><span class="line">	out_cork 8;</span><br><span class="line">	max_streams 128;</span><br><span class="line">	timeout 15s;</span><br><span class="line">	drop_idle_publisher 15s;</span><br><span class="line">	log_interval 5s;</span><br><span class="line">	log_size 1m;</span><br><span class="line">	server &#123;</span><br><span class="line">		listen 1935; # 推流端口</span><br><span class="line">		server_name zege;</span><br><span class="line">		</span><br><span class="line">		application live &#123;	# 配置推流地址</span><br><span class="line">			live on; # 打开推流</span><br><span class="line">			# gop_cache on;</span><br><span class="line">			# rtmp:&#x2F;&#x2F;123.123.123.123:1935&#x2F;live&#x2F;test</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">	include       mime.types;</span><br><span class="line">	default_type  application&#x2F;octet-stream;</span><br><span class="line">	sendfile        on;</span><br><span class="line">	keepalive_timeout  65;</span><br><span class="line">	server &#123;</span><br><span class="line">		listen       8080; # 拉流通过8080去拉流</span><br><span class="line">		# http:&#x2F;&#x2F;123.123.123.123:8080&#x2F;live&#x2F;?port&#x3D;1935&amp;stream&#x3D;test</span><br><span class="line">		server_name  localhost;</span><br><span class="line">		location &#x2F;live &#123;</span><br><span class="line">			flv_live on;</span><br><span class="line">			chunked_transfer_encoding  on;</span><br><span class="line">			add_header &#39;Access-Control-Allow-Origin&#39; &#39;*&#39;;</span><br><span class="line">			add_header &#39;Access-Control-Allow-Credentials&#39; &#39;true&#39;;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>关闭旧有服务</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;usr&#x2F;local&#x2F;nginx-rtmp&#x2F;sbin&#x2F;nginx -s stop</span><br><span class="line">&#x2F;usr&#x2F;local&#x2F;nginx-rtmp&#x2F;sbin&#x2F;nginx -s reload</span><br></pre></td></tr></table></figure>
-
-<p>开启新服务</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;usr&#x2F;local&#x2F;nginx-flv&#x2F;sbin&#x2F;nginx -c &#x2F;usr&#x2F;local&#x2F;nginx-flv&#x2F;conf&#x2F;nginx.conf</span><br></pre></td></tr></table></figure>
-
-<p>! 记得在云主机管理中开放1935和8080端口</p>
-<p>推流地址</p>
-<p><code>rtmp://云主机地址:1935/live/test</code></p>
-<p>拉流地址</p>
-<p><code>http://云主机地址:8080/live?port=1935&amp;app=live&amp;stream=test</code></p>
-<h3 id="Vue实现拉流"><a href="#Vue实现拉流" class="headerlink" title="Vue实现拉流"></a>Vue实现拉流</h3><p>安装 flv.js开源工具，进行拉流，哔哩哔哩开源的拉流js</p>
-<p><code>cnpm install flv.js --save</code></p>
-<p>导包</p>
-<p><code>import flv from &#39;flv.js&#39;;</code></p>
-<p>定义组件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;video id&#x3D;&quot;videoElement&quot; controls muted&gt;</span><br><span class="line">  	Your browser is too old which doesn&#39;t support HTML5 video.</span><br><span class="line">&lt;&#x2F;video&gt;</span><br></pre></td></tr></table></figure>
-
-<p>在钩子函数中进行初始化</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">mounted() &#123;</span><br><span class="line">    var videoElement &#x3D; document.getElementById(&#39;videoElement&#39;);</span><br><span class="line">    var flvPlayer &#x3D; flv.createPlayer(&#123;</span><br><span class="line">      type: &#39;flv&#39;,</span><br><span class="line">      enableWorker: true,     &#x2F;&#x2F;浏览器端开启flv.js的worker,多进程运行flv.js</span><br><span class="line">      isLive: true,           &#x2F;&#x2F;直播模式</span><br><span class="line">      hasAudio: false,        &#x2F;&#x2F;关闭音频</span><br><span class="line">      hasVideo: true,</span><br><span class="line">      &#x2F;&#x2F; cors: true,</span><br><span class="line">      stashInitialSize: 128,</span><br><span class="line">      enableStashBuffer: false, &#x2F;&#x2F;播放flv时，设置是否启用播放缓存，只在直播起作用。</span><br><span class="line">      &#x2F;&#x2F; url: &#39;http:&#x2F;&#x2F;192.168.2.234&#x2F;flv&#x2F;323223618780001&#39;</span><br><span class="line">      &#x2F;&#x2F; url: &#39;http:&#x2F;&#x2F;39.105.79.238:8080&#x2F;live?port&#x3D;1935&amp;app&#x3D;live&amp;stream&#x3D;test&#39;</span><br><span class="line">      url: &#39;http:&#x2F;&#x2F;47.93.48.154:8080&#x2F;live?port&#x3D;1935&amp;app&#x3D;live&amp;stream&#x3D;test&#39;</span><br><span class="line">    &#125;)</span><br><span class="line">    flvPlayer.attachMediaElement(videoElement);</span><br><span class="line">    flvPlayer.load();</span><br><span class="line">    flvPlayer.play();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-<h1 id="臭不要脸高磊"><a href="#臭不要脸高磊" class="headerlink" title="臭不要脸高磊"></a>臭不要脸高磊</h1> 
+  <h1 id="vue拦截器的使用"><a href="#vue拦截器的使用" class="headerlink" title="vue拦截器的使用"></a>vue拦截器的使用</h1><p>现在的web开发大部分是采用前后端不分离的方式，在前后端不分离的模式下前后端的交互一般是采用axios请求方式来实现。</p>
+<h3 id="什么是axios？"><a href="#什么是axios？" class="headerlink" title="什么是axios？"></a>什么是axios？</h3><p>axios 是一个基于Promise 用于浏览器和 nodejs 的 HTTP 客户端，它本身具有以下特征：</p>
+<p>从浏览器中创建 XMLHttpRequest<br>从 node.js 发出 http 请求<br>支持 Promise API<br>拦截请求和响应<br>转换请求和响应数据<br>取消请求<br>自动转换JSON数据<br>客户端支持防止 CSRF/XSR</p>
+<h3 id="vue拦截器"><a href="#vue拦截器" class="headerlink" title="vue拦截器"></a>vue拦截器</h3><p>现在有一个场景，每次请求都要发送token来验证是否登录，但是在每个请求接口都要携带token无疑是十分麻烦，<br>那么有没有一种方式可以让每个请求在发送前都执行某些操作呢？使用vue拦截器就是可以实现</p>
+<h3 id="vue拦截器的实现"><a href="#vue拦截器的实现" class="headerlink" title="vue拦截器的实现"></a>vue拦截器的实现</h3><p>下载axios包</p>
+<p><code>npm install axios --save</code></p>
+<p>在config 中，加入  axios.js</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"># 导入axios</span><br><span class="line">import axios from &#39;axios&#39;</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; 添加请求拦截器</span><br><span class="line">axios.interceptors.request.use(function (config) &#123;</span><br><span class="line">　　&#x2F;&#x2F; 在发送请求前会执行以下代码，这里是判断localStorage中是否存有token</span><br><span class="line">if (window.localStorage.getItem(&#39;token&#39;)) &#123;</span><br><span class="line">    &#x2F;&#x2F;若token存在则在头部中携带token</span><br><span class="line">    config.headers.Authorization &#x3D; window.localStorage.getItem(&#39;token&#39;);</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F; 返回请求</span><br><span class="line">return config</span><br><span class="line">&#125;, function (error) &#123;</span><br><span class="line">　　&#x2F;&#x2F; 当请求错误时会执行下面的代码，这里是返回错误的信息</span><br><span class="line">return Promise.reject(error)</span><br><span class="line">&#125;);</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; 添加响应拦截器，响应拦截器会对相应进行处理</span><br><span class="line">axios.interceptors.response.use(function (response) &#123;</span><br><span class="line">　　&#x2F;&#x2F; 在收到响应后会执行下面的代码，这里是返回响应的信息</span><br><span class="line">　　return response</span><br><span class="line">&#125;, function (error) &#123;</span><br><span class="line">　　&#x2F;&#x2F; 当响应错误后会执行下面的代码，这里是返回错误信息</span><br><span class="line">　　return Promise.reject(error)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure> 
       <!-- reward -->
       
       <div id="reword-out">
@@ -206,7 +171,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://github.com/wisdomowl704/owlboke/2021/03/19/%E7%BD%91%E9%A1%B5%E8%A7%86%E9%A2%91%E7%9B%B4%E6%92%AD/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://github.com/wisdomowl704/owlboke/2021/03/19/vue%E6%8B%A6%E6%88%AA%E5%99%A8%E7%9A%84%E4%BD%BF%E7%94%A8/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -217,19 +182,19 @@
    
   <nav class="article-nav">
     
-      <a href="/2021/03/22/%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%8D%8F%E7%A8%8B/" class="article-nav-link">
+      <a href="/2021/03/19/vue%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BC%A0%E5%80%BC/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            进程线程协程
+            vue父子组件的传值
           
         </div>
       </a>
     
     
-      <a href="/2021/03/19/%E6%97%A0%E6%9E%81%E9%99%90%E8%87%AA%E5%85%B3%E8%81%94%E6%9F%A5%E8%AF%A2/" class="article-nav-link">
+      <a href="/2021/03/19/redis%E9%94%AE%E7%A9%BA%E9%97%B4%E4%BA%8B%E4%BB%B6/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">无极限自关联查询</div>
+        <div class="article-nav-title">redis键空间事件</div>
       </a>
     
   </nav>

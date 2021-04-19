@@ -47,7 +47,7 @@
     
   <div class="cover-frame">
     <div class="bg-box">
-      <img src="images/cover1.jpg" alt="image frame" />
+      <img src="/images/cover1.jpg" alt="image frame" />
     </div>
     <div class="cover-inner text-center text-white">
       <h1><a href="/">郑军军的技术博客</a></h1>
@@ -140,7 +140,7 @@
     
     
     <article
-  id="post-vue拦截器"
+  id="post-vue拦截器的使用"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -151,15 +151,15 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/2021/03/19/vue%E6%8B%A6%E6%88%AA%E5%99%A8/"
-    >vue拦截器</a> 
+  <a class="article-title" href="/2021/03/19/vue%E6%8B%A6%E6%88%AA%E5%99%A8%E7%9A%84%E4%BD%BF%E7%94%A8/"
+    >vue拦截器的使用</a> 
 </h2>
  
 
     </header>
      
     <div class="article-meta">
-      <a href="/2021/03/19/vue%E6%8B%A6%E6%88%AA%E5%99%A8/" class="article-date">
+      <a href="/2021/03/19/vue%E6%8B%A6%E6%88%AA%E5%99%A8%E7%9A%84%E4%BD%BF%E7%94%A8/" class="article-date">
   <time datetime="2021-03-19T07:16:18.887Z" itemprop="datePublished">2021-03-19</time>
 </a>    
     </div>
@@ -284,9 +284,9 @@
   <h1 id="redis发布者订阅者"><a href="#redis发布者订阅者" class="headerlink" title="redis发布者订阅者"></a>redis发布者订阅者</h1><p>Redis 发布订阅 (pub/sub) 是一种消息通信模式：发送者 (pub) 发送消息，订阅者 (sub) 接收消息。</p>
 <p>Redis 客户端可以订阅任意数量的频道。</p>
 <p>下图展示了频道 channel1 ， 以及订阅这个频道的三个客户端 —— client2 、 client5 和 client1 之间的关系：</p>
-<p><img src="https://www.runoob.com/wp-content/uploads/2014/11/pubsub1.png" alt="关系"></p>
+<p><img src="/images/pubsub1.png" alt="关系"></p>
 <p>当有新消息通过 PUBLISH 命令发送给频道 channel1 时， 这个消息就会被发送给订阅它的三个客户端：</p>
-<p><img src="https://www.runoob.com/wp-content/uploads/2014/11/pubsub2.png" alt="关系"></p>
+<p><img src="/images/pubsub2.png" alt="关系"></p>
 <h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><p>以下实例演示了发布订阅是如何工作的，需要开启两个 redis-cli 客户端。</p>
 <p>在我们实例中我们创建了订阅频道名为 runoobChat:</p>
 <p>第一个客户端</p>
@@ -329,7 +329,7 @@
 
     
     <article
-  id="post-python向七牛云和又拍云上传文件"
+  id="post-七牛云、又拍云后端上传"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -340,15 +340,15 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/2021/03/19/python%E5%90%91%E4%B8%83%E7%89%9B%E4%BA%91%E5%92%8C%E5%8F%88%E6%8B%8D%E4%BA%91%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6/"
-    >python向七牛云和又拍云上传文件</a> 
+  <a class="article-title" href="/2021/03/19/%E4%B8%83%E7%89%9B%E4%BA%91%E3%80%81%E5%8F%88%E6%8B%8D%E4%BA%91%E5%90%8E%E7%AB%AF%E4%B8%8A%E4%BC%A0/"
+    >七牛云、又拍云后端上传</a> 
 </h2>
  
 
     </header>
      
     <div class="article-meta">
-      <a href="/2021/03/19/python%E5%90%91%E4%B8%83%E7%89%9B%E4%BA%91%E5%92%8C%E5%8F%88%E6%8B%8D%E4%BA%91%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6/" class="article-date">
+      <a href="/2021/03/19/%E4%B8%83%E7%89%9B%E4%BA%91%E3%80%81%E5%8F%88%E6%8B%8D%E4%BA%91%E5%90%8E%E7%AB%AF%E4%B8%8A%E4%BC%A0/" class="article-date">
   <time datetime="2021-03-19T07:16:18.877Z" itemprop="datePublished">2021-03-19</time>
 </a>    
     </div>
@@ -364,7 +364,7 @@
 <p>定义七牛云对象</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">from qiniu import Auth</span><br><span class="line">q &#x3D; Auth(access_key, secret_key)</span><br><span class="line"></span><br><span class="line"># access_key 和 secret_key 可以在你的七牛云个人中心中找到</span><br></pre></td></tr></table></figure>
 
-<p><img src="../images/AK%E5%92%8CSK.PNG" alt="AK和SK"></p>
+<p><img src="/images/AK%E5%92%8CSK.PNG" alt="AK和SK"></p>
 <p>开始上传</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">key &#x3D; &#39;上传后的文件名&#39;</span><br><span class="line">bucket_name &#x3D; &#39;要上传的空间&#39;</span><br><span class="line">s &#x3D; 3600 # 指定token过期时间(秒)</span><br><span class="line"></span><br><span class="line">token &#x3D; q.upload_token(bucket_name, key, )</span><br><span class="line"></span><br><span class="line">localfile &#x3D; &#39;本地文件路径&#39;</span><br><span class="line"></span><br><span class="line">ret, info &#x3D; put_file(token, key, localfile)</span><br><span class="line">print(info)</span><br></pre></td></tr></table></figure>
 
@@ -375,7 +375,7 @@
 <p>初始化对象</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 包含文件</span><br><span class="line">import upyun</span><br><span class="line"></span><br><span class="line"># 创建实例</span><br><span class="line">up &#x3D; upyun.UpYun(&#39;仓库名&#39;, &#39;您的操作员名&#39;, &#39;您的操作员密码&#39;)</span><br></pre></td></tr></table></figure>
 
-<p><img src="../images/%E5%8F%88%E6%8B%8D%E4%BA%91%E6%93%8D%E4%BD%9C%E5%91%98.PNG" alt="操作员"></p>
+<p><img src="/images/%E5%8F%88%E6%8B%8D%E4%BA%91%E6%93%8D%E4%BD%9C%E5%91%98.PNG" alt="操作员"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;*</span><br><span class="line">* 参数说明</span><br><span class="line">* checksum，表示是否进行 MD5 校验，如果是小文件，建议进行，为 True；如果是大文件，建议不进行，为 False</span><br><span class="line">* headers，表示需要的头信息，见 REST API 上传文件</span><br><span class="line">*&#x2F;</span><br><span class="line">headers &#x3D; &#123; &#39;x-gmkerl-thumb&#39;: &#39;&#x2F;fw&#x2F;300&#39; &#125;</span><br><span class="line"></span><br><span class="line">with open(&#39;文件地址&#39;, &#39;rb&#39;) as f:</span><br><span class="line">    res &#x3D; up.put(&#39;存到仓库的位置和文件名&#39;, f, checksum&#x3D;True, headers&#x3D;headers)</span><br></pre></td></tr></table></figure> 
       <!-- reward -->
       
@@ -396,7 +396,7 @@
 
     
     <article
-  id="post-docker"
+  id="post-Centos下安装Docker"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -407,15 +407,15 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/2021/03/19/docker/"
-    >docker</a> 
+  <a class="article-title" href="/2021/03/19/Centos%E4%B8%8B%E5%AE%89%E8%A3%85Docker/"
+    >Centos下安装Docker</a> 
 </h2>
  
 
     </header>
      
     <div class="article-meta">
-      <a href="/2021/03/19/docker/" class="article-date">
+      <a href="/2021/03/19/Centos%E4%B8%8B%E5%AE%89%E8%A3%85Docker/" class="article-date">
   <time datetime="2021-03-19T07:16:18.872Z" itemprop="datePublished">2021-03-19</time>
 </a>    
     </div>
@@ -493,7 +493,7 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <h1 id="celery异步"><a href="#celery异步" class="headerlink" title="celery异步"></a>celery异步</h1><p>安装celery</p>
+  <h1 id="配置celery异步"><a href="#配置celery异步" class="headerlink" title="配置celery异步"></a>配置celery异步</h1><p>安装celery</p>
 <p><code>pip install celery</code></p>
 <p>导入celery</p>
 <p><code>from celery import Celery</code></p>
