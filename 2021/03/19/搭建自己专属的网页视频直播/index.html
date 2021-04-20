@@ -70,7 +70,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">697</span>
+            <span class="post-count">691</span>
         </span>
     </span>
 
@@ -133,10 +133,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;video id&#x3D;&quot;videoElement&quot; controls muted&gt;</span><br><span class="line">  	Your browser is too old which doesn&#39;t support HTML5 video.</span><br><span class="line">&lt;&#x2F;video&gt;</span><br></pre></td></tr></table></figure>
 
 <p>在钩子函数中进行初始化</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">mounted() &#123;</span><br><span class="line">    var videoElement &#x3D; document.getElementById(&#39;videoElement&#39;);</span><br><span class="line">    var flvPlayer &#x3D; flv.createPlayer(&#123;</span><br><span class="line">      type: &#39;flv&#39;,</span><br><span class="line">      enableWorker: true,     &#x2F;&#x2F;浏览器端开启flv.js的worker,多进程运行flv.js</span><br><span class="line">      isLive: true,           &#x2F;&#x2F;直播模式</span><br><span class="line">      hasAudio: false,        &#x2F;&#x2F;关闭音频</span><br><span class="line">      hasVideo: true,</span><br><span class="line">      &#x2F;&#x2F; cors: true,</span><br><span class="line">      stashInitialSize: 128,</span><br><span class="line">      enableStashBuffer: false, &#x2F;&#x2F;播放flv时，设置是否启用播放缓存，只在直播起作用。</span><br><span class="line">      &#x2F;&#x2F; url: &#39;http:&#x2F;&#x2F;192.168.2.234&#x2F;flv&#x2F;323223618780001&#39;</span><br><span class="line">      &#x2F;&#x2F; url: &#39;http:&#x2F;&#x2F;39.105.79.238:8080&#x2F;live?port&#x3D;1935&amp;app&#x3D;live&amp;stream&#x3D;test&#39;</span><br><span class="line">      url: &#39;http:&#x2F;&#x2F;47.93.48.154:8080&#x2F;live?port&#x3D;1935&amp;app&#x3D;live&amp;stream&#x3D;test&#39;</span><br><span class="line">    &#125;)</span><br><span class="line">    flvPlayer.attachMediaElement(videoElement);</span><br><span class="line">    flvPlayer.load();</span><br><span class="line">    flvPlayer.play();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-<h1 id="臭不要脸高磊"><a href="#臭不要脸高磊" class="headerlink" title="臭不要脸高磊"></a>臭不要脸高磊</h1> 
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">mounted() &#123;</span><br><span class="line">    var videoElement &#x3D; document.getElementById(&#39;videoElement&#39;);</span><br><span class="line">    var flvPlayer &#x3D; flv.createPlayer(&#123;</span><br><span class="line">      type: &#39;flv&#39;,</span><br><span class="line">      enableWorker: true,     &#x2F;&#x2F;浏览器端开启flv.js的worker,多进程运行flv.js</span><br><span class="line">      isLive: true,           &#x2F;&#x2F;直播模式</span><br><span class="line">      hasAudio: false,        &#x2F;&#x2F;关闭音频</span><br><span class="line">      hasVideo: true,</span><br><span class="line">      &#x2F;&#x2F; cors: true,</span><br><span class="line">      stashInitialSize: 128,</span><br><span class="line">      enableStashBuffer: false, &#x2F;&#x2F;播放flv时，设置是否启用播放缓存，只在直播起作用。</span><br><span class="line">      &#x2F;&#x2F; url: &#39;http:&#x2F;&#x2F;192.168.2.234&#x2F;flv&#x2F;323223618780001&#39;</span><br><span class="line">      &#x2F;&#x2F; url: &#39;http:&#x2F;&#x2F;39.105.79.238:8080&#x2F;live?port&#x3D;1935&amp;app&#x3D;live&amp;stream&#x3D;test&#39;</span><br><span class="line">      url: &#39;http:&#x2F;&#x2F;47.93.48.154:8080&#x2F;live?port&#x3D;1935&amp;app&#x3D;live&amp;stream&#x3D;test&#39;</span><br><span class="line">    &#125;)</span><br><span class="line">    flvPlayer.attachMediaElement(videoElement);</span><br><span class="line">    flvPlayer.load();</span><br><span class="line">    flvPlayer.play();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> 
       <!-- reward -->
       
       <div id="reword-out">
@@ -235,53 +232,6 @@
   </nav>
 
    
-<!-- valine评论 -->
-<div id="vcomments-box">
-  <div id="vcomments"></div>
-</div>
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
-<script>
-  new Valine({
-    el: "#vcomments",
-    app_id: "",
-    app_key: "",
-    path: window.location.pathname,
-    avatar: "monsterid",
-    placeholder: "给我的文章加点评论吧~",
-    recordIP: true,
-  });
-  const infoEle = document.querySelector("#vcomments .info");
-  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
-    infoEle.childNodes.forEach(function (item) {
-      item.parentNode.removeChild(item);
-    });
-  }
-</script>
-<style>
-  #vcomments-box {
-    padding: 5px 30px;
-  }
-
-  @media screen and (max-width: 800px) {
-    #vcomments-box {
-      padding: 5px 0px;
-    }
-  }
-
-  #vcomments-box #vcomments {
-    background-color: #fff;
-  }
-
-  .v .vlist .vcard .vh {
-    padding-right: 20px;
-  }
-
-  .v .vlist .vcard {
-    padding-left: 10px;
-  }
-</style>
-
  
    
      
