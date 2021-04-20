@@ -163,21 +163,7 @@
   <time datetime="2021-03-19T07:16:18.887Z" itemprop="datePublished">2021-03-19</time>
 </a>    
     </div>
-      
-    <div class="article-entry" itemprop="articleBody">
        
-  <h1 id="vue拦截器的使用"><a href="#vue拦截器的使用" class="headerlink" title="vue拦截器的使用"></a>vue拦截器的使用</h1><p>现在的web开发大部分是采用前后端不分离的方式，在前后端不分离的模式下前后端的交互一般是采用axios请求方式来实现。</p>
-<h3 id="什么是axios？"><a href="#什么是axios？" class="headerlink" title="什么是axios？"></a>什么是axios？</h3><p>axios 是一个基于Promise 用于浏览器和 nodejs 的 HTTP 客户端，它本身具有以下特征：</p>
-<p>从浏览器中创建 XMLHttpRequest<br>从 node.js 发出 http 请求<br>支持 Promise API<br>拦截请求和响应<br>转换请求和响应数据<br>取消请求<br>自动转换JSON数据<br>客户端支持防止 CSRF/XSR</p>
-<h3 id="vue拦截器"><a href="#vue拦截器" class="headerlink" title="vue拦截器"></a>vue拦截器</h3><p>现在有一个场景，每次请求都要发送token来验证是否登录，但是在每个请求接口都要携带token无疑是十分麻烦，<br>那么有没有一种方式可以让每个请求在发送前都执行某些操作呢？使用vue拦截器就是可以实现</p>
-<h3 id="vue拦截器的实现"><a href="#vue拦截器的实现" class="headerlink" title="vue拦截器的实现"></a>vue拦截器的实现</h3><p>下载axios包</p>
-<p><code>npm install axios --save</code></p>
-<p>在config 中，加入  axios.js</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"># 导入axios</span><br><span class="line">import axios from &#39;axios&#39;</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; 添加请求拦截器</span><br><span class="line">axios.interceptors.request.use(function (config) &#123;</span><br><span class="line">　　&#x2F;&#x2F; 在发送请求前会执行以下代码，这里是判断localStorage中是否存有token</span><br><span class="line">if (window.localStorage.getItem(&#39;token&#39;)) &#123;</span><br><span class="line">    &#x2F;&#x2F;若token存在则在头部中携带token</span><br><span class="line">    config.headers.Authorization &#x3D; window.localStorage.getItem(&#39;token&#39;);</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F; 返回请求</span><br><span class="line">return config</span><br><span class="line">&#125;, function (error) &#123;</span><br><span class="line">　　&#x2F;&#x2F; 当请求错误时会执行下面的代码，这里是返回错误的信息</span><br><span class="line">return Promise.reject(error)</span><br><span class="line">&#125;);</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; 添加响应拦截器，响应拦截器会对相应进行处理</span><br><span class="line">axios.interceptors.response.use(function (response) &#123;</span><br><span class="line">　　&#x2F;&#x2F; 在收到响应后会执行下面的代码，这里是返回响应的信息</span><br><span class="line">　　return response</span><br><span class="line">&#125;, function (error) &#123;</span><br><span class="line">　　&#x2F;&#x2F; 当响应错误后会执行下面的代码，这里是返回错误信息</span><br><span class="line">　　return Promise.reject(error)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure> 
-      <!-- reward -->
-      
-    </div>
-    
 
     <!-- copyright -->
     
@@ -186,8 +172,7 @@
     </footer>
   </div>
 
-    
- 
+   
     
 </article>
 
@@ -216,30 +201,7 @@
   <time datetime="2021-03-19T07:16:18.884Z" itemprop="datePublished">2021-03-19</time>
 </a>    
     </div>
-      
-    <div class="article-entry" itemprop="articleBody">
        
-  <h1 id="redis键空间事件"><a href="#redis键空间事件" class="headerlink" title="redis键空间事件"></a>redis键空间事件</h1><h3 id="功能概述"><a href="#功能概述" class="headerlink" title="功能概述"></a>功能概述</h3><p>键空间通知允许客户端订阅发布/订阅频道，以便以某种方式接收影响Redis数据集的事件。可能接收的事件示例如下：</p>
-<p>所有影响给定键的命令。<br>所有接收LPUSH操作的键。<br>所有在数据库0中到期的键。<br>事件使用Redis的普通发布/订阅层传递，因此实现了发布/订阅的客户端无需修改即可使用此功能。由于Redis的发布/订阅是fire and forget，因此如果你的应用要求可靠的事件通知，目前还不能使用这个功能，也就是说，如果你的发布/订阅客户端断开连接，并在稍后重连，那么所有在客户端断开期间发送的事件将会丢失。将来有计划允许更可靠的事件传递，但可能会在更一般的层面上解决，要么为发布/订阅本身带来可靠性，要么允许Lua脚本拦截发布/订阅的消息以执行推送等操作，就像往队列里推送事件一样。</p>
-<h3 id="事件类型"><a href="#事件类型" class="headerlink" title="事件类型"></a>事件类型</h3><p>键空间通知的实现是为每一个影响Redis数据空间的操作发送两个不同类型的事件。例如，在数据库0中名为mykey的键上执行DEL操作，将触发两条消息的传递，完全等同于下面两个PUBLISH命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PUBLISH __keyspace@0__:mykey del</span><br><span class="line">PUBLISH __keyevent@0__:del mykey</span><br></pre></td></tr></table></figure>
-
-<p>以上很容易看到，一个频道允许监听所有以键mykey为目标的所有事件，以及另一个频道允许获取有关所有DEL操作目标键的信息。第一种事件，在频道中使用keyspace前缀的被叫做键空间通知，第二种，使用keyevent前缀的，被叫做键事件通知。在以上例子中，为键mykey生成了一个del事件。 会发生什么：</p>
-<p>键空间频道接收到的消息是事件的名称。<br>键事件频道接收到的消息是键的名称。<br>可以只启用其中一种通知，以便只传递我们感兴趣的事件子集。</p>
-<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>默认情况下，键空间事件通知是不启用的，因为虽然不太明智，但该功能会消耗一些CPU。可以使用redis.conf中的notify-keyspace-events或者使用CONFIG SET命令来开启通知。将参数设置为空字符串会禁用通知。 为了开启通知功能，使用了一个非空字符串，由多个字符组成，每一个字符都有其特殊的含义，具体参见下表：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">K     键空间事件，以__keyspace@&lt;db&gt;__前缀发布。</span><br><span class="line">E     键事件事件，以__keyevent@&lt;db&gt;__前缀发布。</span><br><span class="line">g     通用命令（非类型特定），如DEL，EXPIRE，RENAME等等</span><br><span class="line">$     字符串命令</span><br><span class="line">l     列表命令</span><br><span class="line">s     集合命令</span><br><span class="line">h     哈希命令</span><br><span class="line">z     有序集合命令</span><br><span class="line">x     过期事件（每次键到期时生成的事件）</span><br><span class="line">e     被驱逐的事件（当一个键由于达到最大内存而被驱逐时产生的事件）</span><br><span class="line">A     g$lshzxe的别名，因此字符串AKE表示所有的事件。</span><br></pre></td></tr></table></figure>
-
-<p>字符串中应当至少存在K或者E，否则将不会传递事件，不管字符串中其余部分是什么。例如，要为列表开启键空间事件，则配置参数必须设置为Kl，以此类推。字符串KEA可以用于开启所有可能的事件。</p>
-<h3 id="不同的命令生成的事件"><a href="#不同的命令生成的事件" class="headerlink" title="不同的命令生成的事件"></a>不同的命令生成的事件</h3><p>根据以下列表，不同的命令产生不同种类的事件。</p>
-<p>DEL命令为每一个删除的key生成一个del事件。<br>RENAME生成两个事件，一个是为源key生成的rename_from事件，一个是为目标key生成的rename_to事件。<br>EXPIRE在给一个键设置有效期时，会生成一个expire事件，或者每当设置有效期导致键被删除时，生成expired事件（请查阅EXPIRE文档以获取更多信息）。<br>SORT会在使用STORE选项将结果存储到新键时，生成一个sortstore事件。如果结果列表为空，且使用了STORE选项，并且已经存在具有该名称的键时，那个键将被删除，因此在这种场景下会生成一个del事件。<br>SET以及所有其变种（SETEX，SETNX，GETSET）生成set事件。但是SETEX还会生成一个expire事件。<br>MSET为每一个key生成一个set事件。<br>SETRANGE生成一个setrange事件。<br>INCR、DECR、INCRBY、DECRBY命令都生成incrby事件。<br>INCRBYFLOAT生成一个incrbyfloat事件。<br>APPEND生成一个append事件。<br>LPUSH和LPUSHX生成一个lpush事件，即使在可变参数情况下也是如此。<br>RPUSH和RPUSHX生成一个rpush事件，即使在可变参数情况下也是如此。<br>RPOP生成rpop事件。此外，如果键由于列表中的最后一个元素弹出而被删除，则会生成一个del事件。<br>LPOP生成lpop事件。此外，如果键由于列表中的最后一个元素弹出而被删除，则会生成一个del事件。<br>LINSERT生成一个linsert事件。<br>LSET生成一个lset事件。<br>LTRIM生成ltrim事件，此外，如果结果列表为空或者键被移除，将会生成一个del事件。<br>RPOPLPUSH和BRPOPLPUSH生成rpop事件和lpush事件。这两种情况下，顺序都将得到保证（lpush事件将总是在rpop事件之后传递）。此外，如果结果列表长度为零且键被删除，则会生成一个del事件。<br>HSET、HSETNX以及HMSET都生成一个hset事件。<br>HINCRBY生成一个hincrby事件。<br>HINCRBYFLOAT生成一个hincrbyfloat事件。<br>HDEL生成一个hdel事件，此外，如果结果哈希集为空或者键被移除，将生成一个del事件。<br>SADD生成一个sadd事件，即使在可变参数情况下也是如此。<br>SREM生成一个srem事件，此外，如果结果集合为空或者键被移除，将生成一个del事件。<br>SMOVE为每一个源key生成一个srem事件，以及为每一个目标key生成一个sadd事件。<br>SPOP生成一个spop事件，此外，如果结果集合为空或者键被移除，将生成一个del事件。<br>SINTERSTORE、SUNIONSTORE、SDIFFSTORE分别生成sinterstore、sunionostore、sdiffstore事件。在特殊情况下，结果集是空的，并且存储结果的键已经存在，因为删除了键，所以会生成del事件。<br>ZINCR生成一个zincr事件。<br>ZADD生成一个zadd事件，即使添加了多个元素。<br>ZREM生成一个zrem事件，即使删除了多个元素。当结果有序集合为空且生成了键，则会生成额外的del事件。<br>ZREMBYSCORE生成一个zrembyscore事件。当结果有序集合为空且生成了键，则会生成额外的del事件。<br>ZREMBYRANK生成一个zrembyrank事件。当结果有序集合为空且生成了键，则会生成额外的del事件。<br>ZINTERSTORE和ZUNIONSTORE分别生成zinterstore和zunionstore事件。在特殊情况下，结果有序集合是空的，并且存储结果的键已经存在，因为删除了键，所以会生成del事件。<br>每次一个拥有过期时间的键由于过期而从数据集中移除时，将生成一个expired事件。<br>每次一个键由于maxmemory策略而被从数据集中驱逐，以便释放内存时，将生成一个evicted事件。<br>重要 所有命令仅在真正修改目标键时才生成事件。例如，使用SREM命令从集合中删除一个不存在的元素将不会改变键的值，因此不会生成任何事件。如果对某个命令如何生成事件有疑问，最简单的方法是自己观察：’</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ redis-cli config set notify-keyspace-events KEA</span><br><span class="line">$ redis-cli --csv psubscribe &#39;__key*__:*&#39;</span><br><span class="line">Reading messages... (press Ctrl-C to quit)</span><br><span class="line">&quot;psubscribe&quot;,&quot;__key*__:*&quot;,1</span><br></pre></td></tr></table></figure>
-
-<p>此时，在另外一个终端使用redis-cli发送命令到Redis服务器，并观察生成的事件：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot;pmessage&quot;,&quot;__key*__:*&quot;,&quot;__keyspace@0__:foo&quot;,&quot;set&quot;</span><br><span class="line">&quot;pmessage&quot;,&quot;__key*__:*&quot;,&quot;__keyevent@0__:set&quot;,&quot;foo&quot;</span><br><span class="line">...</span><br></pre></td></tr></table></figure> 
-      <!-- reward -->
-      
-    </div>
-    
 
     <!-- copyright -->
     
@@ -248,8 +210,7 @@
     </footer>
   </div>
 
-    
- 
+   
     
 </article>
 
@@ -278,42 +239,7 @@
   <time datetime="2021-03-19T07:16:18.880Z" itemprop="datePublished">2021-03-19</time>
 </a>    
     </div>
-      
-    <div class="article-entry" itemprop="articleBody">
        
-  <h1 id="redis发布者订阅者"><a href="#redis发布者订阅者" class="headerlink" title="redis发布者订阅者"></a>redis发布者订阅者</h1><p>Redis 发布订阅 (pub/sub) 是一种消息通信模式：发送者 (pub) 发送消息，订阅者 (sub) 接收消息。</p>
-<p>Redis 客户端可以订阅任意数量的频道。</p>
-<p>下图展示了频道 channel1 ， 以及订阅这个频道的三个客户端 —— client2 、 client5 和 client1 之间的关系：</p>
-<p><img src="/images/pubsub1.png" alt="关系"></p>
-<p>当有新消息通过 PUBLISH 命令发送给频道 channel1 时， 这个消息就会被发送给订阅它的三个客户端：</p>
-<p><img src="/images/pubsub2.png" alt="关系"></p>
-<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><p>以下实例演示了发布订阅是如何工作的，需要开启两个 redis-cli 客户端。</p>
-<p>在我们实例中我们创建了订阅频道名为 runoobChat:</p>
-<p>第一个客户端</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; SUBSCRIBE runoobChat</span><br><span class="line"></span><br><span class="line">Reading messages... (press Ctrl-C to quit)</span><br><span class="line">1) &quot;subscribe&quot;</span><br><span class="line">2) &quot;redisChat&quot;</span><br><span class="line">3) (integer) 1</span><br></pre></td></tr></table></figure>
-
-<p>现在，我们先重新开启个 redis 客户端，然后在同一个频道 runoobChat 发布两次消息，订阅者就能接收到消息。</p>
-<p>第二个客户端</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; PUBLISH runoobChat &quot;Redis PUBLISH test&quot;</span><br><span class="line"></span><br><span class="line">(integer) 1</span><br><span class="line"></span><br><span class="line">redis 127.0.0.1:6379&gt; PUBLISH runoobChat &quot;Learn redis by runoob.com&quot;</span><br><span class="line"></span><br><span class="line">(integer) 1</span><br><span class="line"></span><br><span class="line"># 订阅者的客户端会显示如下消息</span><br><span class="line"> 1) &quot;message&quot;</span><br><span class="line">2) &quot;runoobChat&quot;</span><br><span class="line">3) &quot;Redis PUBLISH test&quot;</span><br><span class="line"> 1) &quot;message&quot;</span><br><span class="line">2) &quot;runoobChat&quot;</span><br><span class="line">3) &quot;Learn redis by runoob.com&quot;</span><br></pre></td></tr></table></figure>
-
-<p>下面还有redis发布订阅的指令</p>
-<p>1    PSUBSCRIBE pattern [pattern …]</p>
-<p>订阅一个或多个符合给定模式的频道。</p>
-<p>2    PUBSUB subcommand [argument [argument …]]</p>
-<p>查看订阅与发布系统状态。</p>
-<p>3    PUBLISH channel message</p>
-<p>将信息发送到指定的频道。</p>
-<p>4    PUNSUBSCRIBE [pattern [pattern …]]</p>
-<p>退订所有给定模式的频道。</p>
-<p>5    SUBSCRIBE channel [channel …]</p>
-<p>订阅给定的一个或多个频道的信息。</p>
-<p>6    UNSUBSCRIBE [channel [channel …]]</p>
-<p>指退订给定的频道。</p>
- 
-      <!-- reward -->
-      
-    </div>
-    
 
     <!-- copyright -->
     
@@ -322,8 +248,7 @@
     </footer>
   </div>
 
-    
- 
+   
     
 </article>
 
@@ -352,35 +277,7 @@
   <time datetime="2021-03-19T07:16:18.877Z" itemprop="datePublished">2021-03-19</time>
 </a>    
     </div>
-      
-    <div class="article-entry" itemprop="articleBody">
        
-  <h1 id="七牛云、又拍云后端上传"><a href="#七牛云、又拍云后端上传" class="headerlink" title="七牛云、又拍云后端上传"></a>七牛云、又拍云后端上传</h1><h3 id="七牛云"><a href="#七牛云" class="headerlink" title="七牛云"></a>七牛云</h3><p>七牛云官方文档：<a href="https://developer.qiniu.com/kodo/1242/python#rs-stat" target="_blank" rel="noopener">https://developer.qiniu.com/kodo/1242/python#rs-stat</a></p>
-<p>首先安装七牛云的官方模块</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 直接安装</span><br><span class="line">pip install qiniu</span><br><span class="line">或</span><br><span class="line">easy_install qiniu</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 源码安装</span><br><span class="line"># 从Python SDK 下载地址下载源码</span><br><span class="line">tar xvzf python-sdk-$VERSION.tar.gz</span><br><span class="line">cd python-sdk-$VERSION</span><br><span class="line">python setup.py install</span><br></pre></td></tr></table></figure>
-
-<p>定义七牛云对象</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">from qiniu import Auth</span><br><span class="line">q &#x3D; Auth(access_key, secret_key)</span><br><span class="line"></span><br><span class="line"># access_key 和 secret_key 可以在你的七牛云个人中心中找到</span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/AK%E5%92%8CSK.PNG" alt="AK和SK"></p>
-<p>开始上传</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">key &#x3D; &#39;上传后的文件名&#39;</span><br><span class="line">bucket_name &#x3D; &#39;要上传的空间&#39;</span><br><span class="line">s &#x3D; 3600 # 指定token过期时间(秒)</span><br><span class="line"></span><br><span class="line">token &#x3D; q.upload_token(bucket_name, key, )</span><br><span class="line"></span><br><span class="line">localfile &#x3D; &#39;本地文件路径&#39;</span><br><span class="line"></span><br><span class="line">ret, info &#x3D; put_file(token, key, localfile)</span><br><span class="line">print(info)</span><br></pre></td></tr></table></figure>
-
-
-<h3 id="又拍云"><a href="#又拍云" class="headerlink" title="又拍云"></a>又拍云</h3><p>又拍云官方文档： <a href="http://docs.upyun.com/api/sdk/#python-sdk" target="_blank" rel="noopener">http://docs.upyun.com/api/sdk/#python-sdk</a></p>
-<p>安装又拍云官方模块</p>
-<p><code>pip install upyun</code></p>
-<p>初始化对象</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 包含文件</span><br><span class="line">import upyun</span><br><span class="line"></span><br><span class="line"># 创建实例</span><br><span class="line">up &#x3D; upyun.UpYun(&#39;仓库名&#39;, &#39;您的操作员名&#39;, &#39;您的操作员密码&#39;)</span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/%E5%8F%88%E6%8B%8D%E4%BA%91%E6%93%8D%E4%BD%9C%E5%91%98.PNG" alt="操作员"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;*</span><br><span class="line">* 参数说明</span><br><span class="line">* checksum，表示是否进行 MD5 校验，如果是小文件，建议进行，为 True；如果是大文件，建议不进行，为 False</span><br><span class="line">* headers，表示需要的头信息，见 REST API 上传文件</span><br><span class="line">*&#x2F;</span><br><span class="line">headers &#x3D; &#123; &#39;x-gmkerl-thumb&#39;: &#39;&#x2F;fw&#x2F;300&#39; &#125;</span><br><span class="line"></span><br><span class="line">with open(&#39;文件地址&#39;, &#39;rb&#39;) as f:</span><br><span class="line">    res &#x3D; up.put(&#39;存到仓库的位置和文件名&#39;, f, checksum&#x3D;True, headers&#x3D;headers)</span><br></pre></td></tr></table></figure> 
-      <!-- reward -->
-      
-    </div>
-    
 
     <!-- copyright -->
     
@@ -389,8 +286,7 @@
     </footer>
   </div>
 
-    
- 
+   
     
 </article>
 
@@ -419,39 +315,7 @@
   <time datetime="2021-03-19T07:16:18.872Z" itemprop="datePublished">2021-03-19</time>
 </a>    
     </div>
-      
-    <div class="article-entry" itemprop="articleBody">
        
-  <h1 id="Centos下安装Docker"><a href="#Centos下安装Docker" class="headerlink" title="Centos下安装Docker"></a>Centos下安装Docker</h1><p>安装依赖</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum -y install gcc</span><br><span class="line">yum -y install gcc-c++</span><br></pre></td></tr></table></figure>
-
-<p>卸载旧版本</p>
-<p><code>yum remove docker \ docker-client \ docker-client-latest \ docker-common \ docker-latest \ docker-latest-logrotate \ docker-logrotate \ docker-selinux \ docker-engine-selinux \ docker-engine</code></p>
-<p>安装依赖包</p>
-<p><code>yum install -y yum-utils device-mapper-persistent-data lvm2</code></p>
-<p>安装docker</p>
-<p><code>yum install docker-ce</code></p>
-<p>启动docker</p>
-<p><code>systemctl start docker</code></p>
-<p>下载镜像</p>
-<p><code>docker pull centos</code></p>
-<p>运行容器</p>
-<p><code>docker run centos echo &quot;hello word&quot;</code></p>
-<p>运行容器指定容器</p>
-<p><code>docker run hello-world</code></p>
-<p>镜像加速<br>鉴于国内网络问题，后续拉取 Docker 镜像十分缓慢，我们可以需要配置加速器来解决。</p>
-<p>Docker国内镜像：</p>
-<p>网易加速器：<a href="http://hub-mirror.c.163.com" target="_blank" rel="noopener">http://hub-mirror.c.163.com</a><br>官方中国加速器：<a href="https://registry.docker-cn.com" target="_blank" rel="noopener">https://registry.docker-cn.com</a><br>ustc的镜像：<a href="https://docker.mirrors.ustc.edu.cn" target="_blank" rel="noopener">https://docker.mirrors.ustc.edu.cn</a><br>也可使用私人镜像加速器地址，如使用阿里云的镜像加速器：登录阿里云-&gt;产品-&gt;搜索”容器镜像服务”-&gt;镜像库-&gt;镜像加速器。</p>
-<p>新版的 Docker 使用 /etc/docker/daemon.json（Linux） 来配置 Daemon。</p>
-<p>请在该配置文件中加入（没有该文件的话，请先建一个）：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vi &#x2F;etc&#x2F;docker&#x2F;daemon.json </span><br><span class="line">&#123; </span><br><span class="line">　　&quot;registry-mirrors&quot;: [&quot;https:&#x2F;&#x2F;hub-mirror.c.163.com&quot;] </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>配置成功后，CentOS重启：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl daemon-reload     #重启加速配置文件</span><br><span class="line">systemctl restart docker    #重启docker后台服务</span><br></pre></td></tr></table></figure> 
-      <!-- reward -->
-      
-    </div>
-    
 
     <!-- copyright -->
     
@@ -460,8 +324,7 @@
     </footer>
   </div>
 
-    
- 
+   
     
 </article>
 
@@ -490,27 +353,7 @@
   <time datetime="2021-03-19T07:16:18.870Z" itemprop="datePublished">2021-03-19</time>
 </a>    
     </div>
-      
-    <div class="article-entry" itemprop="articleBody">
        
-  <h1 id="配置celery异步"><a href="#配置celery异步" class="headerlink" title="配置celery异步"></a>配置celery异步</h1><p>安装celery</p>
-<p><code>pip install celery</code></p>
-<p>导入celery</p>
-<p><code>from celery import Celery</code></p>
-<p>启动celery</p>
-<p><code>celery worker -A _tasks.tasks -l info -E</code></p>
-<p>定义celery对象</p>
-<p><code>app = Celery(&quot;taks&quot;, broker=&quot;redis://localhost/1&quot;)</code></p>
-<p>定义队列方法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@app.task()</span><br><span class="line">def function():</span><br><span class="line">    print(&quot;我是队列方法&quot;)</span><br></pre></td></tr></table></figure>
-
-<p>调用</p>
-<p><code>function()</code></p>
- 
-      <!-- reward -->
-      
-    </div>
-    
 
     <!-- copyright -->
     
@@ -519,8 +362,7 @@
     </footer>
   </div>
 
-    
- 
+   
     
 </article>
 
@@ -549,35 +391,7 @@
   <time datetime="2021-03-19T07:16:18.867Z" itemprop="datePublished">2021-03-19</time>
 </a>    
     </div>
-      
-    <div class="article-entry" itemprop="articleBody">
        
-  <h1 id="axios封装"><a href="#axios封装" class="headerlink" title="axios封装"></a>axios封装</h1><p>首先安装axios</p>
-<p><code>npm install axios --save</code></p>
-<p>导入axios</p>
-<p><code>const axios = require(&#39;axios&#39;)</code></p>
-<p>在main.js中配置axios</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">axios.defaults.baseURL &#x3D; &#39;http:&#x2F;&#x2F;127.0.0.1:8000&#x2F;&#39;</span><br><span class="line">axios.defaults.timeout &#x3D; 10000</span><br></pre></td></tr></table></figure>
-
-<p>封装axios的四种请求方式</p>
-<p>GET</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># url 是请求地址</span><br><span class="line"># params 是字符串传参参数</span><br><span class="line"># headers 是头部参数</span><br><span class="line"></span><br><span class="line">export function get(url, params, headers) &#123;</span><br><span class="line">    return new Promise((resolve, reject) &#x3D;&gt; &#123;</span><br><span class="line">        axios.get(url, &#123;params, headers&#125;).then(res &#x3D;&gt; &#123;</span><br><span class="line">            resolve(res)</span><br><span class="line">        &#125;).catch(err &#x3D;&gt; &#123;</span><br><span class="line">            reject(err)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>POST</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># url 是请求地址</span><br><span class="line"># data 是请求报文传参</span><br><span class="line"># headers 是头部参数</span><br><span class="line"></span><br><span class="line">export function post(url, data, headers) &#123;</span><br><span class="line">    return new Promise((resolve, reject) &#x3D;&gt; &#123;</span><br><span class="line">        axios.post(url, data, headers).then((res) &#x3D;&gt; &#123;</span><br><span class="line">            resolve(res)</span><br><span class="line">        &#125;).catch((err) &#x3D;&gt; &#123;</span><br><span class="line">            &#x2F;&#x2F; debugger</span><br><span class="line">            reject(err)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>PUT</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># url 是请求地址</span><br><span class="line"># data 是请求报文传参</span><br><span class="line"># headers 是头部参数</span><br><span class="line"></span><br><span class="line">export function put(url, data, headers) &#123;</span><br><span class="line">    return new Promise((resolve, reject) &#x3D;&gt; &#123;</span><br><span class="line">        axios.put(url, data, headers).then((res) &#x3D;&gt; &#123;</span><br><span class="line">            resolve(res)</span><br><span class="line">        &#125;).catch((err) &#x3D;&gt; &#123;</span><br><span class="line">            &#x2F;&#x2F; debugger</span><br><span class="line">            reject(err)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>DELETE</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># url 是请求地址</span><br><span class="line"># params 是字符串传参参数</span><br><span class="line"># headers 是头部参数</span><br><span class="line"></span><br><span class="line">export function del(url, params, headers) &#123;</span><br><span class="line">    return new Promise((resolve, reject) &#x3D;&gt; &#123;</span><br><span class="line">        axios.delete(url, &#123;data: params, headers&#125;).then((res) &#x3D;&gt; &#123;</span><br><span class="line">            resolve(res)</span><br><span class="line">        &#125;).catch((err) &#x3D;&gt; &#123;</span><br><span class="line">            &#x2F;&#x2F; debugger</span><br><span class="line">            reject(err)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>调用方式</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">get(&#123;</span><br><span class="line">    url: &#39;index&#x2F;&#39;,</span><br><span class="line">    data</span><br><span class="line">&#125;).then().catch()</span><br></pre></td></tr></table></figure> 
-      <!-- reward -->
-      
-    </div>
-    
 
     <!-- copyright -->
     
@@ -586,8 +400,7 @@
     </footer>
   </div>
 
-    
- 
+   
     
 </article>
 
@@ -715,10 +528,6 @@
         <i class="ri-search-line"></i>
       </a>
       
-      
-      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
-        <i class="ri-rss-line"></i>
-      </a>
       
     </li>
   </ul>
@@ -964,6 +773,27 @@
 <!-- CanvasBackground -->
 
 
+<script src="/js/dz.js"></script>
+
+
+
+    
+    <div id="music">
+    
+    
+    
+    <iframe frameborder="no" border="1" marginwidth="0" marginheight="0" width="200" height="86"
+        src="//music.163.com/outchain/player?type=2&id=1392600538&auto=0&height=66"></iframe>
+</div>
+
+<style>
+    #music {
+        position: fixed;
+        right: 15px;
+        bottom: 0;
+        z-index: 998;
+    }
+</style>
     
   </div>
 <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"jsonPath":"live2d-widget-model-miku"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
