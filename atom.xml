@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/wisdomowl704/owlboke/"/>
-  <updated>2021-04-22T01:57:27.673Z</updated>
+  <updated>2021-04-27T08:43:49.664Z</updated>
   <id>https://github.com/wisdomowl704/owlboke/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Python的内存管理机制</title>
+    <link href="https://github.com/wisdomowl704/owlboke/2021/04/27/Python%E7%9A%84%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E6%9C%BA%E5%88%B6/"/>
+    <id>https://github.com/wisdomowl704/owlboke/2021/04/27/Python%E7%9A%84%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E6%9C%BA%E5%88%B6/</id>
+    <published>2021-04-27T00:29:23.881Z</published>
+    <updated>2021-04-27T08:43:49.664Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Python内存管理机制"><a href="#Python内存管理机制" class="headerlink" title="Python内存管理机制"></a>Python内存管理机制</h2><p>Python的内存管理机制可以分为三个部分来讲：</p><ol><li>引用计数</li><li>垃圾回收</li><li>内存池机制</li></ol><h3 id="引用计数"><a href="#引用计数" class="headerlink" title="引用计数"></a>引用计数</h3><p>在讲解引用计数之前我们需要先明白一个关系： 变量 – 对象</p><p>我们都知道在python中万物皆对象，那么需要知道什么是对象：</p><p>数字、字符串、数据结构、异常及其他我们自己定义的对象都是对象，对象的特点是</p><p>1.每个对象在内存中有一个地址，每个地址对应一个id号<br>2.对象是有类型的<br>3.一个对象，可以有专属的属性（特性），也可以有专属的行为（方法）<br>4.如果一个对象允许原地址修改那么是可变的<br>5.如果一个对象不允许原地址修改，会产生新的对象，那么不可变</p><p>接下来再说说变量： 变量可以通过变量指针引用对象变量指针指向具体对象的内存空间，取对象的值。</p><p>搞清楚变量和对象之后我们再来说说它们的关系，用一个图来表示是下面这样的关系：</p><p><img src="/images/%E5%8F%98%E9%87%8F%E4%B8%8E%E5%AF%B9%E8%B1%A1%E5%85%B3%E7%B3%BB.png" alt="变量和对象的关系"></p><p>从图中我们可以看出，变量只是方便我们找到对象，真正操作的是对象。</p><p>我们可以看到变量与对象是引用关系，而python中一个对象可以被多次引用，而一个对象<br>被引用的次数就被称为引用计数。</p><p>查看一个对象被引用的次数可以用下面的函数，要注意的是，一个对象被作为参数传入是也<br>算一次引用，所以在使用下面函数查看时得到的返回值会比预期值多1</p><p><code>sys.getrefconut(变量)</code></p><p>这里还有一点要注意，那就是容器对象，如list，set这类对象保存的并不是对象本身，<br>他保存的其实是容器中所有元素的引用。关系如下</p><p><img src="/images/%E5%AE%B9%E5%99%A8%E5%AF%B9%E8%B1%A1.png" alt="容器对象"></p><h3 id="垃圾回收"><a href="#垃圾回收" class="headerlink" title="垃圾回收"></a>垃圾回收</h3><p>了解了引用计数，我们就可以来了解垃圾回收机制了，我们都知道同一个对象可以被<br>多次引用，而当一个对象的引用计数的为0时，这个对象就会被系统回收掉。</p><p>但是这样会有一个问题，当两个变量相互引用怎么办（如下）：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a &#x3D; [1,2]</span><br><span class="line">b &#x3D; [3,4]</span><br><span class="line">a.append(b)</span><br><span class="line">b.append(a)</span><br><span class="line">del a</span><br></pre></td></tr></table></figure><p>我们可以看到a引用了b，而b引用了a，两个变量相互引用，那么它们的引用计数都一直<br>不为0，这样就会永远不会被回收。而且还占用了内存空间。这该怎么办呢？</p><p>其实这个问题python已经解决，python的回收机制可以被理解为标记清除。</p><p>在每次清除时，python会从根对象去寻找引用变量， 所有被找到的变量会被标记，<br>然后会清除掉没有标记的变量。</p><p>那么新的问题又来了，什么时候回触发垃圾回收呢？</p><p>需要注意的是在垃圾回收时，Python不能进行其它的任务，频繁的垃圾回收将大大降低Python的工作效率。<br>而且Python只会在特定条件下，自动启动垃圾回收（垃圾对象少就没必要回收）。</p><p>当Python运行时，会记录其中分配对象(object allocation)和取消分配对象(object deallocation)<br>的次数。当两者的差值高于某个阈值时，垃圾回收才会启动。</p><p>我们可以用以下代码查看阈值：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import gc</span><br><span class="line"></span><br><span class="line">print(gc.get_threshold())　　#gc模块中查看阈值的方法</span><br><span class="line">返回结果为：(700, 10, 10)</span><br></pre></td></tr></table></figure><p>其中，700即垃圾回收启动的阈值，且每每10次0代垃圾回收，会配合1次1代的垃圾<br>回收；而每10次1代的垃圾回收，才会有1次的2代垃圾回收。</p><p>当然也是可以手动启动垃圾回收</p><p><code>gc.collect()</code></p><p>那么，什么是0代垃圾、1代垃圾、0代垃圾呢？</p><p>这就是python的分代回收机制。</p><p>Python将所有的对象分为0，1，2三代；</p><p>所有的新建对象都是0代对象；</p><p>当某一代对象经历过垃圾回收，依然存活，就被归入下一代对象。</p><h3 id="内存池机制"><a href="#内存池机制" class="headerlink" title="内存池机制"></a>内存池机制</h3><p>Python中有分为大内存和小内存：（256K为界限分大小内存）</p><p>1、大内存使用malloc进行分配</p><p>2、小内存使用内存池进行分配</p><p>3、Python的内存池(金字塔)</p><p>　　第3层：最上层，用户对Python对象的直接操作</p><p>　　第1层和第2层：内存池，有Python的接口函数PyMem_Malloc实现—–若请求分配的内存在1~256字节之间就使用内存池管理系统进行分配，调用malloc函数分配内存，但是每次只会分配一块大小为256K的大块内存，不会调用free函数释放内存，将该内存块留在内存池中以便下次使用。</p><p>　　第0层：大内存—–若请求分配的内存大于256K，malloc函数分配内存，free函数释放内存。</p><p>　　第-1，-2层：操作系统进行操作</p><p><img src="/images/%E5%86%85%E5%AD%98%E6%B1%A0.png" alt="内存池"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;Python内存管理机制&quot;&gt;&lt;a href=&quot;#Python内存管理机制&quot; class=&quot;headerlink&quot; title=&quot;Python内存管理机制&quot;&gt;&lt;/a&gt;Python内存管理机制&lt;/h2&gt;&lt;p&gt;Python的内存管理机制可以分为三个部分来讲：&lt;/p&gt;
+&lt;
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
   
   <entry>
     <title>Python正则表达式</title>

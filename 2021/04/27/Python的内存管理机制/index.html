@@ -9,7 +9,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    Archives |  郑军军的技术博客
+    Python的内存管理机制 |  郑军军的技术博客
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -51,246 +51,219 @@
       
     <main class="content on">
       <section class="outer">
-  
-  
-  <article class="articles">
+  <article
+  id="post-Python的内存管理机制"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
     
-    
-    <h1 class="page-type-title">Archives</h1>
-    
-    
-  
-  
-  
-  
-  
-  
-  <div class="archives-wrap">
-    <div class="archive-year-wrap">
-      <a href="/archives/2021" class="archive-year">2021</a>
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  Python的内存管理机制
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/04/27/Python%E7%9A%84%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E6%9C%BA%E5%88%B6/" class="article-date">
+  <time datetime="2021-04-27T00:29:23.881Z" itemprop="datePublished">2021-04-27</time>
+</a>   
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">1.3k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">4 min</span>
+        </span>
+    </span>
+</div>
+ 
     </div>
-    <div class="archives">
       
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2021/04/27/Python%E7%9A%84%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E6%9C%BA%E5%88%B6/" class="archive-article-date">
-  <time datetime="2021-04-27T00:29:23.881Z" itemprop="datePublished">04/27</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2021/04/27/Python%E7%9A%84%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E6%9C%BA%E5%88%B6/"
-    >Python的内存管理机制</a> 
-</h2>
- 
+    <div class="tocbot"></div>
 
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2021/04/21/Python%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" class="archive-article-date">
-  <time datetime="2021-04-21T09:20:34.505Z" itemprop="datePublished">04/21</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2021/04/21/Python%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"
-    >Python正则表达式</a> 
-</h2>
- 
 
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2021/03/29/%E7%99%BB%E5%BD%95%E9%99%90%E6%B5%81/" class="archive-article-date">
-  <time datetime="2021-03-29T01:09:47.941Z" itemprop="datePublished">03/29</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2021/03/29/%E7%99%BB%E5%BD%95%E9%99%90%E6%B5%81/"
-    >登录限流</a> 
-</h2>
- 
 
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2021/03/22/%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%8D%8F%E7%A8%8B/" class="archive-article-date">
-  <time datetime="2021-03-22T12:53:11.910Z" itemprop="datePublished">03/22</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2021/03/22/%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%8D%8F%E7%A8%8B/"
-    >进程线程协程</a> 
-</h2>
- 
 
-    </header>
-    
-    
-  </div>
-</article>
-      
   
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2021/03/19/%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E4%B8%93%E5%B1%9E%E7%9A%84%E7%BD%91%E9%A1%B5%E8%A7%86%E9%A2%91%E7%9B%B4%E6%92%AD/" class="archive-article-date">
-  <time datetime="2021-03-19T07:16:18.912Z" itemprop="datePublished">03/19</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
        
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2021/03/19/%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E4%B8%93%E5%B1%9E%E7%9A%84%E7%BD%91%E9%A1%B5%E8%A7%86%E9%A2%91%E7%9B%B4%E6%92%AD/"
-    >搭建自己专属的网页视频直播</a> 
-</h2>
- 
+  <h2 id="Python内存管理机制"><a href="#Python内存管理机制" class="headerlink" title="Python内存管理机制"></a>Python内存管理机制</h2><p>Python的内存管理机制可以分为三个部分来讲：</p>
+<ol>
+<li>引用计数</li>
+<li>垃圾回收</li>
+<li>内存池机制</li>
+</ol>
+<h3 id="引用计数"><a href="#引用计数" class="headerlink" title="引用计数"></a>引用计数</h3><p>在讲解引用计数之前我们需要先明白一个关系： 变量 – 对象</p>
+<p>我们都知道在python中万物皆对象，那么需要知道什么是对象：</p>
+<p>数字、字符串、数据结构、异常及其他我们自己定义的对象都是对象，对象的特点是</p>
+<p>1.每个对象在内存中有一个地址，每个地址对应一个id号<br>2.对象是有类型的<br>3.一个对象，可以有专属的属性（特性），也可以有专属的行为（方法）<br>4.如果一个对象允许原地址修改那么是可变的<br>5.如果一个对象不允许原地址修改，会产生新的对象，那么不可变</p>
+<p>接下来再说说变量： 变量可以通过变量指针引用对象变量指针指向具体对象的内存空间，取对象的值。</p>
+<p>搞清楚变量和对象之后我们再来说说它们的关系，用一个图来表示是下面这样的关系：</p>
+<p><img src="/images/%E5%8F%98%E9%87%8F%E4%B8%8E%E5%AF%B9%E8%B1%A1%E5%85%B3%E7%B3%BB.png" alt="变量和对象的关系"></p>
+<p>从图中我们可以看出，变量只是方便我们找到对象，真正操作的是对象。</p>
+<p>我们可以看到变量与对象是引用关系，而python中一个对象可以被多次引用，而一个对象<br>被引用的次数就被称为引用计数。</p>
+<p>查看一个对象被引用的次数可以用下面的函数，要注意的是，一个对象被作为参数传入是也<br>算一次引用，所以在使用下面函数查看时得到的返回值会比预期值多1</p>
+<p><code>sys.getrefconut(变量)</code></p>
+<p>这里还有一点要注意，那就是容器对象，如list，set这类对象保存的并不是对象本身，<br>他保存的其实是容器中所有元素的引用。关系如下</p>
+<p><img src="/images/%E5%AE%B9%E5%99%A8%E5%AF%B9%E8%B1%A1.png" alt="容器对象"></p>
+<h3 id="垃圾回收"><a href="#垃圾回收" class="headerlink" title="垃圾回收"></a>垃圾回收</h3><p>了解了引用计数，我们就可以来了解垃圾回收机制了，我们都知道同一个对象可以被<br>多次引用，而当一个对象的引用计数的为0时，这个对象就会被系统回收掉。</p>
+<p>但是这样会有一个问题，当两个变量相互引用怎么办（如下）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a &#x3D; [1,2]</span><br><span class="line">b &#x3D; [3,4]</span><br><span class="line">a.append(b)</span><br><span class="line">b.append(a)</span><br><span class="line">del a</span><br></pre></td></tr></table></figure>
 
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2021/03/19/%E6%97%A0%E6%9E%81%E9%99%90%E8%87%AA%E5%85%B3%E8%81%94%E6%9F%A5%E8%AF%A2/" class="archive-article-date">
-  <time datetime="2021-03-19T07:16:18.904Z" itemprop="datePublished">03/19</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2021/03/19/%E6%97%A0%E6%9E%81%E9%99%90%E8%87%AA%E5%85%B3%E8%81%94%E6%9F%A5%E8%AF%A2/"
-    >无极限自关联查询</a> 
-</h2>
+<p>我们可以看到a引用了b，而b引用了a，两个变量相互引用，那么它们的引用计数都一直<br>不为0，这样就会永远不会被回收。而且还占用了内存空间。这该怎么办呢？</p>
+<p>其实这个问题python已经解决，python的回收机制可以被理解为标记清除。</p>
+<p>在每次清除时，python会从根对象去寻找引用变量， 所有被找到的变量会被标记，<br>然后会清除掉没有标记的变量。</p>
+<p>那么新的问题又来了，什么时候回触发垃圾回收呢？</p>
+<p>需要注意的是在垃圾回收时，Python不能进行其它的任务，频繁的垃圾回收将大大降低Python的工作效率。<br>而且Python只会在特定条件下，自动启动垃圾回收（垃圾对象少就没必要回收）。</p>
+<p>当Python运行时，会记录其中分配对象(object allocation)和取消分配对象(object deallocation)<br>的次数。当两者的差值高于某个阈值时，垃圾回收才会启动。</p>
+<p>我们可以用以下代码查看阈值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import gc</span><br><span class="line"></span><br><span class="line">print(gc.get_threshold())　　#gc模块中查看阈值的方法</span><br><span class="line">返回结果为：(700, 10, 10)</span><br></pre></td></tr></table></figure>
+<p>其中，700即垃圾回收启动的阈值，且每每10次0代垃圾回收，会配合1次1代的垃圾<br>回收；而每10次1代的垃圾回收，才会有1次的2代垃圾回收。</p>
+<p>当然也是可以手动启动垃圾回收</p>
+<p><code>gc.collect()</code></p>
+<p>那么，什么是0代垃圾、1代垃圾、0代垃圾呢？</p>
+<p>这就是python的分代回收机制。</p>
+<p>Python将所有的对象分为0，1，2三代；</p>
+<p>所有的新建对象都是0代对象；</p>
+<p>当某一代对象经历过垃圾回收，依然存活，就被归入下一代对象。</p>
+<h3 id="内存池机制"><a href="#内存池机制" class="headerlink" title="内存池机制"></a>内存池机制</h3><p>Python中有分为大内存和小内存：（256K为界限分大小内存）</p>
+<p>1、大内存使用malloc进行分配</p>
+<p>2、小内存使用内存池进行分配</p>
+<p>3、Python的内存池(金字塔)</p>
+<p>　　第3层：最上层，用户对Python对象的直接操作</p>
+<p>　　第1层和第2层：内存池，有Python的接口函数PyMem_Malloc实现—–若请求分配的内存在1~256字节之间就使用内存池管理系统进行分配，调用malloc函数分配内存，但是每次只会分配一块大小为256K的大块内存，不会调用free函数释放内存，将该内存块留在内存池中以便下次使用。</p>
+<p>　　第0层：大内存—–若请求分配的内存大于256K，malloc函数分配内存，free函数释放内存。</p>
+<p>　　第-1，-2层：操作系统进行操作</p>
+<p><img src="/images/%E5%86%85%E5%AD%98%E6%B1%A0.png" alt="内存池"></p>
  
-
-    </header>
-    
-    
-  </div>
-</article>
+      <!-- reward -->
       
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2021/03/19/%E6%94%AF%E4%BB%98%E5%AE%9D%E4%B8%89%E6%96%B9%E6%94%AF%E4%BB%98/" class="archive-article-date">
-  <time datetime="2021-03-19T07:16:18.901Z" itemprop="datePublished">03/19</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2021/03/19/%E6%94%AF%E4%BB%98%E5%AE%9D%E4%B8%89%E6%96%B9%E6%94%AF%E4%BB%98/"
-    >支付宝三方支付</a> 
-</h2>
- 
-
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2021/03/19/%E5%BE%AE%E5%8D%9A%E4%B8%89%E6%96%B9%E7%99%BB%E5%BD%95/" class="archive-article-date">
-  <time datetime="2021-03-19T07:16:18.899Z" itemprop="datePublished">03/19</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2021/03/19/%E5%BE%AE%E5%8D%9A%E4%B8%89%E6%96%B9%E7%99%BB%E5%BD%95/"
-    >微博三方登录</a> 
-</h2>
- 
-
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2021/03/19/%E6%90%AD%E5%BB%BA%E5%AF%B9%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%BD%91%E9%A1%B5%E7%BB%88%E7%AB%AF/" class="archive-article-date">
-  <time datetime="2021-03-19T07:16:18.896Z" itemprop="datePublished">03/19</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2021/03/19/%E6%90%AD%E5%BB%BA%E5%AF%B9%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%BD%91%E9%A1%B5%E7%BB%88%E7%AB%AF/"
-    >搭建对云服务器网页终端</a> 
-</h2>
- 
-
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2021/03/19/vue%E8%B7%AF%E7%94%B1%E9%92%A9%E5%AD%90%E5%87%BD%E6%95%B0/" class="archive-article-date">
-  <time datetime="2021-03-19T07:16:18.893Z" itemprop="datePublished">03/19</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2021/03/19/vue%E8%B7%AF%E7%94%B1%E9%92%A9%E5%AD%90%E5%87%BD%E6%95%B0/"
-    >vue路由钩子函数</a> 
-</h2>
- 
-
-    </header>
-    
-    
-  </div>
-</article>
-      
+      <div id="reword-out">
+        <div id="reward-btn">
+          Donate
+        </div>
+      </div>
       
     </div>
-  </div>
-  
-  
-
-  
-  <nav class="page-nav">
     
-    <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/">下一页</a>
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://github.com/wisdomowl704/owlboke/2021/04/27/Python%E7%9A%84%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E6%9C%BA%E5%88%B6/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+    
+      <a href="/2021/04/21/Python%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Python正则表达式</div>
+      </a>
+    
   </nav>
-  
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "siws23gr7ONvdQXe9YAhMTw5-gzGzoHsz",
+    app_key: "ymnvsM5f9cmaDsaRVVstp183",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
 </section>
       <footer class="footer">
   <div class="outer">
@@ -448,6 +421,23 @@
 <script src="/js/lazyload.min.js"></script>
 
 <!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
