@@ -78,7 +78,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">67</span>
+            <span class="post-count">65</span>
         </span>
     </span>
 
@@ -111,7 +111,7 @@
 <p>定义celery对象</p>
 <p><code>app = Celery(&quot;taks&quot;, broker=&quot;redis://localhost/1&quot;)</code></p>
 <p>定义队列方法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@app.task()</span><br><span class="line">def function():</span><br><span class="line">    print(&quot;我是队列方法&quot;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.task()</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">function</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">"我是队列方法"</span>)</span><br></pre></td></tr></table></figure>
 
 <p>调用</p>
 <p><code>function()</code></p>

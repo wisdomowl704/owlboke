@@ -102,7 +102,7 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h1 id="redis键空间事件"><a href="#redis键空间事件" class="headerlink" title="redis键空间事件"></a>redis键空间事件</h1><h3 id="功能概述"><a href="#功能概述" class="headerlink" title="功能概述"></a>功能概述</h3><p>键空间通知允许客户端订阅发布/订阅频道，以便以某种方式接收影响Redis数据集的事件。可能接收的事件示例如下：</p>
+  <h2 id="redis键空间事件"><a href="#redis键空间事件" class="headerlink" title="redis键空间事件"></a>redis键空间事件</h2><h3 id="功能概述"><a href="#功能概述" class="headerlink" title="功能概述"></a>功能概述</h3><p>键空间通知允许客户端订阅发布/订阅频道，以便以某种方式接收影响Redis数据集的事件。可能接收的事件示例如下：</p>
 <p>所有影响给定键的命令。<br>所有接收LPUSH操作的键。<br>所有在数据库0中到期的键。<br>事件使用Redis的普通发布/订阅层传递，因此实现了发布/订阅的客户端无需修改即可使用此功能。由于Redis的发布/订阅是fire and forget，因此如果你的应用要求可靠的事件通知，目前还不能使用这个功能，也就是说，如果你的发布/订阅客户端断开连接，并在稍后重连，那么所有在客户端断开期间发送的事件将会丢失。将来有计划允许更可靠的事件传递，但可能会在更一般的层面上解决，要么为发布/订阅本身带来可靠性，要么允许Lua脚本拦截发布/订阅的消息以执行推送等操作，就像往队列里推送事件一样。</p>
 <h3 id="事件类型"><a href="#事件类型" class="headerlink" title="事件类型"></a>事件类型</h3><p>键空间通知的实现是为每一个影响Redis数据空间的操作发送两个不同类型的事件。例如，在数据库0中名为mykey的键上执行DEL操作，将触发两条消息的传递，完全等同于下面两个PUBLISH命令：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PUBLISH __keyspace@0__:mykey del</span><br><span class="line">PUBLISH __keyevent@0__:del mykey</span><br></pre></td></tr></table></figure>
